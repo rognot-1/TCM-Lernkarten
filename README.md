@@ -1,2 +1,2 @@
 # TCM-Lernkarten
-Lernkrten für Muster, TuiNa Griffe und Akupunktur
+Lernkarten für Muster, TuiNa Griffe und Akupunktur
