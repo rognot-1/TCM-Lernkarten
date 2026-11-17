@@ -65,11 +65,11 @@
   }
   .topic-items {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: .25rem .8rem;
   }
   .topic-items label {
-    font-size: .8rem;
+    font-size: .78rem;
     display: flex;
     align-items: center;
     gap: .35rem;
@@ -101,8 +101,8 @@
   .card-wrap {
     perspective: 1200px;
     width: 100%;
-    max-width: 600px;
-    height: 360px;
+    max-width: 620px;
+    height: 400px;
     margin-bottom: 1rem;
   }
   .card {
@@ -140,14 +140,14 @@
     color: var(--muted);
   }
   .card-text {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     line-height: 1.35;
     white-space: pre-line;
     text-align: left;
     width: 100%;
   }
-  .card-sub { font-size: .8rem; color: var(--muted); margin-top: .6rem; text-align: left; width: 100%; }
+  .card-sub { font-size: .75rem; color: var(--muted); margin-top: .6rem; text-align: left; width: 100%; }
   .hint { font-size: .75rem; color: var(--muted); margin-top: .5rem; text-align: center; }
   .progress { font-size: .85rem; color: var(--muted); margin-bottom: .5rem; }
   .nav { display: flex; gap: .5rem; }
@@ -205,13 +205,13 @@
 </div>
 
 <div class="footer">
-  Grundlage: M2-IGTCM-Punkte-Liste, M2-TuiNa-Griffe-Liste, Macciocia (Muster &amp; Arzneimittel), WHO-Ergänzungen.<br>
+  Grundlage: M2-IGTCM-Punkte-Liste, M2-TuiNa-Griffe-Liste, Deadman/Macciocia, WHO.<br>
   Diese Lernhilfe ist unabhängig und nicht offiziell von IGTCM oder einer Prüfungsinstitution herausgegeben.
 </div>
 
 <script>
 /* ============================================================
-   1) DATEN
+   DATEN
    ============================================================ */
 
 const punkteData = [
@@ -236,12 +236,15 @@ const tuinaData = [
 [1,"TUI FA","Schieben"],[2,"MA FA","Ausstreichen, Streichen"],[3,"SHU FA","Kämmen"],[4,"YI ZHI CHAN FA","1 Finger-Meditationstechnik"],[5,"NA FA","Greifen"],[6,"NIE FA","Kneifen"],[7,"NIE JI FA","Hautkneifen, Rollen über der Wirbelsäule"],[8,"NIAN FA","Twisten"],[9,"TAN JIN FA","Sehnen Zupfen"],[10,"AN FA","Pressen, Drücken"],[11,"DIAN AN FA","Punktuelles Pressen, Drücken"],[12,"QIA FA","Spitzes, tiefes Pressen"],[13,"TAN BO FA","Rutschen"],[14,"MO FA","Reiben"],[15,"ROU FA","Friktionieren, kreisendes stationäres Pressen"],[16,"CUO FA","Quirlen"],[17,"GUN FA","Rollen"],[18,"CA FA","Hin- und her reiben"],[19,"YAO FA","Rotieren"],[20,"BAN FA","Gelenkmobilisation, Repositionstechnik"],[21,"BA SHEN FA","Traktion, Dehnen"],[22,"QU SHEN FA","Beugen und Strecken, Flexion und Extension"],[23,"BEI FA","Aufladen der Patient:in auf Rücken der Therapeut:in"],[24,"ZHEN FA","Vibrieren"],[25,"DOU FA","Schütteln"],[26,"HUANG FA","Schwingen"],[27,"JI FA","Starkes Klopfen mit der geballten Faust"],[28,"CE JI FA","Klopfen mit Kleinfingerkanten"],[29,"ZHUO JI FA","Picken"],[30,"PAI JI FA","Klatschen"],[31,"TAN JI FA","Spicken"],[32,"DIAN JI FA","Punkt beklopfen"]
 ];
 
+/* ---- GRUPPEN ---- */
+
 const gruppenData = [
+  // ===== BESTEHENDE 7 =====
   {
     id: "yuan",
     name: "Yuan-Quellpunkte (Yuan Xue)",
     konzept: {
-      frage: "Yuan-Quellpunkte: Was ist ihre Funktion? Wo liegen sie typischerweise?",
+      frage: "Yuan-Quellpunkte: Funktion? Lokalisation?",
       antwort: "Ursprungspunkt des Yuan-Qi eines Organs. Liegen meist distal an Handgelenk oder Knöchel. Bei Yin-Meridianen identisch mit dem Shu-Punkt. Kernwirkung: Tonisieren des zugehörigen Zang-Fu, regulieren Qi und Yin. Kombination mit Luo-Punkt ergibt die Yuan-Luo-Methode."
     },
     liste: {
@@ -320,32 +323,256 @@ const gruppenData = [
       frage: "Welche Punkte gehören zu den Hui-Versammlungspunkten (nach Gewebe)?",
       antwort: "Blut: Bl 17 (Geshu)\nSehnen: Gb 34 (Yanglingquan)\nKnochen: Bl 11 (Dazhu)\nGefäße: Lu 9 (Taiyuan)\nZang: Le 13 (Zhangmen)\nFu: Ren 12 (Zhongwan)\nQi: Ren 17 (Tanzhong)\nMark: Du 16 (Fengfu)"
     }
-  }
-];
+  },
 
-const kombiData = [
+  // ===== NEUE GRUPPEN =====
   {
-    frage: "Wichtige Punktkombination: Beispiel",
-    antwort: "Platzhalter – bitte mit deinen Kombinationen ersetzen.",
-    sub: "Punktkombinationen"
+    id: "himmelsfenster",
+    name: "Himmelsfensterpunkte (Window of Heaven)",
+    konzept: {
+      frage: "Himmelsfensterpunkte: Funktion? Lokalisation?",
+      antwort: "Punkte am Hals/oberen Rumpf, die den Qi-Fluss zwischen Körper und Kopf regulieren. Kernwirkung: bei aufsteigendem rebellischem Qi (Jue Qi), Kopfschmerz, Schwindel, plötzlichem Hörverlust, Sprachverlust, Sehstörungen. Klassische Quelle (Su Wen Kap. 21) nennt 5 Punkte; spätere Kommentare erweitern auf 10. Die genaue Liste ist in der Literatur nicht vollständig einheitlich."
+    },
+    liste: {
+      frage: "Welche Punkte gehören zu den Himmelsfensterpunkten (gängige 10er-Liste)?",
+      antwort: "Lu 3 (Tianfu)\nDi 18 (Futu)\nMa 9 (Renying)\nDü 16 (Tianchuang)\nDü 17 (Tianrong)\nBl 10 (Tianzhu)\nSJ 16 (Tianyou)\nGb 9 (Tianchong)\nRen 22 (Tiantu)\nDu 16 (Fengfu)\n\nHinweis: In manchen Quellen wird Dü 17 durch Gb 9 ersetzt; die 5er-Liste des Su Wen umfasst Lu 3, Ma 9, Di 18, SJ 16, Bl 10."
+    }
+  },
+  {
+    id: "meister",
+    name: "Meisterpunkte / Einflussreiche Punkte (regionale Meister)",
+    konzept: {
+      frage: "Meisterpunkte (regionale Meister): Funktion?",
+      antwort: "Punkte mit besonders starker Wirkung auf bestimmte Körperregionen oder Symptomkomplexe. Kernwirkung: gezielte regionale Behandlung und Symptomkontrolle. Abzugrenzen von den Hui-Punkten (8 Gewebe), die eine eigene Gruppe bilden."
+    },
+    liste: {
+      frage: "Welche wichtigen regionalen Meisterpunkte gibt es (Auswahl)?",
+      antwort: "Lu 7 (Lieque) – Thorax\nLu 9 (Taiyuan) – Gefäße (klassisch)\nDi 4 (Hegu) – Gesicht/Mund, Schmerz\nDi 11 (Quchi) – obere Extremität\nMa 36 (Zusanli) – Abdomen, allgemeine Stärkung\nMa 35 (Dubi) – Knie\nGb 34 (Yanglingquan) – Sehnen\nGb 39 (Xuanzhong) – Mark\nBl 40 (Weizhong) – unterer Rücken\nBl 60 (Kunlun) – Rücken\nRen 12 (Zhongwan) – Magen/Darm\nRen 17 (Tanzhong) – Qi, Brust\nDu 20 (Baihui) – geistige Energie\nDu 4 (Mingmen) – Nieren-Yang"
+    }
+  },
+  {
+    id: "vagus",
+    name: "Vagus-Aktivierung (moderne Ergänzung)",
+    konzept: {
+      frage: "Vagus-Aktivierung: Was ist damit gemeint? (moderne Ergänzung)",
+      antwort: "Moderne Forschungsformulierung, keine klassische Punktgruppe. Bestimmte Punkte (z. B. Sishencong, ST 36, PC 6) werden mit vagaler Modulation in Verbindung gebracht. Klinisch diskutiert bei Stress, Entzündung und autonomer Dysregulation. Bitte getrennt von den klassischen Gruppen lernen – die M2-Prüfung folgt klassischen Kategorien."
+    },
+    liste: {
+      frage: "Welche Punkte werden in der modernen Literatur mit Vagus-Aktivierung assoziiert?",
+      antwort: "Sishencong (M-HN-1) – in einer Studie mit vagaler Aktivierung assoziiert [citation:18]\nMa 36 (Zusanli) – häufig in vegetativen Protokollen\nPe 6 (Neiguan) – Übelkeit, vegetativ\nOhrakupunktur (z. B. Punkt „Shenmen") – vagale Stimulation in der Forschung\n\nHinweis: Keine klassische Gruppe. Die genannten Punkte sind Forschungshinweise, keine M2-Prüfungsliste."
+    }
+  },
+  {
+    id: "heavenlystar",
+    name: "Heavenly Star Points (Ma Dan Yang)",
+    konzept: {
+      frage: "Heavenly Star Points nach Ma Dan Yang: Funktion?",
+      antwort: "12 Punkte, die nach Ma Dan Yang benannt sind und in der „Ode vom Jade-Drachen" beschrieben wurden. Kernaussage: Diese 12 Punkte sollen ausreichen, um viele Disharmonien zu behandeln. Sie liegen alle distal von Ellbogen/Knie (außer Gb 30) und decken die sechs Yang- und Yin-Schichten ab. Deadman verwendet die 12er-Liste als Lern- und Praxiskonzept."
+    },
+    liste: {
+      frage: "Welche 12 Punkte gehören zu den Heavenly Star Points nach Ma Dan Yang?",
+      antwort: "Lu 7 (Lieque)\nDi 4 (Hegu)\nDi 11 (Quchi)\nMa 36 (Zusanli)\nMa 44 (Neiting)\nHe 5 (Tongli)\nBl 40 (Weizhong)\nBl 57 (Chengshan)\nBl 60 (Kunlun)\nGb 30 (Huantiao)\nGb 34 (Yanglingquan)\nLe 3 (Taichong)"
+    }
+  },
+  {
+    id: "shen",
+    name: "Shen-Punkte",
+    konzept: {
+      frage: "Shen-Punkte: Funktion?",
+      antwort: "Punkte mit besonderer Wirkung auf den Shen (Geist). Viele tragen „Shen" im Namen. Kernwirkung: beruhigen den Geist, klären den Sinn, behandeln Unruhe, Angst, Schlaflosigkeit und emotionale Disharmonien. Teilweise werden sie nach Lokalisation (Brust/Kopf) unterschieden."
+    },
+    liste: {
+      frage: "Welche wichtigen Shen-Punkte gibt es (Auswahl)?",
+      antwort: "He 7 (Shenmen) – Hauptpunkt zum Beruhigen des Shen\nPe 7 (Daling) – beruhigt den Geist, klärt Hitze\nDu 24 (Shenting) – Kopf, Shen\nGb 13 (Benshen) – Kopf, Shen\nBl 44 (Shentang) – Brust/Rücken, Shen\nNi 23 (Shenfeng) – Brust, Shen\nRen 17 (Tanzhong) – Übergang kleiner/großer Shen"
+    }
+  },
+  {
+    id: "ling",
+    name: "Ling-Punkte",
+    konzept: {
+      frage: "Ling-Punkte: Funktion?",
+      antwort: "Punkte mit „Ling" (Geist/Seele) im Namen oder besonderer Wirkung auf den Ling-Aspekt. Kernwirkung: beruhigen, klären, emotional stabilisieren. Überschneidung mit Shen- und Gui-Punkten ist möglich; die Kategorisierung ist in der Literatur nicht immer scharf."
+    },
+    liste: {
+      frage: "Welche Punkte werden den Ling-Punkten zugeordnet (Auswahl)?",
+      antwort: "He 4 (Lingdao) – Ling im Namen, beruhigt\nDu 10 (Lingtai) – Ling im Namen\nNi 24 (Lingxu) – Ling im Namen\nGb 34 (Yanglingquan) – „Ling" im Namen, Sehnen\n\nHinweis: Die Gruppe ist weniger standardisiert als Shen/Gui. Als Lernhilfe: Punkte mit „Ling" im Namen plus klinisch ähnliche Wirkung."
+    }
+  },
+  {
+    id: "gui",
+    name: "Gui-Shu-Punkte (13 Geisterpunkte)",
+    konzept: {
+      frage: "Gui-Shu-Punkte (13 Geisterpunkte): Funktion?",
+      antwort: "13 Punkte nach Sun Si Miao zur Behandlung von „Dian Kuang" (Geistesstörungen, plötzliche Bewusstseinsveränderungen). Kernidee: Der „Geist" (Gui) wird beruhigt, indem die Punkte in Tripletten behandelt werden. Klassisch bei plötzlich auftretenden psychischen/neurologischen Symptomen bei zuvor Gesunden."
+    },
+    liste: {
+      frage: "Welche 13 Gui-Shu-Punkte gibt es (klassische Tripletten)?",
+      antwort: "1. Du 26 (Renzhong) – Du 16 (Fengfu) – Lu 11 (Shaoshang)\n2. Pe 7 (Daling) – Bl 62 (Shenmai) – Du 16 (Fengfu)\n3. Ma 6 (Jiache) – Ren 24 (Chengjiang) – Pe 8 (Laogong)\n4. Ren 23 (Lianquan) – Ren 1 (Huiyin) – Di 11 (Quchi)\n5. Ren 8 (Shenque) – Du 20 (Baihui) – Yintang (M-HN-3)\n6. Du 26 (Renzhong) – Du 20 (Baihui) – Du 16 (Fengfu) (als Abschluss)\n\nHinweis: Die genaue Zuordnung der Tripletten variiert in der Literatur; die 13 Punkte insgesamt sind konsistent."
+    }
+  },
+  {
+    id: "jiaohui",
+    name: "Jiao Hui Xue (Kreuzungspunkte)",
+    konzept: {
+      frage: "Jiao Hui Xue: Funktion?",
+      antwort: "Punkte, an denen mehrere Leitbahnen zusammentreffen. Kernwirkung: Sie verbinden Meridiane und können mehrere Funktionskreise gleichzeitig beeinflussen. Wichtig für die Punktauswahl, wenn mehrere Leitbahnen betroffen sind."
+    },
+    liste: {
+      frage: "Welche wichtigen Jiao Hui Xue gibt es (Auswahl)?",
+      antwort: "Ma 1 (Chengqi) – Magen, Ren, Du\nMa 4 (Dicang) – Magen, Ren, Du\nMa 9 (Renying) – Magen, Gb\nDü 17 (Tianrong) – Dü, Gb\nBl 1 (Jingming) – Bl, Dü, Ma, Gb, Ren, Du\nGb 20 (Fengchi) – Gb, SJ, Du, Yangwei\nGb 21 (Jianjing) – Gb, SJ, Yangwei\nRen 17 (Tanzhong) – Ren, Mi, Ni, Pe, SJ\nDu 14 (Dazhui) – Du, alle Yang\nDu 20 (Baihui) – Du, alle Yang"
+    }
+  },
+  {
+    id: "huatuojiaji",
+    name: "Hua Tuo Jiaji (EX-B2, Paravertebral)",
+    konzept: {
+      frage: "Hua Tuo Jiaji: Funktion? Lokalisation?",
+      antwort: "Paravertebrale Extrapunkte, 0,5 Cun lateral der Dornfortsätze von C1 bis L5 (34 Punkte). WHO-Code: EX-B2. Kernwirkung: segmentale Behandlung von Organen, Rücken-/Nackenschmerz, Bi-Syndrom, vegetative Regulation. Sie entsprechen den Austrittsstellen der dorsalen Nervenäste und werden als Mikrosystem betrachtet."
+    },
+    liste: {
+      frage: "Wie werden die Hua Tuo Jiaji Punkte zugeordnet?",
+      antwort: "C1–C7: Halsbereich (Kopf, Hals, obere Extremität)\nT1–T5: oberer Thorax (Lunge, Herz)\nT6–T12: mittlerer/unterer Thorax (Leber, Gb, Milz, Magen)\nL1–L5: Lumbalbereich (Niere, Dickdarm, untere Extremität)\n\nInsgesamt 34 Punkte (17 pro Seite). Der Abstand ist 0,5 Cun lateral der Mittellinie."
+    }
+  },
+  {
+    id: "kommando",
+    name: "4 Kommandopunkte",
+    konzept: {
+      frage: "4 Kommandopunkte: Funktion?",
+      antwort: "Vier Punkte mit besonders breiter und starker Wirkung auf Körperregionen. Kernwirkung: Sie können als Basis in vielen Behandlungen eingesetzt werden. Klassische Zuordnung: Di 4 (Gesicht/Mund), Lu 7 (Kopf/Nacken), Ma 36 (Abdomen), Gb 34 (Sehnen/Muskeln)."
+    },
+    liste: {
+      frage: "Welche sind die 4 Kommandopunkte?",
+      antwort: "Di 4 (Hegu) – Gesicht und Mund\nLu 7 (Lieque) – Kopf und Nacken\nMa 36 (Zusanli) – Abdomen\nGb 34 (Yanglingquan) – Sehnen und Muskeln"
+    }
+  },
+  {
+    id: "gruppenluo",
+    name: "Gruppen-Luo-Punkte",
+    konzept: {
+      frage: "Gruppen-Luo-Punkte: Funktion?",
+      antwort: "Drei Punkte, die nicht nur einen gekoppelten Meridian, sondern eine ganze Gruppe von Leitbahnen beeinflussen. Kernwirkung: Sie wirken auf alle Yin- oder alle Yang-Leitbahnen einer Region. Klassisch: Mi 4 (alle Yin des Rumpfes), Ren 15 (alle Yin), Du 1 (alle Yang)."
+    },
+    liste: {
+      frage: "Welche sind die Gruppen-Luo-Punkte?",
+      antwort: "Mi 4 (Gongsun) – alle Yin-Leitbahnen des Rumpfes\nRen 15 (Jiuwei) – alle Yin-Leitbahnen\nDu 1 (Changqiang) – alle Yang-Leitbahnen"
+    }
+  },
+  {
+    id: "bi",
+    name: "Bi-Syndrom-Punkte",
+    konzept: {
+      frage: "Bi-Syndrom-Punkte: Funktion?",
+      antwort: "Punkte zur Behandlung von Bi-Syndrom (Schmerz, Steifheit, Obstruktion der Gelenke/Muskeln). Kernwirkung: Wind, Kälte, Feuchtigkeit oder Hitze ausleiten, Leitbahnen öffnen, Schmerz lindern. Die Auswahl richtet sich nach Pathogen und Lokalisation."
+    },
+    liste: {
+      frage: "Welche wichtigen Punkte werden beim Bi-Syndrom eingesetzt (Auswahl)?",
+      antwort: "Allgemein: Gb 20 (Fengchi), Di 4 (Hegu), SJ 5 (Waiguan), Ma 36 (Zusanli)\nWind: Gb 20, Gb 34, Di 4, SJ 5\nKälte: Bl 23, Dü 6, lokale Moxa\nFeuchtigkeit: Bl 20, Mi 9, Mi 6\nHitze: Di 11, Ma 44, Di 4, Bl 40\nRücken: Bl 40, Bl 60, Du 14, Huatuojiaji\nSchulter: Di 15, SJ 14, Gb 21"
+    }
+  },
+  {
+    id: "tendino",
+    name: "Tendino-Muskuläre Meridiane (Jing Jin)",
+    konzept: {
+      frage: "Tendino-Muskuläre Meridiane: Funktion?",
+      antwort: "Oberflächliche, muskulär-fasziale Verläufe der Hauptmeridiane. Kernwirkung: Behandlung von Muskel-, Sehnen- und Faszienproblemen, lokal und entlang des Verlaufs. Punkte werden vor allem lokal (Ashi) und an den Vereinigungspunkten (Jing Jin Xue) gewählt."
+    },
+    liste: {
+      frage: "Wie werden die Tendino-Muskulären Meridiane behandelt (Prinzip)?",
+      antwort: "Lokale Punkte und Ashi-Punkte entlang des betroffenen TMM\nVereinigungspunkte (Jing Jin Xue) der TMM\nKombination mit Fernpunkten der Hauptleitbahn\nMoxa bei Kälte, Schröpfen bei Stase/Feuchtigkeit\n\nHinweis: Es gibt keine feste „Punkteliste" wie bei Yuan/Luo; die TMM sind ein Verlaufssystem."
+    }
+  },
+  {
+    id: "jingbie",
+    name: "Jing Bie (Divergente Meridiane)",
+    konzept: {
+      frage: "Jing Bie: Funktion? Vereinigungspunkte?",
+      antwort: "Divergente („getrennte") Meridiane, die tiefer verlaufen als die Hauptmeridiane und Zang-Fu direkt verbinden. Kernwirkung: Behandlung von tiefen/starken Disharmonien, die über die Hauptmeridiane nicht erreichbar sind. Wichtig: untere und obere Vereinigungspunkte (He Xue) verbinden Jing Bie mit den Hauptmeridianen."
+    },
+    liste: {
+      frage: "Welche Vereinigungspunkte der Jing Bie gibt es (Auswahl)?",
+      antwort: "Untere Vereinigungspunkte (He Xue):\nLu: Lu 5 (Chize) / Di: Di 11 (Quchi)\nMa: Ma 36 (Zusanli) / Mi: Mi 9 (Yinlingquan)\nHe: He 3 (Shaohai) / Dü: Dü 10 (Naoshu)\nBl: Bl 40 (Weizhong) / Ni: Ni 10 (Yingu)\nPe: Pe 3 (Quze) / SJ: SJ 10 (Tianjing)\nGb: Gb 34 (Yanglingquan) / Le: Le 8 (Ququan)\n\nObere Vereinigungspunkte:\nRen 22 (Tiantu), Du 14 (Dazhui), Du 16 (Fengfu) u. a.\n\nHinweis: Die genauen Zuordnungen variieren in der Literatur."
+    }
   }
 ];
 
-const zungpulsData = [
-  { frage: "Zungenfarbe: Blass", antwort: "Platzhalter – bitte ergänzen", sub: "Zunge" },
-  { frage: "Puls: Saitenförmig (Wiry)", antwort: "Platzhalter – bitte ergänzen", sub: "Puls" }
+/* ---- FÜNF SHU (Übersicht + 12 Meridian-Karten) ---- */
+
+const fuenfShuYin = [
+  { meridian: "Lunge (Lu)", jing: "Lu 11 Shaoshang", ying: "Lu 10 Yuji", shu: "Lu 9 Taiyuan", jingfluss: "Lu 8 Jingqu", he: "Lu 5 Chize" },
+  { meridian: "Milz (Mi)", jing: "Mi 1 Yinbai", ying: "Mi 2 Dadu", shu: "Mi 3 Taibai", jingfluss: "Mi 5 Shangqiu", he: "Mi 9 Yinlingquan" },
+  { meridian: "Herz (He)", jing: "He 9 Shaochong", ying: "He 8 Shaofu", shu: "He 7 Shenmen", jingfluss: "He 4 Lingdao", he: "He 3 Shaohai" },
+  { meridian: "Niere (Ni)", jing: "Ni 1 Yongquan", ying: "Ni 2 Rangu", shu: "Ni 3 Taixi", jingfluss: "Ni 7 Fuliu", he: "Ni 10 Yingu" },
+  { meridian: "Perikard (Pe)", jing: "Pe 9 Zhongchong", ying: "Pe 8 Laogong", shu: "Pe 7 Daling", jingfluss: "Pe 5 Jianshi", he: "Pe 3 Quze" },
+  { meridian: "Leber (Le)", jing: "Le 1 Dadun", ying: "Le 2 Xingjian", shu: "Le 3 Taichong", jingfluss: "Le 4 Zhongfeng", he: "Le 8 Ququan" }
 ];
 
-const musterData = [
-  { frage: "Muster: Leber-Qi-Stagnation", antwort: "Platzhalter – bitte ergänzen", sub: "Macciocia" }
+const fuenfShuYang = [
+  { meridian: "Dickdarm (Di)", jing: "Di 1 Shangyang", ying: "Di 2 Erjian", shu: "Di 3 Sanjian", jingfluss: "Di 5 Yangxi", he: "Di 11 Quchi" },
+  { meridian: "Magen (Ma)", jing: "Ma 45 Lidui", ying: "Ma 44 Neiting", shu: "Ma 43 Xiangu", jingfluss: "Ma 41 Jiexi", he: "Ma 36 Zusanli" },
+  { meridian: "Dünndarm (Dü)", jing: "Dü 1 Shaoze", ying: "Dü 2 Qiangu", shu: "Dü 3 Houxi", jingfluss: "Dü 5 Yanggu", he: "Dü 8 Xiaohai" },
+  { meridian: "Blase (Bl)", jing: "Bl 67 Zhiyin", ying: "Bl 66 Zutonggu", shu: "Bl 65 Shugu", jingfluss: "Bl 60 Kunlun", he: "Bl 40 Weizhong" },
+  { meridian: "Sanjiao (SJ)", jing: "SJ 1 Guanchong", ying: "SJ 2 Yemen", shu: "SJ 3 Zhongzhu", jingfluss: "SJ 6 Zhigou", he: "SJ 10 Tianjing" },
+  { meridian: "Gallenblase (Gb)", jing: "Gb 44 Zuqiaoyin", ying: "Gb 43 Xiaxi", shu: "Gb 41 Zulinqi", jingfluss: "Gb 38 Yangfu", he: "Gb 34 Yanglingquan" }
 ];
+
+const fuenfShuData = [
+  {
+    id: "fuenfshu_uebersicht",
+    name: "Fünf Shu-Punkte – Übersicht",
+    konzept: {
+      frage: "Fünf Shu-Punkte: Funktion? Elementzuordnung?",
+      antwort: "Die 5 Shu (Antike Punkte) verlaufen von distal nach proximal: Jing (Brunnen), Ying (Quelle), Shu (Transport), Jing (Fluss), He (Meer). Zuordnung der 5 Elemente:\n\nYin-Meridiane: Holz – Feuer – Erde – Metall – Wasser\nYang-Meridiane: Metall – Wasser – Holz – Feuer – Erde\n\nKernwirkung: Behandlung nach Mutter-Sohn-Regel, Tonisieren/Sedieren, sowie nach Element und Jahreszeit. Wichtig: Die Zuordnung ist auf Yin- und Yang-Meridianen unterschiedlich."
+    },
+    liste: {
+      frage: "Wie sind die 5 Shu-Punkte den Elementen zugeordnet?",
+      antwort: "Yin (z. B. Lu, Mi, He, Ni, Pe, Le):\nJing = Holz, Ying = Feuer, Shu = Erde, Jing = Metall, He = Wasser\n\nYang (z. B. Di, Ma, Dü, Bl, SJ, Gb):\nJing = Metall, Ying = Wasser, Shu = Holz, Jing = Feuer, He = Erde\n\nBeispiel Lunge: Lu 11 (Holz), Lu 10 (Feuer), Lu 9 (Erde), Lu 8 (Metall), Lu 5 (Wasser).\nBeispiel Dickdarm: Di 1 (Metall), Di 2 (Wasser), Di 3 (Holz), Di 5 (Feuer), Di 11 (Erde)."
+    }
+  }
+];
+
+fuenfShuYin.forEach(m => {
+  fuenfShuData.push({
+    id: "fuenfshu_" + m.meridian.split(" ")[0].toLowerCase(),
+    name: "Fünf Shu – " + m.meridian,
+    konzept: {
+      frage: "Fünf Shu-Punkte des Meridians " + m.meridian + ": Welche Punkte und Elemente?",
+      antwort: "Jing (Holz): " + m.jing + "\nYing (Feuer): " + m.ying + "\nShu (Erde): " + m.shu + "\nJing (Metall): " + m.jingfluss + "\nHe (Wasser): " + m.he + "\n\nHinweis: Yin-Meridian – Zuordnung Holz/Feuer/Erde/Metall/Wasser."
+    },
+    liste: {
+      frage: "Welche Elemente haben die 5 Shu-Punkte des Meridians " + m.meridian + "?",
+      antwort: m.jing + " = Holz\n" + m.ying + " = Feuer\n" + m.shu + " = Erde\n" + m.jingfluss + " = Metall\n" + m.he + " = Wasser"
+    }
+  });
+});
+
+fuenfShuYang.forEach(m => {
+  fuenfShuData.push({
+    id: "fuenfshu_" + m.meridian.split(" ")[0].toLowerCase(),
+    name: "Fünf Shu – " + m.meridian,
+    konzept: {
+      frage: "Fünf Shu-Punkte des Meridians " + m.meridian + ": Welche Punkte und Elemente?",
+      antwort: "Jing (Metall): " + m.jing + "\nYing (Wasser): " + m.ying + "\nShu (Holz): " + m.shu + "\nJing (Feuer): " + m.jingfluss + "\nHe (Erde): " + m.he + "\n\nHinweis: Yang-Meridian – Zuordnung Metall/Wasser/Holz/Feuer/Erde."
+    },
+    liste: {
+      frage: "Welche Elemente haben die 5 Shu-Punkte des Meridians " + m.meridian + "?",
+      antwort: m.jing + " = Metall\n" + m.ying + " = Wasser\n" + m.shu + " = Holz\n" + m.jingfluss + " = Feuer\n" + m.he + " = Erde"
+    }
+  });
+});
+
+/* ---- Platzhalter ---- */
+const kombiData = [{ frage: "Wichtige Punktkombination (Platzhalter)", antwort: "Bitte ergänzen.", sub: "Punktkombinationen" }];
+const zungpulsData = [{ frage: "Zunge/Puls (Platzhalter)", antwort: "Bitte ergänzen.", sub: "Zunge & Puls" }];
+const musterData = [{ frage: "Muster (Platzhalter)", antwort: "Bitte ergänzen.", sub: "Macciocia" }];
 
 /* ============================================================
-   2) THEMEN-STRUKTUR
+   THEMEN-STRUKTUR
    ============================================================ */
 
 const themen = [];
 
+// Bestehende + neue Gruppen
 gruppenData.forEach(g => {
   themen.push({
     id: "gruppe_" + g.id + "_konzept",
@@ -361,6 +588,23 @@ gruppenData.forEach(g => {
   });
 });
 
+// Fünf Shu
+fuenfShuData.forEach(g => {
+  themen.push({
+    id: "fuenfshu_" + g.id + "_konzept",
+    label: g.name + " – Konzept",
+    kategorie: "Fünf Shu-Punkte",
+    builder: () => [{ front: g.konzept.frage, back: g.konzept.antwort, sub: g.name }]
+  });
+  themen.push({
+    id: "fuenfshu_" + g.id + "_liste",
+    label: g.name + " – Punkte/Elemente",
+    kategorie: "Fünf Shu-Punkte",
+    builder: () => [{ front: g.liste.frage, back: g.liste.antwort, sub: g.name }]
+  });
+});
+
+// TuiNa
 themen.push({
   id: "tuina",
   label: "TuiNa-Griffe (alle 32)",
@@ -368,29 +612,13 @@ themen.push({
   builder: () => tuinaData.map(([nr, py, de]) => ({ front: py, back: de, sub: "Nr. " + nr }))
 });
 
-themen.push({
-  id: "kombi",
-  label: "Wichtige Punktkombinationen",
-  kategorie: "Punktkombinationen",
-  builder: () => kombiData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" }))
-});
-
-themen.push({
-  id: "zungpuls",
-  label: "Zunge & Puls",
-  kategorie: "Zunge & Puls",
-  builder: () => zungpulsData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" }))
-});
-
-themen.push({
-  id: "muster",
-  label: "TCM-Muster (Macciocia)",
-  kategorie: "TCM-Muster",
-  builder: () => musterData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" }))
-});
+// Kombi, Zunge/Puls, Muster
+themen.push({ id: "kombi", label: "Punktkombinationen", kategorie: "Punktkombinationen", builder: () => kombiData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
+themen.push({ id: "zungpuls", label: "Zunge & Puls", kategorie: "Zunge & Puls", builder: () => zungpulsData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
+themen.push({ id: "muster", label: "TCM-Muster (Macciocia)", kategorie: "TCM-Muster", builder: () => musterData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
 
 /* ============================================================
-   3) LOGIK
+   LOGIK
    ============================================================ */
 
 let cards = [];
