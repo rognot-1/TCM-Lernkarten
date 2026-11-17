@@ -9,7 +9,6 @@
     --bg: #f4f6f8;
     --card: #ffffff;
     --primary: #2c5f7c;
-    --accent: #e8b04b;
     --text: #1f2d3a;
     --muted: #6b7c8c;
     --border: #cdd6de;
@@ -141,7 +140,7 @@
     color: var(--muted);
   }
   .card-text {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 600;
     line-height: 1.35;
     white-space: pre-line;
@@ -154,8 +153,6 @@
   .nav { display: flex; gap: .5rem; }
   .nav button { min-width: 100px; }
   .footer { margin-top: 2rem; font-size: .75rem; color: var(--muted); text-align: center; max-width: 600px; }
-  .footer a { color: var(--primary); }
-  .empty-note { color: var(--muted); font-size: .9rem; text-align: center; padding: 2rem; }
 </style>
 </head>
 <body>
@@ -217,7 +214,6 @@
    1) DATEN
    ============================================================ */
 
-// --- Akupunkturpunkte (aus deiner PDF) ---
 const punkteData = [
 ["Lu 1","Zhongfu"],["Lu 2","Yunmen"],["Lu 3","Tianfu"],["Lu 4","Xiabai"],["Lu 5","Chize"],["Lu 6","Kongzui"],["Lu 7","Lieque"],["Lu 8","Jingqu"],["Lu 9","Taiyuan"],["Lu 10","Yuji"],["Lu 11","Shaoshang"],
 ["Di 1","Shangyang"],["Di 2","Erjian"],["Di 3","Sanjian"],["Di 4","Hegu"],["Di 5","Yangxi"],["Di 6","Pianli"],["Di 7","Wenliu"],["Di 8","Xialian"],["Di 9","Shanglian"],["Di 10","Shousanli"],["Di 11","Quchi"],["Di 12","Zhouliao"],["Di 13","Shouwuli"],["Di 14","Binao"],["Di 15","Jianyu"],["Di 16","Jugu"],["Di 17","Tianding"],["Di 18","Futu"],["Di 19","Kouheliao"],["Di 20","Yingxiang"],
@@ -236,20 +232,17 @@ const punkteData = [
 ["Bafeng","M-LE-8"],["Baichongwo","M-LE-34"],["Baxie","M-UE-22"],["Bitong","M-HN-14"],["Dingchuan","M-BW-1"],["Erbai","M-UE-29"],["Erjian","M-HN-10"],["Heding","M-LE-27"],["Huatuojiaji","M-BW-35"],["Jianneiling","M-UE-48"],["Luozhen","M-UE-24"],["Shiqizhizhuixia","M-BW-25"],["Shixuan","M-UE-1"],["Sifeng","M-UE-9"],["Sishencong","M-HN-1"],["Taiyang","M-HN-9"],["Xiyan","M-LE-16"],["Yaotongxue","N-UE-19"],["Yaoyan","M-BW-24"],["Yintang","M-HN-3"],["Yishu","M-BW-12"],["Yuyao","M-HN-6"],["Zigong","M-CA-18"]
 ];
 
-// --- TuiNa-Griffe (aus deiner PDF) ---
 const tuinaData = [
 [1,"TUI FA","Schieben"],[2,"MA FA","Ausstreichen, Streichen"],[3,"SHU FA","Kämmen"],[4,"YI ZHI CHAN FA","1 Finger-Meditationstechnik"],[5,"NA FA","Greifen"],[6,"NIE FA","Kneifen"],[7,"NIE JI FA","Hautkneifen, Rollen über der Wirbelsäule"],[8,"NIAN FA","Twisten"],[9,"TAN JIN FA","Sehnen Zupfen"],[10,"AN FA","Pressen, Drücken"],[11,"DIAN AN FA","Punktuelles Pressen, Drücken"],[12,"QIA FA","Spitzes, tiefes Pressen"],[13,"TAN BO FA","Rutschen"],[14,"MO FA","Reiben"],[15,"ROU FA","Friktionieren, kreisendes stationäres Pressen"],[16,"CUO FA","Quirlen"],[17,"GUN FA","Rollen"],[18,"CA FA","Hin- und her reiben"],[19,"YAO FA","Rotieren"],[20,"BAN FA","Gelenkmobilisation, Repositionstechnik"],[21,"BA SHEN FA","Traktion, Dehnen"],[22,"QU SHEN FA","Beugen und Strecken, Flexion und Extension"],[23,"BEI FA","Aufladen der Patient:in auf Rücken der Therapeut:in"],[24,"ZHEN FA","Vibrieren"],[25,"DOU FA","Schütteln"],[26,"HUANG FA","Schwingen"],[27,"JI FA","Starkes Klopfen mit der geballten Faust"],[28,"CE JI FA","Klopfen mit Kleinfingerkanten"],[29,"ZHUO JI FA","Picken"],[30,"PAI JI FA","Klatschen"],[31,"TAN JI FA","Spicken"],[32,"DIAN JI FA","Punkt beklopfen"]
 ];
 
-// --- Gruppen: Konzept + Punkteliste (Platzhalter, wird in Schritt 2/3 gefüllt) ---
-// Jede Gruppe: { id, name, konzept: {frage, antwort}, liste: {frage, antwort} }
 const gruppenData = [
   {
     id: "yuan",
     name: "Yuan-Quellpunkte (Yuan Xue)",
     konzept: {
       frage: "Yuan-Quellpunkte: Was ist ihre Funktion? Wo liegen sie typischerweise?",
-      antwort: "Ursprungspunkt des Yuan-Qi eines Organs. Liegen meist distal an Handgelenk/Knöchel. Bei Yin-Meridianen identisch mit dem Shu-Punkt. Kernwirkung: Tonisieren des zugehörigen Zang-Fu, regulieren Qi und Yin. Kombination mit Luo-Punkt = Yuan-Luo-Methode."
+      antwort: "Ursprungspunkt des Yuan-Qi eines Organs. Liegen meist distal an Handgelenk oder Knöchel. Bei Yin-Meridianen identisch mit dem Shu-Punkt. Kernwirkung: Tonisieren des zugehörigen Zang-Fu, regulieren Qi und Yin. Kombination mit Luo-Punkt ergibt die Yuan-Luo-Methode."
     },
     liste: {
       frage: "Welche Punkte gehören zu den Yuan-Quellpunkten (nach Leitbahn)?",
@@ -261,7 +254,7 @@ const gruppenData = [
     name: "Luo-Verbindungspunkte (Luo Xue)",
     konzept: {
       frage: "Luo-Verbindungspunkte: Funktion? Lokalisation?",
-      antwort: "Verbinden den Hauptmeridian mit dem gekoppelten Meridian. Liegen distal an Unterarm/Unterschenkel. Kernwirkung: Störungen im gekoppelten Meridian behandeln, Öffnen/Regulieren. Bei chronischen Beschwerden oft kombiniert mit Yuan-Punkt."
+      antwort: "Verbinden den Hauptmeridian mit dem gekoppelten Meridian. Liegen distal an Unterarm oder Unterschenkel. Kernwirkung: Störungen im gekoppelten Meridian behandeln, Öffnen und Regulieren. Bei chronischen Beschwerden oft kombiniert mit Yuan-Punkt."
     },
     liste: {
       frage: "Welche Punkte gehören zu den Luo-Verbindungspunkten (nach Leitbahn)?",
@@ -273,7 +266,7 @@ const gruppenData = [
     name: "Xi-Spaltenpunkte (Xi Xue)",
     konzept: {
       frage: "Xi-Spaltenpunkte: Funktion? Lokalisation?",
-      antwort: "„Spalten"-Punkte, an denen Qi und Blut sich sammeln. Liegen meist an Gelenkbeugen oder Muskelspalten. Kernwirkung: Akute Störungen, Schmerz, Blut-Stase behandeln. Häufig bei akuten Schmerzzuständen eingesetzt."
+      antwort: "Spaltenpunkte, an denen Qi und Blut sich sammeln. Liegen meist an Gelenkbeugen oder Muskelspalten. Kernwirkung: akute Störungen, Schmerz und Blut-Stase behandeln. Häufig bei akuten Schmerzzuständen eingesetzt."
     },
     liste: {
       frage: "Welche Punkte gehören zu den Xi-Spaltenpunkten (nach Leitbahn)?",
@@ -297,7 +290,7 @@ const gruppenData = [
     name: "Shu-Zustimmungspunkte (Shu Xue, Rücken)",
     konzept: {
       frage: "Shu-Zustimmungspunkte (Rücken): Funktion? Lokalisation?",
-      antwort: "Rückenpunkte, an denen Qi des zugehörigen Zang-Fu-Organs ein- und ausströmt. Liegen 1,5 Cun lateral der Wirbelsäule auf der Blasenleitbahn. Kernwirkung: Tonisieren, Stärken, besonders bei chronischen Zuständen."
+      antwort: "Rückenpunkte, an denen Qi des zugehörigen Zang-Fu-Organs ein- und ausströmt. Liegen 1,5 Cun lateral der Wirbelsäule auf der Blasenleitbahn. Kernwirkung: Tonisieren und Stärken, besonders bei chronischen Zuständen."
     },
     liste: {
       frage: "Welche Punkte gehören zu den Shu-Zustimmungspunkten (nach Organ)?",
@@ -309,7 +302,7 @@ const gruppenData = [
     name: "Untere He-Punkte (Xia He Xue)",
     konzept: {
       frage: "Untere He-Punkte: Funktion? Lokalisation?",
-      antwort: "He-Punkte der 6 Fu-Organe, liegen am Unterschenkel. Kernwirkung: Störungen der zugehörigen Fu-Organe behandeln. Wichtig: Nicht alle liegen auf dem Meridian des zugehörigen Fu-Organs."
+      antwort: "He-Punkte der 6 Fu-Organe, sie liegen am Unterschenkel. Kernwirkung: Störungen der zugehörigen Fu-Organe behandeln. Wichtig: Nicht alle liegen auf dem Meridian des zugehörigen Fu-Organs."
     },
     liste: {
       frage: "Welche Punkte gehören zu den Unteren He-Punkten (nach Fu-Organ)?",
@@ -321,7 +314,7 @@ const gruppenData = [
     name: "Hui-Versammlungspunkte (Hui Xue)",
     konzept: {
       frage: "Hui-Versammlungspunkte: Funktion? Lokalisation?",
-      antwort: "8 Punkte, an denen sich Qi bestimmter Gewebe/Funktionen versammelt. Kernwirkung: gezielte Behandlung von Geweben (Blut, Sehnen, Knochen, Gefäße, Organe, Qi, Mark, Nahrung)."
+      antwort: "Acht Punkte, an denen sich Qi bestimmter Gewebe und Funktionen versammelt. Kernwirkung: gezielte Behandlung von Geweben wie Blut, Sehnen, Knochen, Gefäße, Organe, Qi, Mark und Nahrung."
     },
     liste: {
       frage: "Welche Punkte gehören zu den Hui-Versammlungspunkten (nach Gewebe)?",
@@ -330,35 +323,29 @@ const gruppenData = [
   }
 ];
 
-// --- Punktkombinationen (Platzhalter, wird in Schritt 4 gefüllt) ---
 const kombiData = [
   {
     frage: "Wichtige Punktkombination: Beispiel",
-    antwort: "Platzhalter – bitte mit deinen Kombinationen ersetzen (z. B. für Shan Han Lun / Wen Bing).",
+    antwort: "Platzhalter – bitte mit deinen Kombinationen ersetzen.",
     sub: "Punktkombinationen"
   }
 ];
 
-// --- Zunge & Puls (Platzhalter) ---
 const zungpulsData = [
   { frage: "Zungenfarbe: Blass", antwort: "Platzhalter – bitte ergänzen", sub: "Zunge" },
   { frage: "Puls: Saitenförmig (Wiry)", antwort: "Platzhalter – bitte ergänzen", sub: "Puls" }
 ];
 
-// --- TCM-Muster (Platzhalter) ---
 const musterData = [
   { frage: "Muster: Leber-Qi-Stagnation", antwort: "Platzhalter – bitte ergänzen", sub: "Macciocia" }
 ];
 
 /* ============================================================
-   2) THEMEN-STRUKTUR (für die Häkchen)
+   2) THEMEN-STRUKTUR
    ============================================================ */
 
-// Jedes Thema: id, label, kategorie, builder()
-// builder() liefert ein Array von Karten {front, back, sub}
 const themen = [];
 
-// Akupunktur-Gruppen
 gruppenData.forEach(g => {
   themen.push({
     id: "gruppe_" + g.id + "_konzept",
@@ -374,19 +361,13 @@ gruppenData.forEach(g => {
   });
 });
 
-// TuiNa
 themen.push({
   id: "tuina",
   label: "TuiNa-Griffe (alle 32)",
   kategorie: "TuiNa",
-  builder: () => tuinaData.map(([nr, py, de]) => ({
-    front: py,
-    back: de,
-    sub: "Nr. " + nr
-  }))
+  builder: () => tuinaData.map(([nr, py, de]) => ({ front: py, back: de, sub: "Nr. " + nr }))
 });
 
-// Punktkombinationen
 themen.push({
   id: "kombi",
   label: "Wichtige Punktkombinationen",
@@ -394,7 +375,6 @@ themen.push({
   builder: () => kombiData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" }))
 });
 
-// Zunge & Puls
 themen.push({
   id: "zungpuls",
   label: "Zunge & Puls",
@@ -402,7 +382,6 @@ themen.push({
   builder: () => zungpulsData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" }))
 });
 
-// Muster
 themen.push({
   id: "muster",
   label: "TCM-Muster (Macciocia)",
@@ -428,7 +407,6 @@ const progress = document.getElementById("progress");
 const directionSel = document.getElementById("direction");
 const topicContainer = document.getElementById("topicContainer");
 
-// Themen-UI aufbauen
 function buildTopicUI() {
   const kategorien = {};
   themen.forEach(t => {
@@ -450,7 +428,7 @@ function buildTopicUI() {
       const cb = document.createElement("input");
       cb.type = "checkbox";
       cb.value = t.id;
-      cb.checked = true; // standardmäßig alles an
+      cb.checked = true;
       cb.addEventListener("change", rebuildCards);
       label.appendChild(cb);
       label.appendChild(document.createTextNode(t.label));
@@ -461,18 +439,14 @@ function buildTopicUI() {
   });
 }
 
-// Ausgewählte Themen -> Karten
 function rebuildCards() {
   const checked = Array.from(topicContainer.querySelectorAll("input:checked")).map(cb => cb.value);
-  cards = [];
+  let raw = [];
   themen.forEach(t => {
-    if (checked.includes(t.id)) {
-      cards = cards.concat(t.builder());
-    }
+    if (checked.includes(t.id)) raw = raw.concat(t.builder());
   });
-  // Richtung anwenden
   const reverse = directionSel.value === "reverse";
-  cards = cards.map(c => reverse ? { front: c.back, back: c.front, sub: c.sub } : c);
+  cards = raw.map(c => reverse ? { front: c.back, back: c.front, sub: c.sub } : c);
   currentIndex = 0;
   render();
 }
@@ -494,7 +468,7 @@ function render() {
   backSub.textContent = c.sub || "";
   frontLabel.textContent = directionSel.value === "reverse" ? "Antwort" : "Frage";
   backLabel.textContent = directionSel.value === "reverse" ? "Frage" : "Antwort";
-  progress.textContent = `Karte ${currentIndex + 1} von ${cards.length}`;
+  progress.textContent = "Karte " + (currentIndex + 1) + " von " + cards.length;
   cardEl.classList.remove("flipped");
 }
 
@@ -510,17 +484,17 @@ document.getElementById("resetBtn").addEventListener("click", () => { currentInd
 document.getElementById("shuffleBtn").addEventListener("click", () => {
   for (let i = cards.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [cards[i], cards[j]] = [cards[j], cards[i]];
+    const tmp = cards[i]; cards[i] = cards[j]; cards[j] = tmp;
   }
   currentIndex = 0;
   render();
 });
 document.getElementById("selectAll").addEventListener("click", () => {
-  topicContainer.querySelectorAll("input").forEach(cb => cb.checked = true);
+  topicContainer.querySelectorAll("input").forEach(cb => { cb.checked = true; });
   rebuildCards();
 });
 document.getElementById("selectNone").addEventListener("click", () => {
-  topicContainer.querySelectorAll("input").forEach(cb => cb.checked = false);
+  topicContainer.querySelectorAll("input").forEach(cb => { cb.checked = false; });
   rebuildCards();
 });
 
@@ -530,7 +504,6 @@ document.addEventListener("keydown", e => {
   if (e.key === " ") { e.preventDefault(); flip(); }
 });
 
-// Init
 buildTopicUI();
 rebuildCards();
 </script>
