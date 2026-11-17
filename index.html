@@ -26,13 +26,13 @@
   select, button { font-size:.9rem; padding:.5rem .8rem; border-radius:8px; border:1px solid var(--border); background:#fff; color:var(--text); cursor:pointer; }
   button.primary { background:var(--primary); color:#fff; border:none; }
   button.primary:hover { background:#234b62; }
-  .card-wrap { perspective:1200px; width:100%; max-width:620px; height:400px; margin-bottom:1rem; }
+  .card-wrap { perspective:1200px; width:100%; max-width:620px; height:420px; margin-bottom:1rem; }
   .card { position:relative; width:100%; height:100%; transition:transform .5s; transform-style:preserve-3d; cursor:pointer; }
   .card.flipped { transform:rotateY(180deg); }
   .card-face { position:absolute; inset:0; backface-visibility:hidden; background:var(--card); border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,.08); display:flex; flex-direction:column; justify-content:center; align-items:center; padding:1.5rem; text-align:center; overflow-y:auto; }
   .card-face.back { transform:rotateY(180deg); }
   .card-label { position:absolute; top:.8rem; left:1rem; font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
-  .card-text { font-size:1.05rem; font-weight:600; line-height:1.35; white-space:pre-line; text-align:left; width:100%; }
+  .card-text { font-size:1rem; font-weight:600; line-height:1.35; white-space:pre-line; text-align:left; width:100%; }
   .card-sub { font-size:.75rem; color:var(--muted); margin-top:.6rem; text-align:left; width:100%; }
   .hint { font-size:.75rem; color:var(--muted); margin-top:.5rem; text-align:center; }
   .progress { font-size:.85rem; color:var(--muted); margin-bottom:.5rem; }
@@ -91,7 +91,7 @@
 </div>
 
 <div class="footer">
-  Grundlage: M2-IGTCM-Punkte-Liste, M2-TuiNa-Griffe-Liste, Deadman/Macciocia, WHO.<br>
+  Grundlage: IGTCM-Punkte- und Tuina-Listen, TCM Fachverband Tuina-Grundgriffe, Deadman/Macciocia, WHO.<br>
   Diese Lernhilfe ist unabhängig und nicht offiziell von IGTCM oder einer Prüfungsinstitution herausgegeben.
 </div>
 
@@ -115,8 +115,59 @@ const punkteData = [
 ["Bafeng","M-LE-8"],["Baichongwo","M-LE-34"],["Baxie","M-UE-22"],["Bitong","M-HN-14"],["Dingchuan","M-BW-1"],["Erbai","M-UE-29"],["Erjian","M-HN-10"],["Heding","M-LE-27"],["Huatuojiaji","M-BW-35"],["Jianneiling","M-UE-48"],["Luozhen","M-UE-24"],["Shiqizhizhuixia","M-BW-25"],["Shixuan","M-UE-1"],["Sifeng","M-UE-9"],["Sishencong","M-HN-1"],["Taiyang","M-HN-9"],["Xiyan","M-LE-16"],["Yaotongxue","N-UE-19"],["Yaoyan","M-BW-24"],["Yintang","M-HN-3"],["Yishu","M-BW-12"],["Yuyao","M-HN-6"],["Zigong","M-CA-18"]
 ];
 
+/* ---- TuiNa: 32 Griffe mit Wirkung ---- */
 const tuinaData = [
-[1,"TUI FA","Schieben"],[2,"MA FA","Ausstreichen, Streichen"],[3,"SHU FA","Kämmen"],[4,"YI ZHI CHAN FA","1 Finger-Meditationstechnik"],[5,"NA FA","Greifen"],[6,"NIE FA","Kneifen"],[7,"NIE JI FA","Hautkneifen, Rollen über der Wirbelsäule"],[8,"NIAN FA","Twisten"],[9,"TAN JIN FA","Sehnen Zupfen"],[10,"AN FA","Pressen, Drücken"],[11,"DIAN AN FA","Punktuelles Pressen, Drücken"],[12,"QIA FA","Spitzes, tiefes Pressen"],[13,"TAN BO FA","Rutschen"],[14,"MO FA","Reiben"],[15,"ROU FA","Friktionieren, kreisendes stationäres Pressen"],[16,"CUO FA","Quirlen"],[17,"GUN FA","Rollen"],[18,"CA FA","Hin- und her reiben"],[19,"YAO FA","Rotieren"],[20,"BAN FA","Gelenkmobilisation, Repositionstechnik"],[21,"BA SHEN FA","Traktion, Dehnen"],[22,"QU SHEN FA","Beugen und Strecken, Flexion und Extension"],[23,"BEI FA","Aufladen der Patient:in auf Rücken der Therapeut:in"],[24,"ZHEN FA","Vibrieren"],[25,"DOU FA","Schütteln"],[26,"HUANG FA","Schwingen"],[27,"JI FA","Starkes Klopfen mit der geballten Faust"],[28,"CE JI FA","Klopfen mit Kleinfingerkanten"],[29,"ZHUO JI FA","Picken"],[30,"PAI JI FA","Klatschen"],[31,"TAN JI FA","Spicken"],[32,"DIAN JI FA","Punkt beklopfen"]
+  { nr:1, py:"TUI FA", de:"Schieben", wirkung:"Qi- und Blutzirkulation fördern, Stasen lösen, Meridiane durchgängig machen, Bänder/Sehnen/Gelenke lösen und mobilisieren", ton:"ambivalent: langsam/gleichmässig = tonisierend; schnell/kräftig = bewegend/sedierend" },
+  { nr:2, py:"MA FA", de:"Ausstreichen, Streichen", wirkung:"Qi- und Blutstasen lösen, pathogene Faktoren ausleiten, Körper und Geist beruhigen", ton:"eher sedierend/ableitend (oberflächlich, ausstreichend)" },
+  { nr:3, py:"SHU FA", de:"Kämmen", wirkung:"Kopf und Sinnesorgane klären, Qi bewegen, entspannen", ton:"eher tonisierend/beruhigend" },
+  { nr:4, py:"YI ZHI CHAN FA", de:"1 Finger-Meditationstechnik", wirkung:"Qi und Blut regulieren, innere Disharmonien ausgleichen, beruhigen", ton:"ambivalent: langsam = tonisierend; schnell = sedierend" },
+  { nr:5, py:"NA FA", de:"Greifen", wirkung:"Muskeln und Sehnen greifen und lösen, Qi und Blut bewegen, Gelenke mobilisieren", ton:"ambivalent: kräftig = bewegend; sanft = tonisierend" },
+  { nr:6, py:"NIE FA", de:"Kneifen", wirkung:"Haut und Muskulatur stimulieren, Qi und Blut bewegen, Schmerz lindern", ton:"eher sedierend/stark stimulierend" },
+  { nr:7, py:"NIE JI FA", de:"Hautkneifen, Rollen über der Wirbelsäule", wirkung:"Du Mai und Blasenleitbahn stimulieren, Qi und Yang bewegen, Rücken entspannen", ton:"eher tonisierend bei sanfter Ausführung" },
+  { nr:8, py:"NIAN FA", de:"Twisten", wirkung:"Gelenke und Weichteile lockern, Qi und Blut bewegen", ton:"ambivalent" },
+  { nr:9, py:"TAN JIN FA", de:"Sehnen Zupfen", wirkung:"Sehnen und Muskeln lösen, Krämpfe lösen, Schmerz stillen", ton:"eher sedierend bei akuten Verspannungen" },
+  { nr:10, py:"AN FA", de:"Pressen, Drücken", wirkung:"Qi und Blut regulieren, Organe beeinflussen, Schmerz lindern, beruhigen", ton:"ambivalent: langsam/sanft = tonisierend; stark/kurz = sedierend" },
+  { nr:11, py:"DIAN AN FA", de:"Punktuelles Pressen, Drücken", wirkung:"Gezielt auf Punkte wirken, Qi bewegen, Schmerz lindern", ton:"ambivalent je nach Druck und Dauer" },
+  { nr:12, py:"QIA FA", de:"Spitzes, tiefes Pressen", wirkung:"Tiefe Strukturen erreichen, Qi bewegen, Schmerz lösen", ton:"eher sedierend" },
+  { nr:13, py:"TAN BO FA", de:"Rutschen", wirkung:"Muskel- und Sehnenverspannung lösen, Krampf lösen, Schmerzen stillen", ton:"eher sedierend bei Verspannungen" },
+  { nr:14, py:"MO FA", de:"Reiben", wirkung:"Qi und Blut bewegen, erwärmen, entspannen, Verdauung fördern", ton:"eher tonisierend (wärmend, sanft)" },
+  { nr:15, py:"ROU FA", de:"Friktionieren, kreisendes stationäres Pressen", wirkung:"Qi und Blut regulieren, Gewebe erwärmen, Schmerz lindern, Organe beeinflussen", ton:"ambivalent: langsam = tonisierend; schnell = bewegend" },
+  { nr:16, py:"CUO FA", de:"Quirlen", wirkung:"Gewebe erwärmen, Qi und Blut bewegen, entspannen", ton:"eher tonisierend (wärmend)" },
+  { nr:17, py:"GUN FA", de:"Rollen", wirkung:"Muskulatur lockern, Qi und Blut bewegen, Gelenke mobilisieren", ton:"ambivalent" },
+  { nr:18, py:"CA FA", de:"Hin- und her reiben", wirkung:"Haut stark erwärmen, Qi und Blut fördern, Blockaden lösen, Wind beseitigen", ton:"eher öffnend/ableitend (stark wärmend)" },
+  { nr:19, py:"YAO FA", de:"Rotieren", wirkung:"Gelenke mobilisieren, Qi und Blut bewegen, Verspannungen lösen", ton:"ambivalent" },
+  { nr:20, py:"BAN FA", de:"Gelenkmobilisation, Repositionstechnik", wirkung:"Gelenke mobilisieren, Blockaden lösen, Fehlstellungen korrigieren", ton:"eher sedierend/bewegend" },
+  { nr:21, py:"BA SHEN FA", de:"Traktion, Dehnen", wirkung:"Gelenke dehnen, Sehnen und Bänder lockern, Qi und Blut bewegen", ton:"eher sedierend bei Verspannungen" },
+  { nr:22, py:"QU SHEN FA", de:"Beugen und Strecken", wirkung:"Gelenke mobilisieren, Beweglichkeit fördern, Qi und Blut bewegen", ton:"ambivalent" },
+  { nr:23, py:"BEI FA", de:"Aufladen der Patient:in auf Rücken der Therapeut:in", wirkung:"Wirbelsäule dehnen, Gelenke entlasten, Qi und Blut bewegen", ton:"eher sedierend" },
+  { nr:24, py:"ZHEN FA", de:"Vibrieren", wirkung:"Qi und Blut bewegen, Muskulatur entspannen, Schmerz lindern, beruhigen", ton:"ambivalent: fein = tonisierend; stark = sedierend" },
+  { nr:25, py:"DOU FA", de:"Schütteln", wirkung:"Sehnen, Bänder und Gelenke lockern und entspannen, Qi und Blutblockaden lösen", ton:"eher sedierend/lockernd" },
+  { nr:26, py:"HUANG FA", de:"Schwingen", wirkung:"Gelenke und Weichteile lockern, Qi und Blut bewegen, entspannen", ton:"eher sedierend" },
+  { nr:27, py:"JI FA", de:"Starkes Klopfen mit der geballten Faust", wirkung:"Muskulatur stimulieren, Qi und Blut bewegen, Blockaden lösen", ton:"eher sedierend/stark stimulierend" },
+  { nr:28, py:"CE JI FA", de:"Klopfen mit Kleinfingerkanten", wirkung:"Muskulatur stimulieren, Qi und Blut bewegen, entspannen", ton:"ambivalent" },
+  { nr:29, py:"ZHUO JI FA", de:"Picken", wirkung:"Haut und Muskulatur stimulieren, Qi und Blut bewegen, entspannen", ton:"eher tonisierend/leicht" },
+  { nr:30, py:"PAI JI FA", de:"Klatschen", wirkung:"Muskulatur stimulieren, Qi und Blut bewegen, entspannen", ton:"ambivalent" },
+  { nr:31, py:"TAN JI FA", de:"Spicken", wirkung:"Gezielt Muskulatur stimulieren, Qi und Blut bewegen, Verspannungen lösen", ton:"eher sedierend" },
+  { nr:32, py:"DIAN JI FA", de:"Punkt beklopfen", wirkung:"Gezielt Punkte stimulieren, Qi bewegen, Schmerz lindern", ton:"ambivalent" }
+];
+
+/* ---- TuiNa: Konzept- und Zusatzkarten ---- */
+const tuinaKonzeptData = [
+  {
+    frage: "Tonisieren vs. Sedieren in TuiNa: Allgemeine Regel?",
+    antwort: "Allgemeine Regel (gilt als Orientierung, nicht starr):\n\nTonisieren (stärkend): langsam, sanft, gleichmässig, oft entlang der Meridianrichtung.\n\nSedieren (ableitend): schnell, kräftig, oft gegen die Meridianrichtung.\n\nWichtig: Die Wirkung ist griffspezifisch. Manche Griffe sind von Natur aus eher tonisierend (z. B. MO FA, CUO FA), andere eher sedierend (z. B. NIE FA, JI FA). Bei vielen Griffen entscheidet die Ausführung (Tempo, Druck, Frequenz). Die IGTCM-Prüfung verlangt, dass du Griffe gemäss tonisieren/sedieren korrekt durchführst und erklärst.",
+    sub: "TuiNa – Prinzipien"
+  },
+  {
+    frage: "TuiNa: Indikationen und Kontraindikationen?",
+    antwort: "Indikationen (Auswahl): Beschwerden des Bewegungsapparates (Rücken-, Nacken-, Schulterschmerz, Gelenkprobleme), Muskelverspannungen, Stress, vegetative Dysregulation, Verdauungsstörungen, Schlafstörungen.\n\nKontraindikationen (Auswahl): akute Infekte/Fieber, offene Wunden, Frakturen, schwere Osteoporose, Tumore, akute Entzündungen, Blutungsneigung, schwere Herz-Kreislauf-Erkrankungen, Schwangerschaft (bestimmte Punkte/Griffe).\n\nHinweis: Die IGTCM nennt Indikationen und Kontraindikationen als Lernziel für Tuina.",
+    sub: "TuiNa – Indikationen/Kontraindikationen"
+  },
+  {
+    frage: "Welche Tuina-Griffe kombinierst du typischerweise für eine Rückenbehandlung?",
+    antwort: "Typischer Ablauf (Beispiel):\n\n1. MO FA (Ausstreichen) – Eröffnung, oberflächliche Entspannung.\n2. ROU FA (Friktionieren) – tiefere Gewebearbeit, Wärme.\n3. AN FA (Pressen/Drücken) – gezielte Punkte/Druckpunkte.\n4. TUI FA (Schieben) – Meridianarbeit.\n5. Abschluss: CA FA (Hin- und Herreiben) oder DOU FA (Schütteln) – Entspannung.\n\nDie genaue Kombination richtet sich nach Befund und Ziel (tonisieren/sedieren).",
+    sub: "TuiNa – Kombinationen"
+  }
 ];
 
 const gruppenData = [
@@ -142,7 +193,7 @@ const gruppenData = [
     konzept: { frage: "Hui-Versammlungspunkte: Funktion? Lokalisation?", antwort: "Acht Punkte, an denen sich Qi bestimmter Gewebe und Funktionen versammelt. Kernwirkung: gezielte Behandlung von Geweben wie Blut, Sehnen, Knochen, Gefäße, Organe, Qi, Mark und Nahrung." },
     liste: { frage: "Welche Punkte gehören zu den Hui-Versammlungspunkten (nach Gewebe)?", antwort: "Blut: Bl 17 (Geshu)\nSehnen: Gb 34 (Yanglingquan)\nKnochen: Bl 11 (Dazhu)\nGefäße: Lu 9 (Taiyuan)\nZang: Le 13 (Zhangmen)\nFu: Ren 12 (Zhongwan)\nQi: Ren 17 (Tanzhong)\nMark: Du 16 (Fengfu)" } },
   { id: "himmelsfenster", name: "Himmelsfensterpunkte (Window of Heaven)",
-    konzept: { frage: "Himmelsfensterpunkte: Funktion? Lokalisation?", antwort: "Punkte am Hals und oberen Rumpf, die den Qi-Fluss zwischen Körper und Kopf regulieren. Kernwirkung: bei aufsteigendem rebellischem Qi, Kopfschmerz, Schwindel, plötzlichem Hörverlust, Sprachverlust und Sehstörungen. Klassische Quelle Su Wen Kap. 21 nennt 5 Punkte; spätere Kommentare erweitern auf 10. Die Liste ist in der Literatur nicht vollständig einheitlich." },
+    konzept: { frage: "Himmelsfensterpunkte: Funktion? Lokalisation?", antwort: "Punkte am Hals und oberen Rumpf, die den Qi-Fluss zwischen Körper und Kopf regulieren. Kernwirkung: bei aufsteigendem rebellischem Qi, Kopfschmerz, Schwindel, plötzlichem Hörverlust, Sprachverlust und Sehstörungen. Klassische Quelle Su Wen Kap. 21 nennt 5 Punkte; spätere Kommentare erweitern auf 10." },
     liste: { frage: "Welche Punkte gehören zu den Himmelsfensterpunkten (gängige 10er-Liste)?", antwort: "Lu 3 (Tianfu)\nDi 18 (Futu)\nMa 9 (Renying)\nDü 16 (Tianchuang)\nDü 17 (Tianrong)\nBl 10 (Tianzhu)\nSJ 16 (Tianyou)\nGb 9 (Tianchong)\nRen 22 (Tiantu)\nDu 16 (Fengfu)\n\nHinweis: In manchen Quellen wird Dü 17 durch Gb 9 ersetzt; die 5er-Liste des Su Wen umfasst Lu 3, Ma 9, Di 18, SJ 16, Bl 10." } },
   { id: "meister", name: "Meisterpunkte (regionale Meister)",
     konzept: { frage: "Meisterpunkte (regionale Meister): Funktion?", antwort: "Punkte mit besonders starker Wirkung auf bestimmte Körperregionen oder Symptomkomplexe. Kernwirkung: gezielte regionale Behandlung und Symptomkontrolle. Abzugrenzen von den Hui-Punkten (8 Gewebe), die eine eigene Gruppe bilden." },
@@ -151,7 +202,7 @@ const gruppenData = [
     konzept: { frage: "Vagus-Aktivierung: Was ist damit gemeint? (moderne Ergänzung)", antwort: "Moderne Forschungsformulierung, keine klassische Punktgruppe. Bestimmte Punkte werden mit vagaler Modulation in Verbindung gebracht. Klinisch diskutiert bei Stress, Entzündung und autonomer Dysregulation. Bitte getrennt von den klassischen Gruppen lernen; die M2-Prüfung folgt klassischen Kategorien." },
     liste: { frage: "Welche Punkte werden in der modernen Literatur mit Vagus-Aktivierung assoziiert?", antwort: "Sishencong (M-HN-1) – in einer Studie mit vagaler Aktivierung assoziiert\nMa 36 (Zusanli) – häufig in vegetativen Protokollen\nPe 6 (Neiguan) – Übelkeit, vegetativ\nOhrakupunktur (z. B. Punkt Shenmen) – vagale Stimulation in der Forschung\n\nHinweis: Keine klassische Gruppe. Die genannten Punkte sind Forschungshinweise, keine M2-Prüfungsliste." } },
   { id: "heavenlystar", name: "Heavenly Star Points (Ma Dan Yang)",
-    konzept: { frage: "Heavenly Star Points nach Ma Dan Yang: Funktion?", antwort: "12 Punkte, die nach Ma Dan Yang benannt sind und in der Ode vom Jade-Drachen beschrieben wurden. Kernaussage: Diese 12 Punkte sollen ausreichen, um viele Disharmonien zu behandeln. Sie liegen alle distal von Ellbogen oder Knie (außer Gb 30) und decken die sechs Yang- und Yin-Schichten ab. Deadman verwendet die 12er-Liste als Lern- und Praxiskonzept." },
+    konzept: { frage: "Heavenly Star Points nach Ma Dan Yang: Funktion?", antwort: "12 Punkte, die nach Ma Dan Yang benannt sind und in der Ode vom Jade-Drachen beschrieben wurden. Kernaussage: Diese 12 Punkte sollen ausreichen, um viele Disharmonien zu behandeln. Sie liegen alle distal von Ellbogen oder Knie (außer Gb 30). Deadman verwendet die 12er-Liste als Lern- und Praxiskonzept." },
     liste: { frage: "Welche 12 Punkte gehören zu den Heavenly Star Points nach Ma Dan Yang?", antwort: "Lu 7 (Lieque)\nDi 4 (Hegu)\nDi 11 (Quchi)\nMa 36 (Zusanli)\nMa 44 (Neiting)\nHe 5 (Tongli)\nBl 40 (Weizhong)\nBl 57 (Chengshan)\nBl 60 (Kunlun)\nGb 30 (Huantiao)\nGb 34 (Yanglingquan)\nLe 3 (Taichong)" } },
   { id: "shen", name: "Shen-Punkte",
     konzept: { frage: "Shen-Punkte: Funktion?", antwort: "Punkte mit besonderer Wirkung auf den Shen (Geist). Viele tragen Shen im Namen. Kernwirkung: beruhigen den Geist, klären den Sinn, behandeln Unruhe, Angst, Schlaflosigkeit und emotionale Disharmonien." },
@@ -244,7 +295,20 @@ fuenfShuData.forEach(g => {
   themen.push({ id: "fs_" + g.id + "_liste", label: g.name + " – Punkte/Elemente", kategorie: "Fünf Shu-Punkte", builder: () => [{ front: g.liste.frage, back: g.liste.antwort, sub: g.name }] });
 });
 
-themen.push({ id: "tuina", label: "TuiNa-Griffe (alle 32)", kategorie: "TuiNa", builder: () => tuinaData.map(([nr, py, de]) => ({ front: py, back: de, sub: "Nr. " + nr })) });
+/* TuiNa: Konzeptkarten + 32 Griffe (mit Wirkung) */
+tuinaKonzeptData.forEach(d => {
+  themen.push({ id: "tuina_konzept_" + Math.random().toString(36).slice(2,8), label: d.frage.slice(0, 50) + "…", kategorie: "TuiNa", builder: () => [{ front: d.frage, back: d.antwort, sub: d.sub || "" }] });
+});
+
+tuinaData.forEach(g => {
+  themen.push({
+    id: "tuina_griff_" + g.nr,
+    label: g.py + " – " + g.de,
+    kategorie: "TuiNa",
+    builder: () => [{ front: g.py, back: g.de + "\n\nWirkung: " + g.wirkung + "\n\nTonisieren/Sedieren: " + g.ton, sub: "Nr. " + g.nr }]
+  });
+});
+
 themen.push({ id: "kombi", label: "Punktkombinationen", kategorie: "Punktkombinationen", builder: () => kombiData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
 themen.push({ id: "zungpuls", label: "Zunge & Puls", kategorie: "Zunge & Puls", builder: () => zungpulsData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
 themen.push({ id: "muster", label: "TCM-Muster (Macciocia)", kategorie: "TCM-Muster", builder: () => musterData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
@@ -280,7 +344,6 @@ function buildTopicUI() {
     const catCb = document.createElement("input");
     catCb.type = "checkbox";
     catCb.checked = true;
-    catCb.dataset.cat = kat;
     titleLabel.appendChild(catCb);
     titleLabel.appendChild(document.createTextNode(" " + kat + " (alle)"));
     groupDiv.appendChild(titleLabel);
