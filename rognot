@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M2 TCM Lernkarten (CH)</title>
+<style>
+  :root {
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --primary: #2c5f7c;
+    --accent: #e8b04b;
+    --text: #1f2d3a;
+    --muted: #6b7c8c;
+    --border: #cdd6de;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+  header { text-align: center; margin-bottom: 1rem; }
+  h1 { font-size: 1.4rem; margin: 0 0 .3rem; color: var(--primary); }
+  .subtitle { font-size: .85rem; color: var(--muted); }
+
+  .panel {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    max-width: 760px;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .panel h2 {
+    font-size: .95rem;
+    margin: 0 0 .6rem;
+    color: var(--primary);
+  }
+  .quick-btns { display: flex; gap: .5rem; margin-bottom: .8rem; flex-wrap: wrap; }
+  .quick-btns button {
+    font-size: .8rem;
+    padding: .35rem .7rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: #fff;
+    cursor: pointer;
+  }
+  .quick-btns button:hover { background: #eef3f7; }
+
+  .topic-group { margin-bottom: .8rem; }
+  .topic-group > .group-title {
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: .3rem;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: .2rem;
+  }
+  .topic-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: .25rem .8rem;
+  }
+  .topic-items label {
+    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    cursor: pointer;
+  }
+  .topic-items input { accent-color: var(--primary); }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    justify-content: center;
+    margin-bottom: .8rem;
+    max-width: 760px;
+    width: 100%;
+  }
+  select, button {
+    font-size: .9rem;
+    padding: .5rem .8rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    cursor: pointer;
+  }
+  button.primary { background: var(--primary); color: #fff; border: none; }
+  button.primary:hover { background: #234b62; }
+
+  .card-wrap {
+    perspective: 1200px;
+    width: 100%;
+    max-width: 600px;
+    height: 360px;
+    margin-bottom: 1rem;
+  }
+  .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform .5s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+  }
+  .card.flipped { transform: rotateY(180deg); }
+  .card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    background: var(--card);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    text-align: center;
+    overflow-y: auto;
+  }
+  .card-face.back { transform: rotateY(180deg); }
+  .card-label {
+    position: absolute;
+    top: .8rem;
+    left: 1rem;
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+  }
+  .card-text {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.35;
+    white-space: pre-line;
+    text-align: left;
+    width: 100%;
+  }
+  .card-sub { font-size: .8rem; color: var(--muted); margin-top: .6rem; text-align: left; width: 100%; }
+  .hint { font-size: .75rem; color: var(--muted); margin-top: .5rem; text-align: center; }
+  .progress { font-size: .85rem; color: var(--muted); margin-bottom: .5rem; }
+  .nav { display: flex; gap: .5rem; }
+  .nav button { min-width: 100px; }
+  .footer { margin-top: 2rem; font-size: .75rem; color: var(--muted); text-align: center; max-width: 600px; }
+  .footer a { color: var(--primary); }
+  .empty-note { color: var(--muted); font-size: .9rem; text-align: center; padding: 2rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>M2 TCM Lernkarten</h1>
+  <div class="subtitle">Kostenlos für jetzige und zukünftige M2-Studierende · Schweiz</div>
+</header>
+
+<div class="panel">
+  <h2>Themen auswählen</h2>
+  <div class="quick-btns">
+    <button id="selectAll">Alle auswählen</button>
+    <button id="selectNone">Alle abwählen</button>
+  </div>
+  <div id="topicContainer"></div>
+</div>
+
+<div class="controls">
+  <select id="direction">
+    <option value="normal">Richtung: Frage → Antwort</option>
+    <option value="reverse">Richtung: Antwort → Frage</option>
+  </select>
+  <button id="shuffleBtn">Zufällig mischen</button>
+  <button id="resetBtn">Zurücksetzen</button>
+</div>
+
+<div class="progress" id="progress">Keine Karten ausgewählt</div>
+
+<div class="card-wrap">
+  <div class="card" id="card">
+    <div class="card-face front">
+      <span class="card-label" id="frontLabel">Frage</span>
+      <div class="card-text" id="frontText">Bitte Themen auswählen</div>
+      <div class="card-sub" id="frontSub"></div>
+    </div>
+    <div class="card-face back">
+      <span class="card-label" id="backLabel">Antwort</span>
+      <div class="card-text" id="backText">–</div>
+      <div class="card-sub" id="backSub"></div>
+    </div>
+  </div>
+</div>
+
+<div class="hint">Klick auf die Karte dreht sie um. Pfeiltasten ← → blättern. Leertaste dreht.</div>
+
+<div class="nav" style="margin-top:1rem;">
+  <button id="prevBtn">← Zurück</button>
+  <button id="nextBtn" class="primary">Weiter →</button>
+</div>
+
+<div class="footer">
+  Grundlage: M2-IGTCM-Punkte-Liste, M2-TuiNa-Griffe-Liste, Macciocia (Muster &amp; Arzneimittel), WHO-Ergänzungen.<br>
+  Diese Lernhilfe ist unabhängig und nicht offiziell von IGTCM oder einer Prüfungsinstitution herausgegeben.
+</div>
+
+<script>
+/* ============================================================
+   1) DATEN
+   ============================================================ */
+
+// --- Akupunkturpunkte (aus deiner PDF) ---
+const punkteData = [
+["Lu 1","Zhongfu"],["Lu 2","Yunmen"],["Lu 3","Tianfu"],["Lu 4","Xiabai"],["Lu 5","Chize"],["Lu 6","Kongzui"],["Lu 7","Lieque"],["Lu 8","Jingqu"],["Lu 9","Taiyuan"],["Lu 10","Yuji"],["Lu 11","Shaoshang"],
+["Di 1","Shangyang"],["Di 2","Erjian"],["Di 3","Sanjian"],["Di 4","Hegu"],["Di 5","Yangxi"],["Di 6","Pianli"],["Di 7","Wenliu"],["Di 8","Xialian"],["Di 9","Shanglian"],["Di 10","Shousanli"],["Di 11","Quchi"],["Di 12","Zhouliao"],["Di 13","Shouwuli"],["Di 14","Binao"],["Di 15","Jianyu"],["Di 16","Jugu"],["Di 17","Tianding"],["Di 18","Futu"],["Di 19","Kouheliao"],["Di 20","Yingxiang"],
+["Ma 1","Chengqi"],["Ma 2","Sibai"],["Ma 3","Juliao"],["Ma 4","Dicang"],["Ma 5","Daying"],["Ma 6","Jiache"],["Ma 7","Xiaguan"],["Ma 8","Touwei"],["Ma 9","Renying"],["Ma 10","Shuitu"],["Ma 11","Qishe"],["Ma 12","Quepen"],["Ma 13","Qihu"],["Ma 14","Kufang"],["Ma 15","Wuyi"],["Ma 16","Yingchuang"],["Ma 17","Ruzhong"],["Ma 18","Rugen"],["Ma 19","Burong"],["Ma 20","Chengman"],["Ma 21","Liangmen"],["Ma 22","Guanmen"],["Ma 23","Taiyi"],["Ma 24","Huaroumen"],["Ma 25","Tianshu"],["Ma 26","Wailing"],["Ma 27","Daju"],["Ma 28","Shuidao"],["Ma 29","Guilai"],["Ma 30","Qichong"],["Ma 31","Biguan"],["Ma 32","Futu"],["Ma 33","Yinshi"],["Ma 34","Liangqiu"],["Ma 35","Dubi"],["Ma 36","Zusanli"],["Ma 37","Shangjuxu"],["Ma 38","Tiaokou"],["Ma 39","Xiajuxu"],["Ma 40","Fenglong"],["Ma 41","Jiexi"],["Ma 42","Chongyang"],["Ma 43","Xiangu"],["Ma 44","Neiting"],["Ma 45","Lidui"],
+["Mi 1","Yinbai"],["Mi 2","Dadu"],["Mi 3","Taibai"],["Mi 4","Gongsun"],["Mi 5","Shangqiu"],["Mi 6","Sanyinjiao"],["Mi 7","Lougu"],["Mi 8","Diji"],["Mi 9","Yinlingquan"],["Mi 10","Xuehai"],["Mi 11","Jimen"],["Mi 12","Chongmen"],["Mi 13","Fushe"],["Mi 14","Fujie"],["Mi 15","Daheng"],["Mi 16","Fuai"],["Mi 17","Shidou"],["Mi 18","Tianxi"],["Mi 19","Xiongxiang"],["Mi 20","Zhourong"],["Mi 21","Dabao"],
+["He 1","Jiquan"],["He 2","Qingling"],["He 3","Shaohai"],["He 4","Lingdao"],["He 5","Tongli"],["He 6","Yinxi"],["He 7","Shenmen"],["He 8","Shaofu"],["He 9","Shaochong"],
+["Dü 1","Shaoze"],["Dü 2","Qiangu"],["Dü 3","Houxi"],["Dü 4","Wangu"],["Dü 5","Yanggu"],["Dü 6","Yanglao"],["Dü 7","Zhizheng"],["Dü 8","Xiaohai"],["Dü 9","Jianzhen"],["Dü 10","Naoshu"],["Dü 11","Tianzong"],["Dü 12","Bingfeng"],["Dü 13","Quyuan"],["Dü 14","Jianwaishu"],["Dü 15","Jianzhongshu"],["Dü 16","Tianchuang"],["Dü 17","Tianrong"],["Dü 18","Quanliao"],["Dü 19","Tinggong"],
+["Bl 1","Jingming"],["Bl 2","Zanzhu"],["Bl 3","Meichong"],["Bl 4","Quchai"],["Bl 5","Wuchu"],["Bl 6","Chengguang"],["Bl 7","Tongtian"],["Bl 8","Luoque"],["Bl 9","Yuzhen"],["Bl 10","Tianzhu"],["Bl 11","Dazhu"],["Bl 12","Fengmen"],["Bl 13","Feishu"],["Bl 14","Jueyinshu"],["Bl 15","Xinshu"],["Bl 16","Dushu"],["Bl 17","Geshu"],["Bl 18","Ganshu"],["Bl 19","Danshu"],["Bl 20","Pishu"],["Bl 21","Weishu"],["Bl 22","Sanjiaoshu"],["Bl 23","Shenshu"],["Bl 24","Qihaishu"],["Bl 25","Dachangshu"],["Bl 26","Guanyuanshu"],["Bl 27","Xiaochangshu"],["Bl 28","Pangguangshu"],["Bl 29","Zhonglushu"],["Bl 30","Baihuanshu"],["Bl 31","Shangliao"],["Bl 32","Ciliao"],["Bl 33","Zhongliao"],["Bl 34","Xialiao"],["Bl 35","Huiyang"],["Bl 36","Chengfu"],["Bl 37","Yinmen"],["Bl 38","Fuxi"],["Bl 39","Weiyang"],["Bl 40","Weizhong"],["Bl 41","Fufen"],["Bl 42","Pohu"],["Bl 43","Gaohuangshu"],["Bl 44","Shentang"],["Bl 45","Yixi"],["Bl 46","Geguan"],["Bl 47","Hunmen"],["Bl 48","Yanggang"],["Bl 49","Yishe"],["Bl 50","Weicang"],["Bl 51","Huangmen"],["Bl 52","Zhishi"],["Bl 53","Baohuang"],["Bl 54","Zhibian"],["Bl 55","Heyang"],["Bl 56","Chengjin"],["Bl 57","Chengshan"],["Bl 58","Feiyang"],["Bl 59","Fuyang"],["Bl 60","Kunlun"],["Bl 61","Pucan"],["Bl 62","Shenmai"],["Bl 63","Jinmen"],["Bl 64","Jinggu"],["Bl 65","Shugu"],["Bl 66","Zutonggu"],["Bl 67","Zhiyin"],
+["Ni 1","Yongquan"],["Ni 2","Rangu"],["Ni 3","Taixi"],["Ni 4","Dazhong"],["Ni 5","Shuiquan"],["Ni 6","Zhaohai"],["Ni 7","Fuliu"],["Ni 8","Jiaoxin"],["Ni 9","Zhubin"],["Ni 10","Yingu"],["Ni 11","Henggu"],["Ni 12","Dahe"],["Ni 13","Qixue"],["Ni 14","Siman"],["Ni 15","Zhongzhu"],["Ni 16","Huangshu"],["Ni 17","Shangqu"],["Ni 18","Shiguan"],["Ni 19","Yindu"],["Ni 20","Futonggu"],["Ni 21","Youmen"],["Ni 22","Bulang"],["Ni 23","Shenfeng"],["Ni 24","Lingxu"],["Ni 25","Shencang"],["Ni 26","Yuzhong"],["Ni 27","Shufu"],
+["Pe 1","Tianchi"],["Pe 2","Tianchuan"],["Pe 3","Quze"],["Pe 4","Ximen"],["Pe 5","Jianshi"],["Pe 6","Neiguan"],["Pe 7","Daling"],["Pe 8","Laogong"],["Pe 9","Zhongchong"],
+["SJ 1","Guanchong"],["SJ 2","Yemen"],["SJ 3","Zhongzhu"],["SJ 4","Yangchi"],["SJ 5","Waiguan"],["SJ 6","Zhigou"],["SJ 7","Huizong"],["SJ 8","Sanyangluo"],["SJ 9","Sidu"],["SJ 10","Tianjing"],["SJ 11","Qinglengyuan"],["SJ 12","Xiaoluo"],["SJ 13","Naohui"],["SJ 14","Jianliao"],["SJ 15","Tianliao"],["SJ 16","Tianyou"],["SJ 17","Yifeng"],["SJ 18","Qimai"],["SJ 19","Luxi"],["SJ 20","Jiaosun"],["SJ 21","Ermen"],["SJ 22","Erheliao"],["SJ 23","Sizhukong"],
+["Gb 1","Tongziliao"],["Gb 2","Tinghui"],["Gb 3","Shangguan"],["Gb 4","Hanyan"],["Gb 5","Xuanlu"],["Gb 6","Xuanli"],["Gb 7","Qubin"],["Gb 8","Shuaigu"],["Gb 9","Tianchong"],["Gb 10","Fubai"],["Gb 11","Touqiaoyin"],["Gb 12","Wangu"],["Gb 13","Benshen"],["Gb 14","Yangbai"],["Gb 15","Toulingqi"],["Gb 16","Muchuang"],["Gb 17","Zhengying"],["Gb 18","Chengling"],["Gb 19","Naokong"],["Gb 20","Fengchi"],["Gb 21","Jianjing"],["Gb 22","Yuanye"],["Gb 23","Zhejin"],["Gb 24","Riyue"],["Gb 25","Jingmen"],["Gb 26","Daimai"],["Gb 27","Wushu"],["Gb 28","Weidao"],["Gb 29","Juliao"],["Gb 30","Huantiao"],["Gb 31","Fengshi"],["Gb 32","Zhongdu"],["Gb 33","Xiyangguan"],["Gb 34","Yanglingquan"],["Gb 35","Yangjiao"],["Gb 36","Waiqiu"],["Gb 37","Guangming"],["Gb 38","Yangfu"],["Gb 39","Xuanzhong"],["Gb 40","Qiuxu"],["Gb 41","Zulinqi"],["Gb 42","Diwuhiu"],["Gb 43","Xiaxi"],["Gb 44","Zuqiaoyin"],
+["Le 1","Dadun"],["Le 2","Xingjian"],["Le 3","Taichong"],["Le 4","Zhongfeng"],["Le 5","Ligou"],["Le 6","Zhongdu"],["Le 7","Xiguan"],["Le 8","Ququan"],["Le 9","Yinbao"],["Le 10","Zuwuli"],["Le 11","Yinlian"],["Le 12","Jimai"],["Le 13","Zhangmen"],["Le 14","Qimen"],
+["Du 1","Changqiang"],["Du 2","Yaoshu"],["Du 3","Yiaoyangguan"],["Du 4","Mingmen"],["Du 5","Xuanshu"],["Du 6","Jizhong"],["Du 7","Zhongshu"],["Du 8","Jinsuo"],["Du 9","Zhiyang"],["Du 10","Lingtai"],["Du 11","Shendao"],["Du 12","Shenzhu"],["Du 13","Taodao"],["Du 14","Dazhui"],["Du 15","Yamen"],["Du 16","Fengfu"],["Du 17","Naohu"],["Du 18","Qiangjian"],["Du 19","Houding"],["Du 20","Baihui"],["Du 21","Qianding"],["Du 22","Xinhui"],["Du 23","Shangxing"],["Du 24","Shenting"],["Du 25","Suliao"],["Du 26","Renzhong"],["Du 27","Duiduan"],["Du 28","Yinjiao"],
+["Ren 1","Huiyin"],["Ren 2","Qugu"],["Ren 3","Zhongji"],["Ren 4","Guanyuan"],["Ren 5","Shimen"],["Ren 6","Qihai"],["Ren 7","Yinjiao"],["Ren 8","Shenque"],["Ren 9","Shuifen"],["Ren 10","Xiawan"],["Ren 11","Jianli"],["Ren 12","Zhongwan"],["Ren 13","Shangwan"],["Ren 14","Juque"],["Ren 15","Jiuwei"],["Ren 16","Zhongting"],["Ren 17","Tanzhong"],["Ren 18","Yutang"],["Ren 19","Zigong"],["Ren 20","Huagai"],["Ren 21","Xuanji"],["Ren 22","Tiantu"],["Ren 23","Lianquan"],["Ren 24","Chengjiang"],
+["Bafeng","M-LE-8"],["Baichongwo","M-LE-34"],["Baxie","M-UE-22"],["Bitong","M-HN-14"],["Dingchuan","M-BW-1"],["Erbai","M-UE-29"],["Erjian","M-HN-10"],["Heding","M-LE-27"],["Huatuojiaji","M-BW-35"],["Jianneiling","M-UE-48"],["Luozhen","M-UE-24"],["Shiqizhizhuixia","M-BW-25"],["Shixuan","M-UE-1"],["Sifeng","M-UE-9"],["Sishencong","M-HN-1"],["Taiyang","M-HN-9"],["Xiyan","M-LE-16"],["Yaotongxue","N-UE-19"],["Yaoyan","M-BW-24"],["Yintang","M-HN-3"],["Yishu","M-BW-12"],["Yuyao","M-HN-6"],["Zigong","M-CA-18"]
+];
+
+// --- TuiNa-Griffe (aus deiner PDF) ---
+const tuinaData = [
+[1,"TUI FA","Schieben"],[2,"MA FA","Ausstreichen, Streichen"],[3,"SHU FA","Kämmen"],[4,"YI ZHI CHAN FA","1 Finger-Meditationstechnik"],[5,"NA FA","Greifen"],[6,"NIE FA","Kneifen"],[7,"NIE JI FA","Hautkneifen, Rollen über der Wirbelsäule"],[8,"NIAN FA","Twisten"],[9,"TAN JIN FA","Sehnen Zupfen"],[10,"AN FA","Pressen, Drücken"],[11,"DIAN AN FA","Punktuelles Pressen, Drücken"],[12,"QIA FA","Spitzes, tiefes Pressen"],[13,"TAN BO FA","Rutschen"],[14,"MO FA","Reiben"],[15,"ROU FA","Friktionieren, kreisendes stationäres Pressen"],[16,"CUO FA","Quirlen"],[17,"GUN FA","Rollen"],[18,"CA FA","Hin- und her reiben"],[19,"YAO FA","Rotieren"],[20,"BAN FA","Gelenkmobilisation, Repositionstechnik"],[21,"BA SHEN FA","Traktion, Dehnen"],[22,"QU SHEN FA","Beugen und Strecken, Flexion und Extension"],[23,"BEI FA","Aufladen der Patient:in auf Rücken der Therapeut:in"],[24,"ZHEN FA","Vibrieren"],[25,"DOU FA","Schütteln"],[26,"HUANG FA","Schwingen"],[27,"JI FA","Starkes Klopfen mit der geballten Faust"],[28,"CE JI FA","Klopfen mit Kleinfingerkanten"],[29,"ZHUO JI FA","Picken"],[30,"PAI JI FA","Klatschen"],[31,"TAN JI FA","Spicken"],[32,"DIAN JI FA","Punkt beklopfen"]
+];
+
+// --- Gruppen: Konzept + Punkteliste (Platzhalter, wird in Schritt 2/3 gefüllt) ---
+// Jede Gruppe: { id, name, konzept: {frage, antwort}, liste: {frage, antwort} }
+const gruppenData = [
+  {
+    id: "yuan",
+    name: "Yuan-Quellpunkte (Yuan Xue)",
+    konzept: {
+      frage: "Yuan-Quellpunkte: Was ist ihre Funktion? Wo liegen sie typischerweise?",
+      antwort: "Ursprungspunkt des Yuan-Qi eines Organs. Liegen meist distal an Handgelenk/Knöchel. Bei Yin-Meridianen identisch mit dem Shu-Punkt. Kernwirkung: Tonisieren des zugehörigen Zang-Fu, regulieren Qi und Yin. Kombination mit Luo-Punkt = Yuan-Luo-Methode."
+    },
+    liste: {
+      frage: "Welche Punkte gehören zu den Yuan-Quellpunkten (nach Leitbahn)?",
+      antwort: "Lu: Lu 9 (Taiyuan)\nDi: Di 4 (Hegu)\nMa: Ma 42 (Chongyang)\nMi: Mi 3 (Taibai)\nHe: He 7 (Shenmen)\nDü: Dü 4 (Wangu)\nBl: Bl 64 (Jinggu)\nNi: Ni 3 (Taixi)\nPe: Pe 7 (Daling)\nSJ: SJ 4 (Yangchi)\nGb: Gb 40 (Qiuxu)\nLe: Le 3 (Taichong)"
+    }
+  },
+  {
+    id: "luo",
+    name: "Luo-Verbindungspunkte (Luo Xue)",
+    konzept: {
+      frage: "Luo-Verbindungspunkte: Funktion? Lokalisation?",
+      antwort: "Verbinden den Hauptmeridian mit dem gekoppelten Meridian. Liegen distal an Unterarm/Unterschenkel. Kernwirkung: Störungen im gekoppelten Meridian behandeln, Öffnen/Regulieren. Bei chronischen Beschwerden oft kombiniert mit Yuan-Punkt."
+    },
+    liste: {
+      frage: "Welche Punkte gehören zu den Luo-Verbindungspunkten (nach Leitbahn)?",
+      antwort: "Lu: Lu 6 (Kongzui)\nDi: Di 6 (Pianli)\nMa: Ma 40 (Fenglong)\nMi: Mi 4 (Gongsun)\nHe: He 5 (Tongli)\nDü: Dü 7 (Zhizheng)\nBl: Bl 58 (Feiyang)\nNi: Ni 4 (Dazhong)\nPe: Pe 6 (Neiguan)\nSJ: SJ 5 (Waiguan)\nGb: Gb 37 (Guangming)\nLe: Le 5 (Ligou)\nRen: Ren 15 (Jiuwei)\nDu: Du 1 (Changqiang)\nMilz-Groß-Luo: Mi 21 (Dabao)"
+    }
+  },
+  {
+    id: "xi",
+    name: "Xi-Spaltenpunkte (Xi Xue)",
+    konzept: {
+      frage: "Xi-Spaltenpunkte: Funktion? Lokalisation?",
+      antwort: "„Spalten"-Punkte, an denen Qi und Blut sich sammeln. Liegen meist an Gelenkbeugen oder Muskelspalten. Kernwirkung: Akute Störungen, Schmerz, Blut-Stase behandeln. Häufig bei akuten Schmerzzuständen eingesetzt."
+    },
+    liste: {
+      frage: "Welche Punkte gehören zu den Xi-Spaltenpunkten (nach Leitbahn)?",
+      antwort: "Lu: Lu 6 (Kongzui)\nDi: Di 7 (Wenliu)\nMa: Ma 34 (Liangqiu)\nMi: Mi 8 (Diji)\nHe: He 6 (Yinxi)\nDü: Dü 6 (Yanglao)\nBl: Bl 63 (Jinmen)\nNi: Ni 5 (Shuiquan)\nPe: Pe 4 (Ximen)\nSJ: SJ 7 (Huizong)\nGb: Gb 36 (Waiqiu)\nLe: Le 6 (Zhongdu)"
+    }
+  },
+  {
+    id: "mu",
+    name: "Mu-Alarmpunkte (Mu Xue)",
+    konzept: {
+      frage: "Mu-Alarmpunkte: Funktion? Lokalisation?",
+      antwort: "Alarmpunkte auf der Bauch- oder Brustseite, an denen sich Störungen des zugehörigen Zang-Fu-Organs zeigen. Kernwirkung: Diagnostik und Behandlung von Organstörungen, besonders bei akuten Zuständen."
+    },
+    liste: {
+      frage: "Welche Punkte gehören zu den Mu-Alarmpunkten (nach Organ)?",
+      antwort: "Lunge: Lu 1 (Zhongfu)\nDickdarm: Ma 25 (Tianshu)\nMagen: Ren 12 (Zhongwan)\nMilz: Le 13 (Zhangmen)\nHerz: Ren 14 (Juque)\nDünndarm: Ren 4 (Guanyuan)\nBlase: Ren 3 (Zhongji)\nNiere: Gb 25 (Jingmen)\nPerikard: Ren 17 (Tanzhong)\nSanjiao: Ren 5 (Shimen)\nGallenblase: Gb 24 (Riyue)\nLeber: Le 14 (Qimen)"
+    }
+  },
+  {
+    id: "shu",
+    name: "Shu-Zustimmungspunkte (Shu Xue, Rücken)",
+    konzept: {
+      frage: "Shu-Zustimmungspunkte (Rücken): Funktion? Lokalisation?",
+      antwort: "Rückenpunkte, an denen Qi des zugehörigen Zang-Fu-Organs ein- und ausströmt. Liegen 1,5 Cun lateral der Wirbelsäule auf der Blasenleitbahn. Kernwirkung: Tonisieren, Stärken, besonders bei chronischen Zuständen."
+    },
+    liste: {
+      frage: "Welche Punkte gehören zu den Shu-Zustimmungspunkten (nach Organ)?",
+      antwort: "Lunge: Bl 13 (Feishu)\nPerikard: Bl 14 (Jueyinshu)\nHerz: Bl 15 (Xinshu)\nLeber: Bl 18 (Ganshu)\nGallenblase: Bl 19 (Danshu)\nMilz: Bl 20 (Pishu)\nMagen: Bl 21 (Weishu)\nSanjiao: Bl 22 (Sanjiaoshu)\nNiere: Bl 23 (Shenshu)\nDickdarm: Bl 25 (Dachangshu)\nDünndarm: Bl 27 (Xiaochangshu)\nBlase: Bl 28 (Pangguangshu)"
+    }
+  },
+  {
+    id: "unterehe",
+    name: "Untere He-Punkte (Xia He Xue)",
+    konzept: {
+      frage: "Untere He-Punkte: Funktion? Lokalisation?",
+      antwort: "He-Punkte der 6 Fu-Organe, liegen am Unterschenkel. Kernwirkung: Störungen der zugehörigen Fu-Organe behandeln. Wichtig: Nicht alle liegen auf dem Meridian des zugehörigen Fu-Organs."
+    },
+    liste: {
+      frage: "Welche Punkte gehören zu den Unteren He-Punkten (nach Fu-Organ)?",
+      antwort: "Dickdarm: Ma 37 (Shangjuxu)\nDünndarm: Ma 39 (Xiajuxu)\nSanjiao: Bl 39 (Weiyang)\nMagen: Ma 36 (Zusanli)\nGallenblase: Gb 34 (Yanglingquan)\nBlase: Bl 40 (Weizhong)"
+    }
+  },
+  {
+    id: "hui",
+    name: "Hui-Versammlungspunkte (Hui Xue)",
+    konzept: {
+      frage: "Hui-Versammlungspunkte: Funktion? Lokalisation?",
+      antwort: "8 Punkte, an denen sich Qi bestimmter Gewebe/Funktionen versammelt. Kernwirkung: gezielte Behandlung von Geweben (Blut, Sehnen, Knochen, Gefäße, Organe, Qi, Mark, Nahrung)."
+    },
+    liste: {
+      frage: "Welche Punkte gehören zu den Hui-Versammlungspunkten (nach Gewebe)?",
+      antwort: "Blut: Bl 17 (Geshu)\nSehnen: Gb 34 (Yanglingquan)\nKnochen: Bl 11 (Dazhu)\nGefäße: Lu 9 (Taiyuan)\nZang: Le 13 (Zhangmen)\nFu: Ren 12 (Zhongwan)\nQi: Ren 17 (Tanzhong)\nMark: Du 16 (Fengfu)"
+    }
+  }
+];
+
+// --- Punktkombinationen (Platzhalter, wird in Schritt 4 gefüllt) ---
+const kombiData = [
+  {
+    frage: "Wichtige Punktkombination: Beispiel",
+    antwort: "Platzhalter – bitte mit deinen Kombinationen ersetzen (z. B. für Shan Han Lun / Wen Bing).",
+    sub: "Punktkombinationen"
+  }
+];
+
+// --- Zunge & Puls (Platzhalter) ---
+const zungpulsData = [
+  { frage: "Zungenfarbe: Blass", antwort: "Platzhalter – bitte ergänzen", sub: "Zunge" },
+  { frage: "Puls: Saitenförmig (Wiry)", antwort: "Platzhalter – bitte ergänzen", sub: "Puls" }
+];
+
+// --- TCM-Muster (Platzhalter) ---
+const musterData = [
+  { frage: "Muster: Leber-Qi-Stagnation", antwort: "Platzhalter – bitte ergänzen", sub: "Macciocia" }
+];
+
+/* ============================================================
+   2) THEMEN-STRUKTUR (für die Häkchen)
+   ============================================================ */
+
+// Jedes Thema: id, label, kategorie, builder()
+// builder() liefert ein Array von Karten {front, back, sub}
+const themen = [];
+
+// Akupunktur-Gruppen
+gruppenData.forEach(g => {
+  themen.push({
+    id: "gruppe_" + g.id + "_konzept",
+    label: g.name + " – Konzept",
+    kategorie: "Akupunktur-Gruppen",
+    builder: () => [{ front: g.konzept.frage, back: g.konzept.antwort, sub: g.name }]
+  });
+  themen.push({
+    id: "gruppe_" + g.id + "_liste",
+    label: g.name + " – Punkte",
+    kategorie: "Akupunktur-Gruppen",
+    builder: () => [{ front: g.liste.frage, back: g.liste.antwort, sub: g.name }]
+  });
+});
+
+// TuiNa
+themen.push({
+  id: "tuina",
+  label: "TuiNa-Griffe (alle 32)",
+  kategorie: "TuiNa",
+  builder: () => tuinaData.map(([nr, py, de]) => ({
+    front: py,
+    back: de,
+    sub: "Nr. " + nr
+  }))
+});
+
+// Punktkombinationen
+themen.push({
+  id: "kombi",
+  label: "Wichtige Punktkombinationen",
+  kategorie: "Punktkombinationen",
+  builder: () => kombiData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" }))
+});
+
+// Zunge & Puls
+themen.push({
+  id: "zungpuls",
+  label: "Zunge & Puls",
+  kategorie: "Zunge & Puls",
+  builder: () => zungpulsData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" }))
+});
+
+// Muster
+themen.push({
+  id: "muster",
+  label: "TCM-Muster (Macciocia)",
+  kategorie: "TCM-Muster",
+  builder: () => musterData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" }))
+});
+
+/* ============================================================
+   3) LOGIK
+   ============================================================ */
+
+let cards = [];
+let currentIndex = 0;
+
+const cardEl = document.getElementById("card");
+const frontText = document.getElementById("frontText");
+const frontSub = document.getElementById("frontSub");
+const frontLabel = document.getElementById("frontLabel");
+const backText = document.getElementById("backText");
+const backSub = document.getElementById("backSub");
+const backLabel = document.getElementById("backLabel");
+const progress = document.getElementById("progress");
+const directionSel = document.getElementById("direction");
+const topicContainer = document.getElementById("topicContainer");
+
+// Themen-UI aufbauen
+function buildTopicUI() {
+  const kategorien = {};
+  themen.forEach(t => {
+    if (!kategorien[t.kategorie]) kategorien[t.kategorie] = [];
+    kategorien[t.kategorie].push(t);
+  });
+  topicContainer.innerHTML = "";
+  Object.keys(kategorien).forEach(kat => {
+    const groupDiv = document.createElement("div");
+    groupDiv.className = "topic-group";
+    const title = document.createElement("div");
+    title.className = "group-title";
+    title.textContent = kat;
+    groupDiv.appendChild(title);
+    const items = document.createElement("div");
+    items.className = "topic-items";
+    kategorien[kat].forEach(t => {
+      const label = document.createElement("label");
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.value = t.id;
+      cb.checked = true; // standardmäßig alles an
+      cb.addEventListener("change", rebuildCards);
+      label.appendChild(cb);
+      label.appendChild(document.createTextNode(t.label));
+      items.appendChild(label);
+    });
+    groupDiv.appendChild(items);
+    topicContainer.appendChild(groupDiv);
+  });
+}
+
+// Ausgewählte Themen -> Karten
+function rebuildCards() {
+  const checked = Array.from(topicContainer.querySelectorAll("input:checked")).map(cb => cb.value);
+  cards = [];
+  themen.forEach(t => {
+    if (checked.includes(t.id)) {
+      cards = cards.concat(t.builder());
+    }
+  });
+  // Richtung anwenden
+  const reverse = directionSel.value === "reverse";
+  cards = cards.map(c => reverse ? { front: c.back, back: c.front, sub: c.sub } : c);
+  currentIndex = 0;
+  render();
+}
+
+function render() {
+  if (!cards.length) {
+    frontText.textContent = "Bitte mindestens ein Thema auswählen.";
+    frontSub.textContent = "";
+    backText.textContent = "–";
+    backSub.textContent = "";
+    progress.textContent = "Keine Karten ausgewählt";
+    cardEl.classList.remove("flipped");
+    return;
+  }
+  const c = cards[currentIndex];
+  frontText.textContent = c.front;
+  frontSub.textContent = c.sub || "";
+  backText.textContent = c.back;
+  backSub.textContent = c.sub || "";
+  frontLabel.textContent = directionSel.value === "reverse" ? "Antwort" : "Frage";
+  backLabel.textContent = directionSel.value === "reverse" ? "Frage" : "Antwort";
+  progress.textContent = `Karte ${currentIndex + 1} von ${cards.length}`;
+  cardEl.classList.remove("flipped");
+}
+
+function flip() { cardEl.classList.toggle("flipped"); }
+function next() { if (cards.length) { currentIndex = (currentIndex + 1) % cards.length; render(); } }
+function prev() { if (cards.length) { currentIndex = (currentIndex - 1 + cards.length) % cards.length; render(); } }
+
+cardEl.addEventListener("click", flip);
+document.getElementById("nextBtn").addEventListener("click", next);
+document.getElementById("prevBtn").addEventListener("click", prev);
+directionSel.addEventListener("change", rebuildCards);
+document.getElementById("resetBtn").addEventListener("click", () => { currentIndex = 0; render(); });
+document.getElementById("shuffleBtn").addEventListener("click", () => {
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+  currentIndex = 0;
+  render();
+});
+document.getElementById("selectAll").addEventListener("click", () => {
+  topicContainer.querySelectorAll("input").forEach(cb => cb.checked = true);
+  rebuildCards();
+});
+document.getElementById("selectNone").addEventListener("click", () => {
+  topicContainer.querySelectorAll("input").forEach(cb => cb.checked = false);
+  rebuildCards();
+});
+
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight") next();
+  if (e.key === "ArrowLeft") prev();
+  if (e.key === " ") { e.preventDefault(); flip(); }
+});
+
+// Init
+buildTopicUI();
+rebuildCards();
+</script>
+</body>
+</html>
