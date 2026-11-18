@@ -333,7 +333,8 @@ tuinaData.forEach(g => {
 });
 
 themen.push({ id: "kombi", label: "Punktkombinationen", kategorie: "Punktkombinationen", builder: () => kombiData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
-themen.push({ id: "zungpuls", label: "Zunge und Puls", kategorie: "Zunge und Puls", builder: () => zungpulsData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
+themen.push({ id: "zunge", label: "Zunge", kategorie: "Zunge & Puls", builder: () => zungpulsData.filter(d => d.sub && d.sub.startsWith("Zunge")).map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
+themen.push({ id: "puls", label: "Puls", kategorie: "Zunge & Puls", builder: () => zungpulsData.filter(d => d.sub && d.sub.startsWith("Puls")).map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
 themen.push({ id: "muster", label: "TCM-Muster (Macciocia)", kategorie: "TCM-Muster", builder: () => musterData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
 
 /* ============ UI ============ */
