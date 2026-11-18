@@ -39,6 +39,9 @@
   .nav { display:flex; gap:.5rem; }
   .nav button { min-width:100px; }
   .footer { margin-top:2rem; font-size:.75rem; color:var(--muted); text-align:center; max-width:600px; }
+  button.bookmarked { background:#fff3cd; border-color:#ffc107; color:#856404; font-weight:600; }
+  .toggle-pill { display:inline-flex; align-items:center; gap:.4rem; font-size:.85rem; padding:.45rem .8rem; border-radius:8px; border:1px solid var(--border); background:#fff; cursor:pointer; user-select:none; }
+  .toggle-pill input { accent-color:var(--primary); }
 </style>
 </head>
 <body>
@@ -64,6 +67,8 @@
   </select>
   <button id="shuffleBtn">Zufällig mischen</button>
   <button id="resetBtn">Zurücksetzen</button>
+  <label class="toggle-pill"><input type="checkbox" id="onlyBookmarked"> Nur gemerkte (<span id="bookmarkCount">0</span>)</label>
+<label class="toggle-pill"><input type="checkbox" id="showPinyin" checked> Pinyin / Fachbegriffe</label>
 </div>
 
 <div class="progress" id="progress">Keine Karten ausgewählt</div>
@@ -87,6 +92,7 @@
 
 <div class="nav" style="margin-top:1rem;">
   <button id="prevBtn">← Zurück</button>
+  <button id="bookmarkBtn">☆ Merken</button>
   <button id="nextBtn" class="primary">Weiter →</button>
 </div>
 
@@ -340,6 +346,7 @@ themen.push({ id: "muster", label: "TCM-Muster (Macciocia)", kategorie: "TCM-Mus
 /* ============ UI ============ */
 let cards = [];
 let currentIndex = 0;
+let bookmarks = new Set(JSON.parse(localStorage.getItem("tcm_bookmarks") || "[]"));
 
 const cardEl = document.getElementById("card");
 const frontText = document.getElementById("frontText");
@@ -351,6 +358,21 @@ const backLabel = document.getElementById("backLabel");
 const progress = document.getElementById("progress");
 const directionSel = document.getElementById("direction");
 const topicContainer = document.getElementById("topicContainer");
+const onlyBookmarkedCb = document.getElementById("onlyBookmarked");
+const showPinyinCb = document.getElementById("showPinyin");
+const bookmarkBtn = document.getElementById("bookmarkBtn");
+const bookmarkCount = document.getElementById("bookmarkCount");
+
+function saveBookmarks() {
+  localStorage.setItem("tcm_bookmarks", JSON.stringify(Array.from(bookmarks)));
+  bookmarkCount.textContent = bookmarks.size;
+}
+
+function formatText(text) {
+  if (showPinyinCb.checked) return text;
+  // Blendet Pinyin und englische Fachbegriffe in Klammern wie (Fu Mai) oder (Pale) aus
+  return text.replace(/\s*\([^)]+\)/g, "");
+}
 
 function buildTopicUI() {
   const kategorien = {};
@@ -397,7 +419,6 @@ function buildTopicUI() {
 }
 
 function onItemChange() {
-  const cat = this.dataset.cat;
   const groupDiv = this.closest(".topic-group");
   const catCb = groupDiv.querySelector(".group-title input");
   const items = groupDiv.querySelectorAll(".topic-items input");
@@ -410,30 +431,65 @@ function onItemChange() {
 function rebuildCards() {
   const checked = Array.from(topicContainer.querySelectorAll(".topic-items input:checked")).map(cb => cb.value);
   let raw = [];
-  themen.forEach(t => { if (checked.includes(t.id)) raw = raw.concat(t.builder()); });
+  themen.forEach(t => {
+    if (checked.includes(t.id)) {
+      t.builder().forEach(item => {
+        // Eindeutige ID pro Karte für die Merkliste
+        raw.push({ ...item, uid: t.id + "::" + item.front });
+      });
+    }
+  });
+
+  if (onlyBookmarkedCb.checked) {
+    raw = raw.filter(c => bookmarks.has(c.uid));
+  }
+
   const reverse = directionSel.value === "reverse";
-  cards = raw.map(c => reverse ? { front: c.back, back: c.front, sub: c.sub } : c);
+  cards = raw.map(c => reverse ? { front: c.back, back: c.front, sub: c.sub, uid: c.uid } : c);
   currentIndex = 0;
   render();
 }
 
 function render() {
+  saveBookmarks();
   if (!cards.length) {
-    frontText.textContent = "Bitte mindestens ein Thema auswählen.";
+    frontText.textContent = onlyBookmarkedCb.checked ? "Keine gemerkten Karten in dieser Auswahl." : "Bitte mindestens ein Thema auswählen.";
     frontSub.textContent = ""; backText.textContent = "–"; backSub.textContent = "";
     progress.textContent = "Keine Karten ausgewählt";
+    bookmarkBtn.textContent = "☆ Merken";
+    bookmarkBtn.classList.remove("bookmarked");
     cardEl.classList.remove("flipped");
     return;
   }
   const c = cards[currentIndex];
-  frontText.textContent = c.front;
+  frontText.textContent = formatText(c.front);
   frontSub.textContent = c.sub || "";
-  backText.textContent = c.back;
+  backText.textContent = formatText(c.back);
   backSub.textContent = c.sub || "";
   frontLabel.textContent = directionSel.value === "reverse" ? "Antwort" : "Frage";
   backLabel.textContent = directionSel.value === "reverse" ? "Frage" : "Antwort";
   progress.textContent = "Karte " + (currentIndex + 1) + " von " + cards.length;
+
+  const isMarked = bookmarks.has(c.uid);
+  bookmarkBtn.textContent = isMarked ? "★ Gemerkt" : "☆ Merken";
+  bookmarkBtn.classList.toggle("bookmarked", isMarked);
+
   cardEl.classList.remove("flipped");
+}
+
+function toggleBookmark() {
+  if (!cards.length) return;
+  const uid = cards[currentIndex].uid;
+  if (bookmarks.has(uid)) {
+    bookmarks.delete(uid);
+  } else {
+    bookmarks.add(uid);
+  }
+  if (onlyBookmarkedCb.checked) {
+    rebuildCards();
+  } else {
+    render();
+  }
 }
 
 function flip() { cardEl.classList.toggle("flipped"); }
@@ -443,6 +499,9 @@ function prev() { if (cards.length) { currentIndex = (currentIndex - 1 + cards.l
 cardEl.addEventListener("click", flip);
 document.getElementById("nextBtn").addEventListener("click", next);
 document.getElementById("prevBtn").addEventListener("click", prev);
+bookmarkBtn.addEventListener("click", toggleBookmark);
+onlyBookmarkedCb.addEventListener("change", rebuildCards);
+showPinyinCb.addEventListener("change", render);
 directionSel.addEventListener("change", rebuildCards);
 document.getElementById("resetBtn").addEventListener("click", () => { currentIndex = 0; render(); });
 document.getElementById("shuffleBtn").addEventListener("click", () => {
@@ -462,6 +521,7 @@ document.addEventListener("keydown", e => {
   if (e.key === "ArrowRight") next();
   if (e.key === "ArrowLeft") prev();
   if (e.key === " ") { e.preventDefault(); flip(); }
+  if (e.key.toLowerCase() === "m") toggleBookmark();
 });
 
 buildTopicUI();
