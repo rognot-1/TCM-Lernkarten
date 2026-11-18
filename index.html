@@ -277,21 +277,16 @@ fuenfShuYang.forEach(m => {
   });
 });
 
-/* ============ ZUNGE & PULS (NEU) ============ */
+/* ============ ZUNGE & PULS mit Pinyin ============ */
 const zungpulsData = [
-  // Zungenfarbe
-  { frage: "Zungenfarbe: Blass", antwort: "Blass (heller als normal):\n\nBedeutung: Qi- und/oder Blut-Mangel, Yang-Mangel, Kälte.\n\nHinweis: Je blasser die Zunge, desto ausgeprägter der Mangel oder die Kälte.", sub: "Zunge – Farbe" },
-  { frage: "Zungenfarbe: Rot", antwort: "Rot (dunkler als normal):\n\nBedeutung: Hitze. Bei Yin-Mangel: rot ohne Belag. Bei Voll-Hitze: rot mit gelbem Belag.\n\nHinweis: Die Lokalisation (Seiten, Spitze, Mitte) zeigt das betroffene Organ.", sub: "Zunge – Farbe" },
-  { frage: "Zungenfarbe: Violett / Purpur", antwort: "Violett/Purpur:\n\nBedeutung: Blut-Stase, Kälte-Stagnation oder Hitze mit Stase.\n\nHinweis: Kann auch bei chronischen Erkrankungen mit Stagnation auftreten.", sub: "Zunge – Farbe" },
+  { frage: "Zungenfarbe: Blass (Pale)", antwort: "Blass:\n\nBedeutung: Qi- und/oder Blut-Mangel, Yang-Mangel, Kälte.\n\nHinweis: Je blasser die Zunge, desto ausgeprägter der Mangel oder die Kälte.", sub: "Zunge – Farbe" },
+  { frage: "Zungenfarbe: Rot (Red)", antwort: "Rot:\n\nBedeutung: Hitze. Bei Yin-Mangel: rot ohne Belag. Bei Voll-Hitze: rot mit gelbem Belag.\n\nHinweis: Die Lokalisation (Seiten, Spitze, Mitte) zeigt das betroffene Organ.", sub: "Zunge – Farbe" },
+  { frage: "Zungenfarbe: Violett / Purpur (Purple)", antwort: "Violett/Purpur:\n\nBedeutung: Blut-Stase, Kälte-Stagnation oder Hitze mit Stase.\n\nHinweis: Kann auch bei chronischen Erkrankungen mit Stagnation auftreten.", sub: "Zunge – Farbe" },
   { frage: "Zungenfarbe: Tiefrot (Deep Red)", antwort: "Tiefrot:\n\nBedeutung: Hitze in tieferen Schichten (Ying- oder Xue-Ebene), Yin-Mangel mit Hitze.\n\nHinweis: Oft bei chronischen Entzündungen oder inneren Hitze-Mustern.", sub: "Zunge – Farbe" },
-
-  // Zungenform
-  { frage: "Zungenform: Geschwollen", antwort: "Geschwollen (breiter, dicker):\n\nBedeutung: Feuchtigkeit, Schleim, Qi-Stagnation oder Milz-Qi-Mangel.\n\nHinweis: Zähneabdrücke am Rand sind ein häufiges Zeichen für Milz-Qi-Mangel.", sub: "Zunge – Form" },
+  { frage: "Zungenform: Geschwollen (Swollen)", antwort: "Geschwollen:\n\nBedeutung: Feuchtigkeit, Schleim, Qi-Stagnation oder Milz-Qi-Mangel.\n\nHinweis: Zähneabdrücke am Rand sind ein häufiges Zeichen für Milz-Qi-Mangel.", sub: "Zunge – Form" },
   { frage: "Zungenform: Dünn (Thin)", antwort: "Dünn:\n\nBedeutung: Yin-Mangel, Blut-Mangel oder Flüssigkeitsmangel.\n\nHinweis: Oft zusammen mit roter Farbe und wenig Belag bei Yin-Mangel.", sub: "Zunge – Form" },
   { frage: "Zungenform: Zähneabdrücke (Teeth Marks)", antwort: "Zähneabdrücke am Rand:\n\nBedeutung: Milz-Qi-Mangel mit Feuchtigkeit.\n\nHinweis: Die Zunge ist dabei meist geschwollen und blass.", sub: "Zunge – Form" },
   { frage: "Zungenform: Risse (Cracks)", antwort: "Risse:\n\nBedeutung: Yin-Mangel (besonders Magen-/Nieren-Yin), chronischer Flüssigkeitsmangel.\n\nHinweis: Die Lokalisation des Risses zeigt das betroffene Organ (z. B. Mitte = Magen).", sub: "Zunge – Form" },
-
-  // Zungenbelag
   { frage: "Zungenbelag: Dünn (Thin Coating)", antwort: "Dünner Belag:\n\nBedeutung: Normal oder beginnende Pathologie. Bei dünnem, fehlendem Belag: Yin-Mangel.\n\nHinweis: Ein normaler Belag ist dünn, weiß und feucht.", sub: "Zunge – Belag" },
   { frage: "Zungenbelag: Dick (Thick Coating)", antwort: "Dicker Belag:\n\nBedeutung: Feuchtigkeit, Schleim, Nahrungsstagnation oder Hitze (wenn gelb).\n\nHinweis: Je dicker der Belag, desto stärker die Pathologie.", sub: "Zunge – Belag" },
   { frage: "Zungenbelag: Weiß (White Coating)", antwort: "Weißer Belag:\n\nBedeutung: Kälte, Feuchtigkeit oder äußere Kälte (bei dünnem weißen Belag).\n\nHinweis: Weißer, dicker, klebriger Belag = Feuchtigkeit/Schleim.", sub: "Zunge – Belag" },
@@ -300,13 +295,12 @@ const zungpulsData = [
   { frage: "Zungenbelag: Klebrig (Sticky Coating)", antwort: "Klebriger Belag:\n\nBedeutung: Feuchtigkeit, Schleim oder Nahrungsstagnation.\n\nHinweis: Oft zusammen mit geschwollener Zunge und Zähneabdrücken.", sub: "Zunge – Belag" },
   { frage: "Zungenbelag: Fehlt (No Coating / Peeled)", antwort: "Fehlender Belag (peeled):\n\nBedeutung: Yin-Mangel (besonders Magen-/Nieren-Yin) oder schwerer Qi-/Blut-Mangel.\n\nHinweis: Die Zunge ist dabei oft rot und trocken.", sub: "Zunge – Belag" },
 
-  // Puls – 6 Gruppen nach Macciocia
-  { frage: "Puls: Oberflächlicher Typus (Superficial)", antwort: "Oberflächlicher Typus:\n- Oberflächlich (Floating)\n- Hohl (Hollow)\n- Trommel-Puls (Drumskin)\n\nBedeutung: Äußere Pathogene (Wind, Kälte, Hitze) oder Yin-Mangel (bei hohlem Puls).", sub: "Puls – Oberflächlich" },
-  { frage: "Puls: Tiefer Typus (Deep)", antwort: "Tiefer Typus:\n- Tief (Deep)\n- Fixiert (Fixed)\n- Versteckt (Hidden)\n\nBedeutung: Innen-Pathologie (Zang-Fu-Störung), Kälte oder Stagnation.", sub: "Puls – Tief" },
-  { frage: "Puls: Langsamer Typus (Slow)", antwort: "Langsamer Typus:\n- Langsam (Slow)\n- Knotig (Knotted)\n\nBedeutung: Kälte (Voll- oder Leer-Kälte), Yang-Mangel.", sub: "Puls – Langsam" },
-  { frage: "Puls: Schneller Typus (Rapid)", antwort: "Schneller Typus:\n- Schnell (Rapid)\n- Jagend (Hasty)\n- Rasend (Racing)\n- Beweglich (Moving)\n\nBedeutung: Hitze (Voll- oder Leer-Hitze), Yin-Mangel.", sub: "Puls – Schnell" },
-  { frage: "Puls: Leerer Typus (Empty)", antwort: "Leerer Typus:\n- Leer (Empty)\n- Schwach (Weak)\n- Dünn (Thready)\n- Verschwindend (Minute)\n- Sanft (Soggy/Soft)\n- Kurz (Short)\n- Zerfließend (Scattered)\n\nBedeutung: Qi-, Blut- oder Yin-Mangel.", sub: "Puls – Leer" },
-  { frage: "Puls: Voller Typus (Full)", antwort: "Voller Typus:\n- Voll (Full)\n- Überflutend (Overflowing)\n- Saitenförmig (Wiry)\n- Straff (Tight)\n- Lang (Long)\n\nBedeutung: Voll-Pathologie (Hitze, Stagnation, Schleim) oder Leber-/Gallenblasen-Störung (saitenförmig).", sub: "Puls – Voll" }
+  { frage: "Puls: Oberflächlicher Typus (Fu Mai)", antwort: "Oberflächlicher Typus:\n- Oberflächlich (Fu Mai)\n- Hohl (Kou Mai)\n- Trommel-Puls (Ge Mai)\n\nBedeutung: Äußere Pathogene (Wind, Kälte, Hitze) oder Yin-Mangel (bei hohlem Puls).", sub: "Puls – Oberflächlich" },
+  { frage: "Puls: Tiefer Typus (Chen Mai)", antwort: "Tiefer Typus:\n- Tief (Chen Mai)\n- Fixiert (Lao Mai)\n- Versteckt (Fu Mai)\n\nBedeutung: Innen-Pathologie (Zang-Fu-Störung), Kälte oder Stagnation.", sub: "Puls – Tief" },
+  { frage: "Puls: Langsamer Typus (Chi Mai)", antwort: "Langsamer Typus:\n- Langsam (Chi Mai)\n- Knotig (Jie Mai)\n\nBedeutung: Kälte (Voll- oder Leer-Kälte), Yang-Mangel.", sub: "Puls – Langsam" },
+  { frage: "Puls: Schneller Typus (Shuo Mai)", antwort: "Schneller Typus:\n- Schnell (Shuo Mai)\n- Jagend (Cu Mai)\n- Rasend (Ji Mai)\n- Beweglich (Dong Mai)\n\nBedeutung: Hitze (Voll- oder Leer-Hitze), Yin-Mangel.", sub: "Puls – Schnell" },
+  { frage: "Puls: Leerer Typus (Xu Mai)", antwort: "Leerer Typus:\n- Leer (Xu Mai)\n- Schwach (Ruo Mai)\n- Dünn (Xi Mai)\n- Verschwindend (Wei Mai)\n- Sanft (Ru Mai)\n- Kurz (Duan Mai)\n- Zerfließend (San Mai)\n\nBedeutung: Qi-, Blut- oder Yin-Mangel.", sub: "Puls – Leer" },
+  { frage: "Puls: Voller Typus (Shi Mai)", antwort: "Voller Typus:\n- Voll (Shi Mai)\n- Überflutend (Hong Mai)\n- Saitenförmig (Xian Mai)\n- Straff (Jin Mai)\n- Lang (Chang Mai)\n\nBedeutung: Voll-Pathologie (Hitze, Stagnation, Schleim) oder Leber-/Gallenblasen-Störung (saitenförmig).", sub: "Puls – Voll" }
 ];
 
 const kombiData = [{ frage: "Wichtige Punktkombination (Platzhalter)", antwort: "Bitte ergänzen.", sub: "Punktkombinationen" }];
