@@ -319,6 +319,43 @@ const zungpulsData = [
   { frage: "Puls: Leerer Typus (Xu Mai)", antwort: "Leerer Typus:\n- Leer (Xu Mai)\n- Schwach (Ruo Mai)\n- Dünn (Xi Mai)\n- Verschwindend (Wei Mai)\n- Sanft (Ru Mai)\n- Kurz (Duan Mai)\n- Zerfließend (San Mai)\n\nBedeutung: Qi-, Blut- oder Yin-Mangel.", sub: "Puls – Leer" },
   { frage: "Puls: Voller Typus (Shi Mai)", antwort: "Voller Typus:\n- Voll (Shi Mai)\n- Überflutend (Hong Mai)\n- Saitenförmig (Xian Mai)\n- Straff (Jin Mai)\n- Lang (Chang Mai)\n\nBedeutung: Voll-Pathologie (Hitze, Stagnation, Schleim) oder Leber-/Gallenblasen-Störung (saitenförmig).", sub: "Puls – Voll" }
 ];
+  // Punktelokalisation (Variante B: Lokalisation, Stichtechnik, Kernindikation)
+const lokData = [
+  // ===== LUNGE (Lu) =====
+  { frage: "Lu 1", antwort: "Zhongfu\nLokalisation: 1. ICR, 6 Cun lateral der Mittellinie, im Bereich des M. pectoralis major.\nStichtechnik: Schräg nach lateral, 0,5–0,8 Cun.\nIndikation: Husten, Asthma, Brustschmerz, Atemnot.", sub: "Lunge (Lu)" },
+  { frage: "Lu 2", antwort: "Yunmen\nLokalisation: Unterhalb des lateralen Endes der Clavicula, im Trigonum clavipectorale.\nStichtechnik: Senkrecht, 0,5–0,8 Cun.\nIndikation: Husten, Asthma, Brustschmerz.", sub: "Lunge (Lu)" },
+  { frage: "Lu 3", antwort: "Tianfu\nLokalisation: 3 Cun unterhalb der vorderen Axillarlinie, am radialen Rand des M. biceps brachii.\nStichtechnik: Senkrecht, 0,5–0,8 Cun.\nIndikation: Husten, Asthma, Nasenbluten, Himmelsfensterpunkt.", sub: "Lunge (Lu)" },
+  { frage: "Lu 4", antwort: "Xiabai\nLokalisation: 4 Cun unterhalb der vorderen Axillarlinie, am radialen Rand des M. biceps brachii.\nStichtechnik: Senkrecht, 0,5–0,8 Cun.\nIndikation: Husten, Brustschmerz, lokale Beschwerden.", sub: "Lunge (Lu)" },
+  { frage: "Lu 5", antwort: "Chize\nLokalisation: In der Ellenbeuge, am radialen Rand der Sehne des M. biceps brachii.\nStichtechnik: Senkrecht, 0,5–1 Cun.\nIndikation: Husten, Asthma, Hämoptyse, Ellenbogenschmerz.", sub: "Lunge (Lu)" },
+  { frage: "Lu 6", antwort: "Kongzui\nLokalisation: 7 Cun proximal der Handgelenksfalte, am radialen Rand des M. brachioradialis.\nStichtechnik: Senkrecht, 0,5–1 Cun.\nIndikation: Akuter Husten, Hämoptyse, Ellenbogenschmerz (Xi-Punkt).", sub: "Lunge (Lu)" },
+  { frage: "Lu 7", antwort: "Lieque\nLokalisation: 1,5 Cun proximal der Handgelenksfalte, am radialen Rand des M. brachioradialis, in der Vertiefung.\nStichtechnik: Schräg nach proximal, 0,3–0,5 Cun.\nIndikation: Kopfschmerz, Nackensteifheit, Husten, Erkältung (Luo-Punkt).", sub: "Lunge (Lu)" },
+  { frage: "Lu 8", antwort: "Jingqu\nLokalisation: 1 Cun proximal der Handgelenksfalte, am radialen Rand der A. radialis.\nStichtechnik: Senkrecht, 0,3–0,5 Cun (A. radialis beachten).\nIndikation: Husten, Asthma, Handgelenkschmerz.", sub: "Lunge (Lu)" },
+  { frage: "Lu 9", antwort: "Taiyuan\nLokalisation: In der Vertiefung zwischen dem radialen Ende der Handgelenksfalte und der A. radialis.\nStichtechnik: Senkrecht, 0,3–0,5 Cun.\nIndikation: Husten, Asthma, Gefäßprobleme, Handgelenkschmerz (Yuan-Punkt, Hui-Punkt Gefäße).", sub: "Lunge (Lu)" },
+  { frage: "Lu 10", antwort: "Yuji\nLokalisation: Am radialen Rand des Thenar, in der Mitte des 1. Metacarpalknochens.\nStichtechnik: Senkrecht, 0,5–0,8 Cun.\nIndikation: Husten, Halsschmerzen, Fieber (Ying-Punkt).", sub: "Lunge (Lu)" },
+  { frage: "Lu 11", antwort: "Shaoshang\nLokalisation: Am radialen Nagelwinkel des Daumens, ca. 0,1 Cun lateral.\nStichtechnik: Senkrecht oder leicht schräg, 0,1 Cun.\nIndikation: Halsschmerzen, Fieber, Bewusstlosigkeit (Jing-Punkt).", sub: "Lunge (Lu)" },
+
+  // ===== DICKDARM (Di) =====
+  { frage: "Di 1", antwort: "Shangyang\nLokalisation: Am radialen Nagelwinkel des Zeigefingers, ca. 0,1 Cun lateral.\nStichtechnik: Senkrecht oder leicht schräg, 0,1 Cun.\nIndikation: Halsschmerzen, Zahnschmerzen, Fieber (Jing-Punkt).", sub: "Dickdarm (Di)" },
+  { frage: "Di 2", antwort: "Erjian\nLokalisation: Am radialen Rand des Zeigefingers, distal des 2. Metacarpophalangealgelenks.\nStichtechnik: Senkrecht, 0,2–0,3 Cun.\nIndikation: Fieber, Halsschmerzen, Zahnschmerzen (Ying-Punkt).", sub: "Dickdarm (Di)" },
+  { frage: "Di 3", antwort: "Sanjian\nLokalisation: Am radialen Rand des Zeigefingers, proximal des 2. Metacarpophalangealgelenks.\nStichtechnik: Senkrecht, 0,3–0,5 Cun.\nIndikation: Zahnschmerzen, Halsschmerzen, Fieber (Shu-Punkt).", sub: "Dickdarm (Di)" },
+  { frage: "Di 4", antwort: "Hegu\nLokalisation: Zwischen 1. und 2. Metacarpalknochen, am radialen Rand des 2. Metacarpalknochens.\nStichtechnik: Senkrecht, 0,5–1 Cun.\nIndikation: Schmerz allgemein, Gesicht/Mund, Erkältung, Verstopfung (Yuan-Punkt).", sub: "Dickdarm (Di)" },
+  { frage: "Di 5", antwort: "Yangxi\nLokalisation: In der anatomischen Tabatière, zwischen den Sehnen des M. extensor pollicis longus und brevis.\nStichtechnik: Senkrecht, 0,3–0,5 Cun.\nIndikation: Handgelenkschmerz, Kopfschmerz, Zahnschmerzen (Jing-Punkt).", sub: "Dickdarm (Di)" },
+  { frage: "Di 6", antwort: "Pianli\nLokalisation: 3 Cun proximal der Handgelenksfalte, am radialen Rand des M. extensor carpi radialis longus.\nStichtechnik: Senkrecht, 0,5–0,8 Cun.\nIndikation: Zahnschmerzen, Gesichtslähmung, Ödeme (Luo-Punkt).", sub: "Dickdarm (Di)" },
+  { frage: "Di 7", antwort: "Wenliu\nLokalisation: 5 Cun proximal der Handgelenksfalte, am radialen Rand des M. extensor carpi radialis longus.\nStichtechnik: Senkrecht, 0,5–0,8 Cun.\nIndikation: Akute Schmerzen, Zahnschmerzen, Halsschmerzen (Xi-Punkt).", sub: "Dickdarm (Di)" },
+  { frage: "Di 8", antwort: "Xialian\nLokalisation: 4 Cun proximal der Handgelenksfalte, am radialen Rand des M. extensor carpi radialis longus.\nStichtechnik: Senkrecht, 0,5–0,8 Cun.\nIndikation: Kopfschmerz, Schwindel, lokale Beschwerden.", sub: "Dickdarm (Di)" },
+  { frage: "Di 9", antwort: "Shanglian\nLokalisation: 3 Cun proximal der Handgelenksfalte, am radialen Rand des M. extensor carpi radialis longus.\nStichtechnik: Senkrecht, 0,5–0,8 Cun.\nIndikation: Kopfschmerz, Schwindel, lokale Beschwerden.", sub: "Dickdarm (Di)" },
+  { frage: "Di 10", antwort: "Shousanli\nLokalisation: 2 Cun distal von Di 11, am radialen Rand des M. extensor carpi radialis longus.\nStichtechnik: Senkrecht, 0,8–1,2 Cun.\nIndikation: Armschmerz, Schwäche, Verdauungsstörungen.", sub: "Dickdarm (Di)" },
+  { frage: "Di 11", antwort: "Quchi\nLokalisation: Am lateralen Ende der Ellenbeugenfalte, am radialen Rand des M. extensor carpi radialis longus.\nStichtechnik: Senkrecht, 1–1,5 Cun.\nIndikation: Fieber, Hauterkrankungen, Ellenbogenschmerz, Bluthochdruck (He-Punkt).", sub: "Dickdarm (Di)" },
+  { frage: "Di 12", antwort: "Zhouliao\nLokalisation: 1 Cun proximal von Di 11, am lateralen Rand des Humerus.\nStichtechnik: Senkrecht, 0,5–1 Cun.\nIndikation: Ellenbogenschmerz, lokale Beschwerden.", sub: "Dickdarm (Di)" },
+  { frage: "Di 13", antwort: "Shouwuli\nLokalisation: 3 Cun proximal von Di 11, am lateralen Rand des Humerus.\nStichtechnik: Senkrecht, 0,5–1 Cun.\nIndikation: Ellenbogenschmerz, lokale Beschwerden.", sub: "Dickdarm (Di)" },
+  { frage: "Di 14", antwort: "Binao\nLokalisation: 7 Cun proximal von Di 11, am lateralen Rand des Humerus.\nStichtechnik: Senkrecht, 0,5–1 Cun.\nIndikation: Armschmerz, Nackensteifheit, lokale Beschwerden.", sub: "Dickdarm (Di)" },
+  { frage: "Di 15", antwort: "Jianyu\nLokalisation: Vorne am Schultergelenk, in der Vertiefung zwischen Acromion und Tuberculum majus.\nStichtechnik: Senkrecht oder schräg, 0,8–1,5 Cun.\nIndikation: Schulterschmerz, Hemiplegie, lokale Beschwerden.", sub: "Dickdarm (Di)" },
+  { frage: "Di 16", antwort: "Jugu\nLokalisation: In der Vertiefung zwischen Acromion und Clavicula.\nStichtechnik: Senkrecht, 0,5–0,8 Cun.\nIndikation: Schulterschmerz, Nackensteifheit.", sub: "Dickdarm (Di)" },
+  { frage: "Di 17", antwort: "Tianding\nLokalisation: Am lateralen Rand des M. sternocleidomastoideus, 1 Cun unterhalb des Kehlkopfs.\nStichtechnik: Senkrecht, 0,3–0,5 Cun.\nIndikation: Halsschmerzen, Husten, Himmelsfensterpunkt.", sub: "Dickdarm (Di)" },
+  { frage: "Di 18", antwort: "Futu\nLokalisation: Am lateralen Rand des M. sternocleidomastoideus, auf Höhe des Kehlkopfs.\nStichtechnik: Senkrecht, 0,3–0,5 Cun.\nIndikation: Husten, Asthma, Halsschmerzen (Himmelsfensterpunkt).", sub: "Dickdarm (Di)" },
+  { frage: "Di 19", antwort: "Kouheliao\nLokalisation: Unterhalb des lateralen Randes der Nase, auf Höhe der Nasenflügel.\nStichtechnik: Schräg, 0,3–0,5 Cun.\nIndikation: Nasenverstopfung, Nasenbluten, Gesichtslähmung.", sub: "Dickdarm (Di)" },
+  { frage: "Di 20", antwort: "Yingxiang\nLokalisation: In der Vertiefung am lateralen Rand des Nasenflügels, auf Höhe der Nasenflügelmitte.\nStichtechnik: Schräg nach oben, 0,3–0,5 Cun.\nIndikation: Nasenverstopfung, Nasenbluten, Geruchsverlust.", sub: "Dickdarm (Di)" }
+];
 const kombiData = [];
   kombiData.push(
   // ===== ÄUSSERE PATHOGENE =====
@@ -484,7 +521,13 @@ themen.push({ id: "muster", label: "TCM-Muster (Macciocia)", kategorie: "TCM-Mus
     .filter((_, idx) => camMusterNummern.includes(idx + 1))
     .map(d => ({ front: d.frage, back: d.antwort, sub: (d.sub || "") + " – CAM" }))
 }); 
-
+themen.push({
+  id: "lok_lu_di",
+  label: "Lunge (Lu) + Dickdarm (Di)",
+  kategorie: "Punktelokalisation",
+  builder: () => lokData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" }))
+});
+  
 /* ============ UI ============ */
 let cards = [];
 let currentIndex = 0;
