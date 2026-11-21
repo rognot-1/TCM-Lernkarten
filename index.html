@@ -308,8 +308,50 @@ const zungpulsData = [
   { frage: "Puls: Leerer Typus (Xu Mai)", antwort: "Leerer Typus:\n- Leer (Xu Mai)\n- Schwach (Ruo Mai)\n- Dünn (Xi Mai)\n- Verschwindend (Wei Mai)\n- Sanft (Ru Mai)\n- Kurz (Duan Mai)\n- Zerfließend (San Mai)\n\nBedeutung: Qi-, Blut- oder Yin-Mangel.", sub: "Puls – Leer" },
   { frage: "Puls: Voller Typus (Shi Mai)", antwort: "Voller Typus:\n- Voll (Shi Mai)\n- Überflutend (Hong Mai)\n- Saitenförmig (Xian Mai)\n- Straff (Jin Mai)\n- Lang (Chang Mai)\n\nBedeutung: Voll-Pathologie (Hitze, Stagnation, Schleim) oder Leber-/Gallenblasen-Störung (saitenförmig).", sub: "Puls – Voll" }
 ];
-const kombiData = [{ frage: "Wichtige Punktkombination (Platzhalter)", antwort: "Bitte ergänzen.", sub: "Punktkombinationen" }];
-const musterData = [];
+const kombiData = [];
+  kombiData.push(
+  // ===== ÄUSSERE PATHOGENE =====
+  { frage: "Wind-Kälte (Taiyang): Punkte?", antwort: "Punkte: Du 14, Gb 20, Di 4, Lu 7, Bl 12.\nWirkung: Äußere Kälte zerstreuen, Taiyang öffnen, Lungen-Qi befreien.\nIndikation: Frösteln, Fieber (leicht), Nackensteifheit, klarer Auswurf, kein Schwitzen.\nVerknüpfung: → Muster 61 (Kälte im Taiyang) oder 39 (Wind-Kälte greift Lunge an).", sub: "Äußere Pathogene" },
+  { frage: "Wind-Hitze (Wei Fen): Punkte?", antwort: "Punkte: Du 14, Gb 20, Di 4, Di 11, Lu 11, SJ 5.\nWirkung: Wind-Hitze zerstreuen, Wei-Ebene befreien, Halsschmerzen lindern.\nIndikation: Fieber, Halsschmerzen, gelber Auswurf, Durst, rote Zungenspitze.\nVerknüpfung: → Muster 67 (Wei Fen Syndrom) oder 40 (Wind-Hitze greift Lunge an).", sub: "Äußere Pathogene" },
+
+  // ===== QI REGULIEREND =====
+  { frage: "Vier Tore (Si Guan): Punkte?", antwort: "Punkte: Di 4, Le 3.\nWirkung: Qi im gesamten Körper bewegen, Stagnation lösen, Schmerz lindern.\nIndikation: Leber-Qi-Stagnation, Stress, Spannungskopfschmerz, prämenstruelles Syndrom.\nVerknüpfung: → Muster 1 (Leber Qi Stau), 5 (Leber Feuer), 9 (Aufsteigendes Leber Yang).", sub: "Qi regulierend" },
+  { frage: "Leber-Qi-Stagnation: Punkte?", antwort: "Punkte: Le 3, Le 14, Gb 34, Di 4, Ren 17, Pe 6.\nWirkung: Leber-Qi bewegen, Stagnation lösen, Brust und Hypochondrium befreien.\nIndikation: Reizbarkeit, Spannungsgefühl im Hypochondrium, Seufzen, Stimmungsschwankungen.\nVerknüpfung: → Muster 1 (Leber Qi Stau), 2 (Leber greift Magen), 3 (Leber greift Milz).", sub: "Qi regulierend" },
+  { frage: "Rebellierendes Magen-Qi: Punkte?", antwort: "Punkte: Ren 12, Ma 36, Pe 6, Ren 17, Ma 21.\nWirkung: Magen-Qi senken, Übelkeit lindern, Aufstossen stoppen.\nIndikation: Übelkeit, Erbrechen, Sodbrennen, Schluckauf.\nVerknüpfung: → Muster 34 (Rebellierendes Magen Qi), 2 (Leber greift Magen), 32 (Magen Feuer).", sub: "Qi regulierend" },
+
+  // ===== BLUT REGULIEREND =====
+  { frage: "Blut-Stase allgemein: Punkte?", antwort: "Punkte: Bl 17, Mi 10, Le 3, Di 4, Pe 6.\nWirkung: Blut bewegen, Stase lösen, Schmerz lindern.\nIndikation: Fixierter stechender Schmerz, dunkle Menstruation mit Klumpen, palpable Masse.\nVerknüpfung: → Muster 4 (Leber Blut Stase), 23 (Herz Blut Stase), 57 (Fülle Kälte Uterus).", sub: "Blut regulierend" },
+  { frage: "Blut-Stase im Uterus: Punkte?", antwort: "Punkte: Ren 3, Mi 6, Le 3, Bl 32, Mi 8.\nWirkung: Blut im Uterus bewegen, Menstruation regulieren, Schmerz lindern.\nIndikation: Dysmenorrhoe mit fixiertem Schmerz, dunkles Blut mit Klumpen.\nVerknüpfung: → Muster 4 (Leber Blut Stase), 57 (Fülle Kälte Uterus).", sub: "Blut regulierend" },
+
+  // ===== MANGEL TONISIEREND =====
+  { frage: "Milz-Qi-Mangel: Punkte?", antwort: "Punkte: Ma 36, Mi 6, Ren 12, Bl 20, Bl 21.\nWirkung: Milz-Qi stärken, Verdauung fördern, Müdigkeit lindern.\nIndikation: Müdigkeit, Appetitlosigkeit, weicher Stuhl, Blähungen.\nVerknüpfung: → Muster 24 (Milz Qi Mangel), 25 (Milz Qi Mangel mit Feuchtigkeit), 27 (Sinkendes Milz Qi).", sub: "Mangel tonisierend" },
+  { frage: "Lungen-Qi-Mangel: Punkte?", antwort: "Punkte: Lu 9, Lu 7, Bl 13, Ren 17, Ma 36.\nWirkung: Lungen-Qi stärken, Wei Qi tonisieren, Kurzatmigkeit lindern.\nIndikation: Kurzatmigkeit, leise Stimme, spontanes Schwitzen, Anfälligkeit für Erkältungen.\nVerknüpfung: → Muster 36 (Lungen Qi Mangel), 58 (Wei Qi Mangel).", sub: "Mangel tonisierend" },
+  { frage: "Herz-Blut-Mangel: Punkte?", antwort: "Punkte: He 7, He 5, Bl 15, Mi 6, Ren 4.\nWirkung: Herz-Blut nähren, Geist beruhigen, Palpitationen lindern.\nIndikation: Palpitationen, Schlaflosigkeit, Vergesslichkeit, blasse Gesichtsfarbe.\nVerknüpfung: → Muster 18 (Herz Blut Mangel), 19 (Herz Yin Mangel).", sub: "Mangel tonisierend" },
+  { frage: "Nieren-Yin-Mangel: Punkte?", antwort: "Punkte: Ni 3, Ni 6, Ren 4, Bl 23, Mi 6.\nWirkung: Nieren-Yin nähren, leere Hitze klären, Rückenschmerzen lindern.\nIndikation: Nachtsschweiss, trockener Mund, Schwindel, Tinnitus.\nVerknüpfung: → Muster 50 (Nieren Yin Mangel), 54 (Nieren Yin Mangel mit leerer Hitze).", sub: "Mangel tonisierend" },
+  { frage: "Nieren-Yang-Mangel: Punkte?", antwort: "Punkte: Du 4, Ren 4, Ni 3, Bl 23, Ma 36 (mit Moxa).\nWirkung: Nieren-Yang erwärmen, Kälte zerstreuen, Wasser regulieren.\nIndikation: Kältegefühl, kalte Extremitäten, häufiges Wasserlassen, Rückenschmerzen.\nVerknüpfung: → Muster 49 (Nieren Yang Mangel), 56 (Feuchte Kälte Blase).", sub: "Mangel tonisierend" },
+  { frage: "Herz-Qi-Mangel: Punkte?", antwort: "Punkte: He 7, Ren 17, Bl 15, Ma 36, Lu 9.\nWirkung: Herz-Qi stärken, Palpitationen lindern, Müdigkeit reduzieren.\nIndikation: Palpitationen, Kurzatmigkeit, Müdigkeit, leise Stimme.\nVerknüpfung: → Muster 16 (Herz Qi Mangel), 17 (Herz Yang Mangel).", sub: "Mangel tonisierend" },
+
+  // ===== SCHLEIM/FEUCHTIGKEIT =====
+  { frage: "Schleim-Hitze in der Lunge: Punkte?", antwort: "Punkte: Lu 5, Lu 11, Ma 40, Ren 17, Bl 13.\nWirkung: Schleim-Hitze transformieren, Lunge öffnen, Husten lindern.\nIndikation: Husten mit gelbem Auswurf, Atemnot, Fieber.\nVerknüpfung: → Muster 42 (Schleim Hitze Lunge), 41 (Fülle Hitze Lunge).", sub: "Schleim/Feuchtigkeit" },
+  { frage: "Feuchte-Hitze im Dickdarm: Punkte?", antwort: "Punkte: Ma 25, Ma 37, Di 11, Mi 9, Ren 12.\nWirkung: Feuchte-Hitze im Dickdarm klären, Durchfall stoppen.\nIndikation: Durchfall mit übelriechendem Stuhl, Bauchschmerzen, Brennen im After.\nVerknüpfung: → Muster 46 (Feuchte Hitze Dickdarm), 30 (Feuchte Hitze Milz).", sub: "Schleim/Feuchtigkeit" },
+  { frage: "Feuchte-Hitze in der Blase: Punkte?", antwort: "Punkte: Ren 3, Bl 28, Mi 9, Ni 3, Ma 36.\nWirkung: Blase befreien, Feuchte-Hitze klären, Brennen lindern.\nIndikation: Brennen beim Wasserlassen, häufiger Harndrang, trüber Urin.\nVerknüpfung: → Muster 55 (Feuchte Hitze Blase).", sub: "Schleim/Feuchtigkeit" },
+
+  // ===== SCHMERZ / BI =====
+  { frage: "Bi-Syndrom allgemein (Schmerz): Punkte?", antwort: "Punkte: Gb 20, Di 4, SJ 5, Ma 36, Ashi-Punkte.\nWirkung: Leitbahnen öffnen, Qi und Blut bewegen, Schmerz lindern.\nIndikation: Gelenkschmerzen, Steifheit, eingeschränkte Beweglichkeit.\nVerknüpfung: → Muster 59 (Wind-Kälte-Feuchtigkeit Bi), 60 (Wind-Hitze Bi).", sub: "Schmerz/Bi" },
+  { frage: "Rückenschmerz (lumbal): Punkte?", antwort: "Punkte: Bl 23, Bl 25, Bl 40, Bl 60, Du 4, Huatuojiaji.\nWirkung: Lumbalbereich stärken, Qi und Blut bewegen, Schmerz lindern.\nIndikation: Lumbaler Rückenschmerz, Steifheit, Schwäche.\nVerknüpfung: → Muster 49 (Nieren Yang Mangel), 50 (Nieren Yin Mangel), 59 (Bi-Syndrom).", sub: "Schmerz/Bi" },
+  { frage: "Nackenschmerz / Nackensteifheit: Punkte?", antwort: "Punkte: Gb 20, Bl 10, Du 14, Dü 3, SJ 5.\nWirkung: Nacken entspannen, Taiyang öffnen, Wind zerstreuen.\nIndikation: Nackensteifheit, Kopfschmerz, eingeschränkte Kopfdrehung.\nVerknüpfung: → Muster 61 (Kälte Taiyang), 62 (Wind Taiyang), 59 (Bi-Syndrom).", sub: "Schmerz/Bi" },
+
+  // ===== GEIST BERUHIGEND =====
+  { frage: "Schlaflosigkeit (Herz-Milz-Mangel): Punkte?", antwort: "Punkte: He 7, Mi 6, Bl 15, Bl 20, Anmian (Extrapunkt).\nWirkung: Herz und Milz tonisieren, Geist beruhigen, Schlaf fördern.\nIndikation: Einschlafstörungen, Grübeln, Müdigkeit, Palpitationen.\nVerknüpfung: → Muster 18 (Herz Blut Mangel), 24 (Milz Qi Mangel).", sub: "Geist beruhigend" },
+  { frage: "Unruhe / Angst (Herz-Feuer): Punkte?", antwort: "Punkte: He 7, He 8, Pe 7, Ren 15, Yintang (Extrapunkt).\nWirkung: Herz-Feuer klären, Geist beruhigen, Unruhe lindern.\nIndikation: Unruhe, Angst, Palpitationen, Mundgeschwüre.\nVerknüpfung: → Muster 20 (Herz Feuer), 21 (Schleim Feuer Herz).", sub: "Geist beruhigend" },
+
+  // ===== VERDAUUNG =====
+  { frage: "Nahrungsstagnation: Punkte?", antwort: "Punkte: Ren 12, Ma 36, Ma 21, Pe 6, Ma 44.\nWirkung: Nahrung auflösen, Magen harmonisieren, Völlegefühl lindern.\nIndikation: Völlegefühl nach dem Essen, saurer Geschmack, Aufstossen.\nVerknüpfung: → Muster 35 (Nahrungsstagnation Magen), 34 (Rebellierendes Magen Qi).", sub: "Verdauung" },
+  { frage: "Verstopfung (Hitze): Punkte?", antwort: "Punkte: Ma 25, Ma 37, Di 11, SJ 6, Ren 12.\nWirkung: Dickdarm-Hitze klären, Verstopfung lösen, Qi bewegen.\nIndikation: Verstopfung, Bauchschmerzen, Durst, übelriechender Stuhl.\nVerknüpfung: → Muster 45 (Fülle Hitze Dickdarm), 63 (Yangming Leitbahn), 64 (Yangming Organ).", sub: "Verdauung" },
+
+  // ===== GYNÄKOLOGIE =====
+  { frage: "Dysmenorrhoe (Kälte): Punkte?", antwort: "Punkte: Ren 3, Ren 4, Mi 6, Le 3, Bl 32 (mit Moxa).\nWirkung: Uterus erwärmen, Kälte zerstreuen, Menstruationsschmerz lindern.\nIndikation: Schmerzhafte Menstruation mit Kältegefühl, gebessert durch Wärme.\nVerknüpfung: → Muster 57 (Fülle Kälte Uterus), 4 (Leber Blut Stase).", sub: "Gynäkologie" }
+);
   musterData.push(
   { frage: "Leber Qi Stau / Stagnation", antwort: "Symptome: Stimmungsschwankungen, Reizbarkeit, Spannungsgefühl im Hypochondrium, Seufzen, wandernder Schmerz.\nZunge: normal oder leicht violett an den Rändern, dünner weißer Belag.\nPuls: saitenförmig (Xian).\nPrinzip: Leber-Qi bewegen, Stagnation lösen.\nAbgrenzung: Nicht verwechseln mit Leber-Blut-Stase (dort fixierter, stechender Schmerz, Zunge deutlich violett, Puls rau/stockend).", sub: "Leber" },
   { frage: "Leber greift den Magen an", antwort: "Symptome: Reizbarkeit, Magenschmerzen, Übelkeit, Erbrechen, Aufstossen, Appetitlosigkeit.\nZunge: Ränder gerötet, Mitte dünner Belag.\nPuls: saitenförmig (Xian) und/oder schwach (Ruo) im mittleren Bereich.\nPrinzip: Leber-Qi bewegen, Magen harmonisieren, rebellisches Qi senken.\nAbgrenzung: Nicht verwechseln mit rebellierendem Magen-Qi (dort keine Leber-Symptome wie Reizbarkeit/Spannung).", sub: "Leber" },
