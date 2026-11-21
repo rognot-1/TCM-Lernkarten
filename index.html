@@ -40,10 +40,14 @@
   .nav button { min-width:100px; }
   .footer { margin-top:2rem; font-size:.75rem; color:var(--muted); text-align:center; max-width:600px; }
     .support-box { margin-top:1.5rem; padding:1rem 1.2rem; max-width:620px; background:#fff; border:1px solid var(--border); border-radius:12px; font-size:.8rem; line-height:1.5; color:var(--text); text-align:center; }
-  .support-placeholder { display:inline-block; margin-top:.5rem; padding:.3rem .6rem; background:#eef3f7; border-radius:6px; font-size:.75rem; color:var(--muted); }
+    .support-link { display:inline-block; margin-top:.6rem; padding:.45rem .9rem; background:var(--primary); color:#fff; border-radius:8px; text-decoration:none; font-size:.8rem; }
+  .support-link:hover { background:#234b62; }
   button.bookmarked { background:#fff3cd; border-color:#ffc107; color:#856404; font-weight:600; }
   .toggle-pill { display:inline-flex; align-items:center; gap:.4rem; font-size:.85rem; padding:.45rem .8rem; border-radius:8px; border:1px solid var(--border); background:#fff; cursor:pointer; user-select:none; }
   .toggle-pill input { accent-color:var(--primary); }
+    .support-box { margin-top:1.5rem; padding:1rem 1.2rem; max-width:620px; background:#fff; border:1px solid var(--border); border-radius:12px; font-size:.8rem; line-height:1.5; color:var(--text); text-align:center; }
+  .support-link { display:inline-block; margin-top:.6rem; padding:.45rem .9rem; background:var(--primary); color:#fff; border-radius:8px; text-decoration:none; font-size:.8rem; }
+  .support-link:hover { background:#234b62; }
 </style>
 </head>
 <body>
@@ -101,8 +105,7 @@
 <div class="support-box">
   <strong>Diese Lernhilfe ist und bleibt kostenlos.</strong><br>
   Sie ist ein Open-Source-Projekt für jetzige und zukünftige M2-Studierende. Wenn du sie nützlich findest und die Weiterentwicklung unterstützen möchtest, kannst du das freiwillig tun – ohne Verpflichtung.<br>
-  <span class="support-placeholder">[Hier später deinen Spendenlink einsetzen, z. B. Buy Me a Coffee, PayPal oder Twinkonto]</span>
-</div>
+   <a class="support-link" href="https://paypal.me/RogerNotter237" target="_blank" rel="noopener">☕ Freiwillig unterstützen via PayPal</a>
 
 <div class="footer">
   Grundlage: IGTCM-Punkte- und Tuina-Listen, TCM Fachverband Tuina-Grundgriffe, Deadman/Macciocia, WHO.<br>
