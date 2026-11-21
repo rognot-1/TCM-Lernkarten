@@ -354,6 +354,9 @@ const kombiData = [];
 );
   const musterData = [];
   
+  // CAM-Muster (IGTCM: grün markiert = zusätzlich für Chinesische Arzneimittel)
+const camMusterNummern = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70];
+  
   musterData.push(
   { frage: "Leber Qi Stau / Stagnation", antwort: "Symptome: Stimmungsschwankungen, Reizbarkeit, Spannungsgefühl im Hypochondrium, Seufzen, wandernder Schmerz.\nZunge: normal oder leicht violett an den Rändern, dünner weißer Belag.\nPuls: saitenförmig (Xian).\nPrinzip: Leber-Qi bewegen, Stagnation lösen.\nAbgrenzung: Nicht verwechseln mit Leber-Blut-Stase (dort fixierter, stechender Schmerz, Zunge deutlich violett, Puls rau/stockend).", sub: "Leber" },
   { frage: "Leber greift den Magen an", antwort: "Symptome: Reizbarkeit, Magenschmerzen, Übelkeit, Erbrechen, Aufstossen, Appetitlosigkeit.\nZunge: Ränder gerötet, Mitte dünner Belag.\nPuls: saitenförmig (Xian) und/oder schwach (Ruo) im mittleren Bereich.\nPrinzip: Leber-Qi bewegen, Magen harmonisieren, rebellisches Qi senken.\nAbgrenzung: Nicht verwechseln mit rebellierendem Magen-Qi (dort keine Leber-Symptome wie Reizbarkeit/Spannung).", sub: "Leber" },
@@ -462,6 +465,14 @@ themen.push({ id: "kombi", label: "Punktkombinationen", kategorie: "Punktkombina
 themen.push({ id: "zunge", label: "Zunge", kategorie: "Zunge & Puls", builder: () => zungpulsData.filter(d => d.sub && d.sub.startsWith("Zunge")).map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
 themen.push({ id: "puls", label: "Puls", kategorie: "Zunge & Puls", builder: () => zungpulsData.filter(d => d.sub && d.sub.startsWith("Puls")).map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
 themen.push({ id: "muster", label: "TCM-Muster (Macciocia)", kategorie: "TCM-Muster", builder: () => musterData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
+ themen.push({
+  id: "cam_muster",
+  label: "CAM-Muster (59–70)",
+  kategorie: "CAM-Muster",
+  builder: () => musterData
+    .filter((_, idx) => camMusterNummern.includes(idx + 1))
+    .map(d => ({ front: d.frage, back: d.antwort, sub: (d.sub || "") + " – CAM" }))
+}); 
 
 /* ============ UI ============ */
 let cards = [];
