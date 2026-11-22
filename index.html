@@ -72,6 +72,8 @@
     .support-box { margin-top:1.5rem; padding:1rem 1.2rem; max-width:620px; background:#fff; border:1px solid var(--border); border-radius:12px; font-size:.8rem; line-height:1.5; color:var(--text); text-align:center; }
   .support-link { display:inline-block; margin-top:.6rem; padding:.45rem .9rem; background:var(--primary); color:#fff; border-radius:8px; text-decoration:none; font-size:.8rem; }
   .support-link:hover { background:#234b62; }
+    .link-btn { font-size:.78rem; padding:.35rem .7rem; border-radius:8px; border:1px solid var(--primary); background:#eef3f7; color:var(--primary); cursor:pointer; text-align:left; }
+  .link-btn:hover { background:#dfeaf1; }
     .topic-group > .group-title { cursor:pointer; user-select:none; }
   .group-toggle { display:inline-block; width:1rem; font-size:.8rem; color:var(--muted); transition:transform .2s; }
   .topic-group.collapsed .topic-items { display:none; }
@@ -116,13 +118,12 @@
       <div class="card-text" id="frontText">Bitte Themen auswählen</div>
       <div class="card-sub" id="frontSub"></div>
     </div>
-    <div class="card-face back">
+       <div class="card-face back">
       <span class="card-label" id="backLabel">Antwort</span>
       <div class="card-text" id="backText">–</div>
       <div class="card-sub" id="backSub"></div>
+      <div id="linkContainer" style="margin-top:.8rem; width:100%;"></div>
     </div>
-  </div>
-</div>
 
 <div class="hint">Klick auf die Karte dreht sie um. Pfeiltasten ← → blättern. Leertaste dreht.</div>
 
@@ -998,6 +999,44 @@ const onlyBookmarkedCb = document.getElementById("onlyBookmarked");
 const showPinyinCb = document.getElementById("showPinyin");
 const bookmarkBtn = document.getElementById("bookmarkBtn");
 const bookmarkCount = document.getElementById("bookmarkCount");
+  // Verknüpfungen: Muster <-> Punktkombinationen (über den Kartentitel)
+const verknuepfungen = [
+  { muster: "Leber Qi Stau / Stagnation", kombi: "Leber-Qi-Stagnation: Punkte?" },
+  { muster: "Leber greift den Magen an", kombi: "Rebellierendes Magen-Qi: Punkte?" },
+  { muster: "Leber greift die Milz an", kombi: "Milz-Qi-Mangel: Punkte?" },
+  { muster: "Leber Blut Stau / Stase / Stagnation", kombi: "Blut-Stase allgemein: Punkte?" },
+  { muster: "Leber Feuer / Loderndes Leber Feuer", kombi: "Vier Tore (Si Guan): Punkte?" },
+  { muster: "Aufsteigendes Leber Yang", kombi: "Vier Tore (Si Guan): Punkte?" },
+  { muster: "Herz Qi Schwäche / Mangel", kombi: "Herz-Qi-Mangel: Punkte?" },
+  { muster: "Herz Yang Mangel / Schwäche", kombi: "Herz-Qi-Mangel: Punkte?" },
+  { muster: "Herz Blut Mangel / Schwäche", kombi: "Herz-Blut-Mangel: Punkte?" },
+  { muster: "Herz Yin Mangel / Schwäche", kombi: "Herz-Blut-Mangel: Punkte?" },
+  { muster: "Herz Feuer", kombi: "Unruhe / Angst (Herz-Feuer): Punkte?" },
+  { muster: "Schleim Feuer erregt das Herz", kombi: "Unruhe / Angst (Herz-Feuer): Punkte?" },
+  { muster: "Herz Blut Stau / Stase / Stagnation", kombi: "Blut-Stase allgemein: Punkte?" },
+  { muster: "Milz Qi Mangel / Schwäche", kombi: "Milz-Qi-Mangel: Punkte?" },
+  { muster: "Milz Qi Mangel / Schwäche mit/führt zu Feuchtigkeit", kombi: "Milz-Qi-Mangel: Punkte?" },
+  { muster: "Sinkendes Milz Qi", kombi: "Milz-Qi-Mangel: Punkte?" },
+  { muster: "Rebellierendes Magen Qi", kombi: "Rebellierendes Magen-Qi: Punkte?" },
+  { muster: "Nahrungsstagnation im Magen", kombi: "Nahrungsstagnation: Punkte?" },
+  { muster: "Lungen Qi Mangel / Schwäche", kombi: "Lungen-Qi-Mangel: Punkte?" },
+  { muster: "Wei Qi Mangel / Schwäche", kombi: "Lungen-Qi-Mangel: Punkte?" },
+  { muster: "Schleim Hitze in der Lunge", kombi: "Schleim-Hitze in der Lunge: Punkte?" },
+  { muster: "Feuchte Hitze im Dickdarm", kombi: "Feuchte-Hitze im Dickdarm: Punkte?" },
+  { muster: "Fülle Hitze im Dickdarm", kombi: "Verstopfung (Hitze): Punkte?" },
+  { muster: "Yangming Organ Syndrom", kombi: "Verstopfung (Hitze): Punkte?" },
+  { muster: "Nieren Yang Mangel / Schwäche", kombi: "Nieren-Yang-Mangel: Punkte?" },
+  { muster: "Nieren Yin Mangel / Schwäche", kombi: "Nieren-Yin-Mangel: Punkte?" },
+  { muster: "Nieren Yin Mangel / Schwäche mit leerer Hitze", kombi: "Nieren-Yin-Mangel: Punkte?" },
+  { muster: "Feuchte Hitze in der Blase", kombi: "Feuchte-Hitze in der Blase: Punkte?" },
+  { muster: "Fülle Kälte im Uterus", kombi: "Dysmenorrhoe (Kälte): Punkte?" },
+  { muster: "Wind-Kälte-Feuchtigkeit Bi Syndrom", kombi: "Bi-Syndrom allgemein (Schmerz): Punkte?" },
+  { muster: "Wind-Hitze Bi Syndrom", kombi: "Bi-Syndrom allgemein (Schmerz): Punkte?" },
+  { muster: "Kälte im Taiyang", kombi: "Wind-Kälte (Taiyang): Punkte?" },
+  { muster: "Wind im Taiyang", kombi: "Wind-Kälte (Taiyang): Punkte?" },
+  { muster: "Wind Hitze greift die Lunge an", kombi: "Wind-Hitze (Wei Fen): Punkte?" },
+  { muster: "Wei Fen Syndrom", kombi: "Wind-Hitze (Wei Fen): Punkte?" }
+];
   // Element-Zuordnung nach sub-Feld
 function getElementInfo(sub) {
   if (!sub) return { element: "", color: "#cdd6de", symbol: "" };
@@ -1147,6 +1186,23 @@ function render() {
   const frontSymbol = document.getElementById("frontSymbol");
   if (frontFace) frontFace.style.setProperty("--element-color", info.color);
   if (frontSymbol) frontSymbol.textContent = info.symbol;
+    // Verknüpfung suchen (in beide Richtungen)
+  const linkContainer = document.getElementById("linkContainer");
+  if (linkContainer) {
+    linkContainer.innerHTML = "";
+    const v = verknuepfungen.find(x => x.muster === c.front || x.kombi === c.front);
+    if (v) {
+      const ziel = v.muster === c.front ? v.kombi : v.muster;
+      const btn = document.createElement("button");
+      btn.textContent = "→ " + ziel;
+      btn.className = "link-btn";
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        jumpToCard(ziel);
+      });
+      linkContainer.appendChild(btn);
+    }
+  }
 
   const isMarked = bookmarks.has(c.uid);
   bookmarkBtn.textContent = isMarked ? "★ Gemerkt" : "☆ Merken";
@@ -1155,6 +1211,38 @@ function render() {
   cardEl.classList.remove("flipped");
 }
 
+  // Springt zu einer Karte anhand ihres Titels (front)
+function jumpToCard(title) {
+  // Suche in allen Themen nach der Karte
+  for (const t of themen) {
+    const built = t.builder();
+    const idx = built.findIndex(c => c.front === title);
+    if (idx !== -1) {
+      // Themen-Checkbox aktivieren
+      const cb = topicContainer.querySelector('input[value="' + t.id + '"]');
+      if (cb && !cb.checked) {
+        cb.checked = true;
+        const groupDiv = cb.closest(".topic-group");
+        if (groupDiv) {
+          const catCb = groupDiv.querySelector(".group-title input");
+          const items = groupDiv.querySelectorAll(".topic-items input");
+          const checkedCount = Array.from(items).filter(x => x.checked).length;
+          catCb.checked = true;
+          catCb.indeterminate = checkedCount > 0 && checkedCount < items.length;
+        }
+      }
+      rebuildCards();
+      // Finde die Karte in der aktuellen cards-Liste
+      const targetUid = t.id + "::" + title;
+      const pos = cards.findIndex(c => c.uid === targetUid);
+      if (pos !== -1) {
+        currentIndex = pos;
+        render();
+      }
+      return;
+    }
+  }
+}
 function toggleBookmark() {
   if (!cards.length) return;
   const uid = cards[currentIndex].uid;
