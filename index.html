@@ -55,12 +55,24 @@
   .topic-group[data-element="erde"] { border-left:4px solid #d4a72c; }
   .topic-group[data-element="metall"] { border-left:4px solid #90a4ae; }
   .topic-group[data-element="wasser"] { border-left:4px solid #42a5f5; }
+    .topic-group > .group-title { cursor:pointer; user-select:none; }
+  .group-toggle { display:inline-block; width:1rem; font-size:.8rem; color:var(--muted); transition:transform .2s; }
+  .topic-group.collapsed .topic-items { display:none; }
+  .topic-group.collapsed .group-toggle { transform:rotate(-90deg); }
   button.bookmarked { background:#fff3cd; border-color:#ffc107; color:#856404; font-weight:600; }
   .toggle-pill { display:inline-flex; align-items:center; gap:.4rem; font-size:.85rem; padding:.45rem .8rem; border-radius:8px; border:1px solid var(--border); background:#fff; cursor:pointer; user-select:none; }
   .toggle-pill input { accent-color:var(--primary); }
+    .topic-group > .group-title { cursor:pointer; user-select:none; }
+  .group-toggle { display:inline-block; width:1rem; font-size:.8rem; color:var(--muted); transition:transform .2s; }
+  .topic-group.collapsed .topic-items { display:none; }
+  .topic-group.collapsed .group-toggle { transform:rotate(-90deg); }
     .support-box { margin-top:1.5rem; padding:1rem 1.2rem; max-width:620px; background:#fff; border:1px solid var(--border); border-radius:12px; font-size:.8rem; line-height:1.5; color:var(--text); text-align:center; }
   .support-link { display:inline-block; margin-top:.6rem; padding:.45rem .9rem; background:var(--primary); color:#fff; border-radius:8px; text-decoration:none; font-size:.8rem; }
   .support-link:hover { background:#234b62; }
+    .topic-group > .group-title { cursor:pointer; user-select:none; }
+  .group-toggle { display:inline-block; width:1rem; font-size:.8rem; color:var(--muted); transition:transform .2s; }
+  .topic-group.collapsed .topic-items { display:none; }
+  .topic-group.collapsed .group-toggle { transform:rotate(-90deg); }
 </style>
 </head>
 <body>
@@ -1025,14 +1037,29 @@ function buildTopicUI() {
     const catInfo = getElementInfo(firstSub);
     groupDiv.dataset.element = catInfo.element;
 
-    const titleLabel = document.createElement("label");
+        const titleLabel = document.createElement("label");
     titleLabel.className = "group-title";
     const catCb = document.createElement("input");
     catCb.type = "checkbox";
     catCb.checked = true;
     titleLabel.appendChild(catCb);
-    titleLabel.appendChild(document.createTextNode(" " + kat + " (alle)"));
+    titleLabel.appendChild(document.createTextNode(" " + kat + " (alle) "));
+    const toggle = document.createElement("span");
+    toggle.className = "group-toggle";
+    toggle.textContent = "▾";
+    titleLabel.appendChild(toggle);
     groupDiv.appendChild(titleLabel);
+
+    // Einklappen: Klick auf den Titel (außer auf die Checkbox) toggelt
+    titleLabel.addEventListener("click", (e) => {
+      if (e.target === catCb) return; // Checkbox nicht toggeln
+      groupDiv.classList.toggle("collapsed");
+      toggle.textContent = groupDiv.classList.contains("collapsed") ? "▸" : "▾";
+    });
+
+    // Standardmäßig eingeklappt
+    groupDiv.classList.add("collapsed");
+    toggle.textContent = "▸";
 
     const items = document.createElement("div");
     items.className = "topic-items";
