@@ -42,6 +42,19 @@
     .support-box { margin-top:1.5rem; padding:1rem 1.2rem; max-width:620px; background:#fff; border:1px solid var(--border); border-radius:12px; font-size:.8rem; line-height:1.5; color:var(--text); text-align:center; }
     .support-link { display:inline-block; margin-top:.6rem; padding:.45rem .9rem; background:var(--primary); color:#fff; border-radius:8px; text-decoration:none; font-size:.8rem; }
   .support-link:hover { background:#234b62; }
+    /* Elementfarben + Symboltiere */
+  .card-face.front { border-top: 4px solid var(--element-color, #cdd6de); }
+  .card-symbol { position:absolute; top:.7rem; right:1rem; font-size:1.1rem; opacity:.85; }
+  .topic-group[data-element="holz"] > .group-title { color:#2e7d32; }
+  .topic-group[data-element="feuer"] > .group-title { color:#c62828; }
+  .topic-group[data-element="erde"] > .group-title { color:#a1740b; }
+  .topic-group[data-element="metall"] > .group-title { color:#607d8b; }
+  .topic-group[data-element="wasser"] > .group-title { color:#1565c0; }
+  .topic-group[data-element="holz"] { border-left:4px solid #66bb6a; }
+  .topic-group[data-element="feuer"] { border-left:4px solid #ef5350; }
+  .topic-group[data-element="erde"] { border-left:4px solid #d4a72c; }
+  .topic-group[data-element="metall"] { border-left:4px solid #90a4ae; }
+  .topic-group[data-element="wasser"] { border-left:4px solid #42a5f5; }
   button.bookmarked { background:#fff3cd; border-color:#ffc107; color:#856404; font-weight:600; }
   .toggle-pill { display:inline-flex; align-items:center; gap:.4rem; font-size:.85rem; padding:.45rem .8rem; border-radius:8px; border:1px solid var(--border); background:#fff; cursor:pointer; user-select:none; }
   .toggle-pill input { accent-color:var(--primary); }
@@ -81,8 +94,9 @@
 
 <div class="card-wrap">
   <div class="card" id="card">
-    <div class="card-face front">
+        <div class="card-face front" id="frontFace">
       <span class="card-label" id="frontLabel">Frage</span>
+      <span class="card-symbol" id="frontSymbol"></span>
       <div class="card-text" id="frontText">Bitte Themen auswählen</div>
       <div class="card-sub" id="frontSub"></div>
     </div>
@@ -968,6 +982,22 @@ const onlyBookmarkedCb = document.getElementById("onlyBookmarked");
 const showPinyinCb = document.getElementById("showPinyin");
 const bookmarkBtn = document.getElementById("bookmarkBtn");
 const bookmarkCount = document.getElementById("bookmarkCount");
+  // Element-Zuordnung nach sub-Feld
+function getElementInfo(sub) {
+  if (!sub) return { element: "", color: "#cdd6de", symbol: "" };
+  const s = sub.toLowerCase();
+  if (s.includes("leber") || s.includes("gallenblase") || s.includes("sehnen") || s.includes("auge"))
+    return { element: "holz", color: "#66bb6a", symbol: "🐉" };
+  if (s.includes("herz") || s.includes("dünndarm") || s.includes("perikard") || s.includes("sanjiao") || s.includes("shen") || s.includes("feuer"))
+    return { element: "feuer", color: "#ef5350", symbol: "🐦" };
+  if (s.includes("milz") || s.includes("magen") || s.includes("verdauung") || s.includes("erde"))
+    return { element: "erde", color: "#d4a72c", symbol: "⛰️" };
+  if (s.includes("lunge") || s.includes("dickdarm") || s.includes("metall") || s.includes("haut"))
+    return { element: "metall", color: "#90a4ae", symbol: "🐅" };
+  if (s.includes("niere") || s.includes("blase") || s.includes("knochen") || s.includes("jing") || s.includes("wasser"))
+    return { element: "wasser", color: "#42a5f5", symbol: "🐢" };
+  return { element: "", color: "#cdd6de", symbol: "" };
+}
 
 function saveBookmarks() {
   localStorage.setItem("tcm_bookmarks", JSON.stringify(Array.from(bookmarks)));
@@ -990,6 +1020,10 @@ function buildTopicUI() {
   Object.keys(kategorien).forEach(kat => {
     const groupDiv = document.createElement("div");
     groupDiv.className = "topic-group";
+        // Elementfarbe für die Kategorie ermitteln (aus dem ersten Thema)
+    const firstSub = kategorien[kat][0]?.builder?.()[0]?.sub || "";
+    const catInfo = getElementInfo(firstSub);
+    groupDiv.dataset.element = catInfo.element;
 
     const titleLabel = document.createElement("label");
     titleLabel.className = "group-title";
@@ -1067,7 +1101,7 @@ function render() {
     cardEl.classList.remove("flipped");
     return;
   }
-  const c = cards[currentIndex];
+    const c = cards[currentIndex];
   frontText.textContent = formatText(c.front);
   frontSub.textContent = c.sub || "";
   backText.textContent = formatText(c.back);
@@ -1075,6 +1109,13 @@ function render() {
   frontLabel.textContent = directionSel.value === "reverse" ? "Antwort" : "Frage";
   backLabel.textContent = directionSel.value === "reverse" ? "Frage" : "Antwort";
   progress.textContent = "Karte " + (currentIndex + 1) + " von " + cards.length;
+
+  // Elementfarbe + Symbol anwenden
+  const info = getElementInfo(c.sub);
+  const frontFace = document.getElementById("frontFace");
+  const frontSymbol = document.getElementById("frontSymbol");
+  if (frontFace) frontFace.style.setProperty("--element-color", info.color);
+  if (frontSymbol) frontSymbol.textContent = info.symbol;
 
   const isMarked = bookmarks.has(c.uid);
   bookmarkBtn.textContent = isMarked ? "★ Gemerkt" : "☆ Merken";
