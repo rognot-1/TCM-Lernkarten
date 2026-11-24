@@ -987,7 +987,24 @@ const camArzneiData = [
   { frage: "Jin Ying Zi", antwort: "OdA AM: Fructus Rosae laevigatae\nDeutsch: Glatte Rosen-Frucht\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
   { frage: "Sang Piao Xiao", antwort: "OdA AM: Ootheca Mantidis\nDeutsch: Gottesanbeterin-Eikokon\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
   { frage: "Fu Pen Zi", antwort: "OdA AM: Fructus Rubi\nDeutsch: Brombeer-Frucht\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
-  { frage: "Hai Piao Xiao", antwort: "OdA AM: Endoconcha Sepiae\nDeutsch: Tintenfisch-Schulp\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" }
+    { frage: "Hai Piao Xiao", antwort: "OdA AM: Endoconcha Sepiae\nDeutsch: Tintenfisch-Schulp\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+
+  // --- Stabilisieren: Blut stillen ---
+  { frage: "Xian He Cao", antwort: "OdA AM: Herba Agrimoniae\nDeutsch: Odermennig-Kraut\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Bai Ji", antwort: "OdA AM: Rhizoma Bletillae\nDeutsch: Bletilla-Rhizom\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Ou Jie", antwort: "OdA AM: Nodus Nelumbinis rhizomatis\nDeutsch: Lotus-Rhizom-Knoten\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Pu Huang", antwort: "OdA AM: Pollen Typhae\nDeutsch: Rohrkolben-Pollen\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "San Qi", antwort: "OdA AM: Radix et Rhizoma Notoginseng\nDeutsch: Notoginseng-Wurzel und -Rhizom\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Hua Rui Shi", antwort: "OdA AM: Ophicalcitum\nDeutsch: Ophicalcit (Mineral)\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Xiao Ji", antwort: "OdA AM: Herba Cirsii\nDeutsch: Kratzdistel-Kraut\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Di Yu", antwort: "OdA AM: Radix Sanguisorbae\nDeutsch: Wiesenknopf-Wurzel\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Huai Hua", antwort: "OdA AM: Flos Sophorae\nDeutsch: Schnurbaum-Blüte\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Qian Cao (Gen)", antwort: "OdA AM: Radix et Rhizoma Rubiae\nDeutsch: Krappwurzel und -rhizom\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Bai Mao Gen", antwort: "OdA AM: Rhizoma Imperatae\nDeutsch: Imperata-Rhizom\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Ce Bai Ye", antwort: "OdA AM: Cacumen Platycladi\nDeutsch: Lebensbaum-Zweigspitzen\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Ai Ye", antwort: "OdA AM: Folium Artemisiae argyi\nDeutsch: Beifuss-Blatt\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Pao Jiang", antwort: "OdA AM: Rhizoma Zingiberis praeparatum\nDeutsch: Vorbereitetes Ingwer-Rhizom\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+  { frage: "Fu Long Gan", antwort: "OdA AM: Terra Flava usta\nDeutsch: Gebrannte gelbe Erde\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" }
 ];
 
 /* ============ THEMEN ============ */
@@ -1050,6 +1067,12 @@ themen.push({
   label: "CAM: Stabilisieren (Adstringierend)",
   kategorie: "CAM-Einzelarzneien",
   builder: () => camArzneiData.filter(d => d.sub === "05_Stabilisieren_Adstringierend").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
+});
+  themen.push({
+  id: "cam_arznei_blutstillen",
+  label: "CAM: Blut stillen",
+  kategorie: "CAM-Einzelarzneien",
+  builder: () => camArzneiData.filter(d => d.sub === "06_Stabilisieren_Blut_stillen").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
 });
 themen.push({
   id: "lok_lu_di",
