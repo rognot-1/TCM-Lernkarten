@@ -110,14 +110,17 @@
 <div class="progress" id="progress">Keine Karten ausgewählt</div>
 
   <div class="controls">
+  <select id="direction">
+    <option value="normal">Richtung: Frage → Antwort</option>
+    <option value="reverse">Richtung: Antwort → Frage</option>
+  </select>
   <label class="toggle-pill"><input type="checkbox" id="onlyBookmarked"> Nur gemerkte</label>
   <label class="toggle-pill"><input type="checkbox" id="showPinyin" checked> Pinyin/Englisch anzeigen</label>
-  <button id="bookmarkBtn">☆ Merken</button>
-  <span class="bookmark-count">Gemerkt: <span id="bookmarkCount">0</span></span>
 </div>
 
   <div class="bookmark-count" style="margin-top:.5rem;">Gemerkt: <span id="bookmarkCount">0</span></div>
- <div class="nav" style="margin-top:1rem;">
+
+  <div class="nav" style="margin-top:1rem;">
   <button id="prevBtn">← Zurück</button>
   <button id="bookmarkBtn">☆ Merken</button>
   <button id="nextBtn" class="primary">Weiter →</button>
