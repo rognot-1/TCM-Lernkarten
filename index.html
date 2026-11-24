@@ -833,14 +833,6 @@ const camArzneiData = [
   { frage: "Yi Tang", antwort: "Maltose (Maltose)\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
   { frage: "Geng Mi", antwort: "Oryzae Sativae Semen (Semen Oryzae sativae)\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" }
 ];
-
-// Die neue Kategorie für die Themenauswahl anmelden
-themen.push({
-  id: "cam_arznei_qi",
-  label: "CAM: Tonisieren Qi",
-  kategorie: "CAM-Einzelarzneien",
-  builder: () => camArzneiData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
-});
   
   // CAM-Muster (IGTCM: grün markiert = zusätzlich für Chinesische Arzneimittel)
 const camMusterNummern = [59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70];
@@ -953,14 +945,13 @@ themen.push({ id: "kombi", label: "Punktkombinationen", kategorie: "Punktkombina
 themen.push({ id: "zunge", label: "Zunge", kategorie: "Zunge & Puls", builder: () => zungpulsData.filter(d => d.sub && d.sub.startsWith("Zunge")).map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
 themen.push({ id: "puls", label: "Puls", kategorie: "Zunge & Puls", builder: () => zungpulsData.filter(d => d.sub && d.sub.startsWith("Puls")).map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
 themen.push({ id: "muster", label: "TCM-Muster (Macciocia)", kategorie: "TCM-Muster", builder: () => musterData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub || "" })) });
- themen.push({
-  id: "cam_muster",
-  label: "CAM-Muster (59–70)",
-  kategorie: "CAM-Muster",
-  builder: () => musterData
-    .filter((_, idx) => camMusterNummern.includes(idx + 1))
-    .map(d => ({ front: d.frage, back: d.antwort, sub: (d.sub || "") + " – CAM" }))
-}); 
+themen.push({ id: "cam_muster", label: "CAM-Muster (59–70)", kategorie: "CAM-Muster", builder: () => musterData.filter((_, idx) => camMusterNummern.includes(idx + 1)).map(d => ({ front: d.frage, back: d.antwort, sub: (d.sub || "") + " – CAM" })) }); 
+themen.push({
+  id: "cam_arznei_qi",
+  label: "CAM: Tonisieren Qi",
+  kategorie: "CAM-Einzelarzneien",
+  builder: () => camArzneiData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
+});
 themen.push({
   id: "lok_lu_di",
   label: "Lunge (Lu) + Dickdarm (Di)",
