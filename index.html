@@ -968,7 +968,26 @@ const camArzneiData = [
   { frage: "Gui Ban", antwort: "OdA AM: Testudinis Plastrum\nDeutsch: Schildkröten-Bauchpanzer\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
   { frage: "Gui Ban Jiao (Gui Jia)", antwort: "OdA AM: Carapax et Plastrum Testudinis\nDeutsch: Schildkröten-Panzer (Rücken und Bauch)\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
   { frage: "Gui Jia Jiao", antwort: "OdA AM: Colla Carapax et Plastrum Testudinis\nDeutsch: Schildkröten-Panzer-Gelatine\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
-  { frage: "Bie Jia", antwort: "OdA AM: Carapax Trionycis\nDeutsch: Weichschildkröten-Panzer\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" }
+   { frage: "Bie Jia", antwort: "OdA AM: Carapax Trionycis\nDeutsch: Weichschildkröten-Panzer\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+
+  // --- Stabilisieren: Adstringierend ---
+  { frage: "Wu Wei Zi", antwort: "OdA AM: Fructus Schisandrae chinensis\nDeutsch: Chinesische Beeren-Frucht (Schisandra)\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Wu Mei", antwort: "OdA AM: Fructus Mume\nDeutsch: Japanische Aprikose (Mume-Frucht)\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Fu Xiao Mai", antwort: "OdA AM: Fructus Tritici levis\nDeutsch: Leichte Weizen-Frucht\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Ma Huang Gen", antwort: "OdA AM: Radix et Rhizoma Ephedrae\nDeutsch: Ephedra-Wurzel und -Rhizom\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Nuo Dao Gen Xu", antwort: "OdA AM: Radix et Rhizoma Oryzae glutinosae\nDeutsch: Klebreis-Wurzel und -Rhizom\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Chi Shi Zhi", antwort: "OdA AM: Halloysitum Rubrum\nDeutsch: Roter Halloysit (Mineral)\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "He Zi", antwort: "OdA AM: Fructus Chebulae\nDeutsch: Myrobalanen-Frucht\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Rou Dou Kou", antwort: "OdA AM: Semen Myristicae\nDeutsch: Muskatnuss-Samen\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Ying Su Qiao (Ying Su Ke)", antwort: "OdA AM: Pericarpium Papaveris\nDeutsch: Mohnkapsel\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Chun Pi (Chun Gen Pi)", antwort: "OdA AM: Cortex Ailanthi\nDeutsch: Götterbaum-Rinde\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Lian Zi", antwort: "OdA AM: Semen Nelumbinis\nDeutsch: Lotus-Samen\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Qian Shi", antwort: "OdA AM: Semen Euryales\nDeutsch: Euryale-Samen (Makhana)\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Shan Zhu Yu", antwort: "OdA AM: Fructus Corni\nDeutsch: Kornelkirsche-Frucht\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Jin Ying Zi", antwort: "OdA AM: Fructus Rosae laevigatae\nDeutsch: Glatte Rosen-Frucht\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Sang Piao Xiao", antwort: "OdA AM: Ootheca Mantidis\nDeutsch: Gottesanbeterin-Eikokon\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Fu Pen Zi", antwort: "OdA AM: Fructus Rubi\nDeutsch: Brombeer-Frucht\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" },
+  { frage: "Hai Piao Xiao", antwort: "OdA AM: Endoconcha Sepiae\nDeutsch: Tintenfisch-Schulp\nKategorie: Stabilisieren (Adstringierend)", sub: "05_Stabilisieren_Adstringierend" }
 ];
 
 /* ============ THEMEN ============ */
@@ -1025,6 +1044,12 @@ themen.push({
   label: "CAM: Tonisieren Yin",
   kategorie: "CAM-Einzelarzneien",
   builder: () => camArzneiData.filter(d => d.sub === "04_Tonisieren_Yin").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
+});
+  themen.push({
+  id: "cam_arznei_adstringierend",
+  label: "CAM: Stabilisieren (Adstringierend)",
+  kategorie: "CAM-Einzelarzneien",
+  builder: () => camArzneiData.filter(d => d.sub === "05_Stabilisieren_Adstringierend").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
 });
 themen.push({
   id: "lok_lu_di",
