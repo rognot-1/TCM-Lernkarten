@@ -814,24 +814,34 @@ const kombiData = [];
   // ===== GYNÄKOLOGIE =====
   { frage: "Dysmenorrhoe (Kälte): Punkte?", antwort: "Punkte: Ren 3, Ren 4, Mi 6, Le 3, Bl 32 (mit Moxa).\nWirkung: Uterus erwärmen, Kälte zerstreuen, Menstruationsschmerz lindern.\nIndikation: Schmerzhafte Menstruation mit Kältegefühl, gebessert durch Wärme.\nVerknüpfung: → Muster 57 (Fülle Kälte Uterus), 4 (Leber Blut Stase).", sub: "Gynäkologie" }
 );
-  const musterData = [];
-
-  // CAM-Einzelarzneien (Paket 1: Tonisieren Qi)
   const camArzneiData = [
-  { frage: "Ren Shen", antwort: "Chen/Chen: Ginseng Radix et Rhizoma\nOdA AM: Radix et Rhizoma Ginseng\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Dang Shen", antwort: "Chen/Chen: Codonopsis Radix\nOdA AM: Radix Codonopsis\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Tai Zi Shen", antwort: "Chen/Chen: Pseudostellariae Radix\nOdA AM: Radix Pseudostellariae\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Xi Yang Shen", antwort: "Chen/Chen: Panacis Quinquefolii Radix\nOdA AM: Radix Panacis quinquefolii\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Huang Qi", antwort: "Chen/Chen: Astragali Radix\nOdA AM: Radix Astragali\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Bai Zhu", antwort: "Chen/Chen: Atractylodis Macrocephalae Rhizoma\nOdA AM: Rhizoma Atractylodis macrocephalae\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Shan Yao", antwort: "Chen/Chen: Dioscoreae Rhizoma\nOdA AM: Rhizoma Dioscoreae\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Bai Bian Dou", antwort: "Chen/Chen: Lablab Album Semen\nOdA AM: Semen Lablab album\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Gan Cao", antwort: "Chen/Chen: Glycyrrhizae Radix et Rhizoma\nOdA AM: Radix et Rhizoma Glycyrrhizae\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Huang Jing", antwort: "Chen/Chen: Polygonati Rhizoma\nOdA AM: Rhizoma Polygonati\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Zhi Gan Cao", antwort: "Chen/Chen: Glycyrrhizae Praeperata Radix et Rhizoma\nOdA AM: Radix et Rhizoma Glycyrrhizae praeperata\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Da Zao", antwort: "Chen/Chen: Jujubae Fructus\nOdA AM: Fructus Jujubae\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Yi Tang", antwort: "Chen/Chen: Maltose\nOdA AM: Maltose\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
-  { frage: "Geng Mi", antwort: "Chen/Chen: Oryzae Sativae Semen\nOdA AM: Semen Oryzae sativae\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" }
+  // --- Tonisieren Qi ---
+  { frage: "Ren Shen", antwort: "OdA AM: Radix et Rhizoma Ginseng\nDeutsch: Ginsengwurzel und -wurzelstock\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Dang Shen", antwort: "OdA AM: Radix Codonopsis\nDeutsch: Codonopsis-Wurzel (Glockenblumenwurzel)\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Tai Zi Shen", antwort: "OdA AM: Radix Pseudostellariae\nDeutsch: Pseudostellaria-Wurzel\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Xi Yang Shen", antwort: "OdA AM: Radix Panacis quinquefolii\nDeutsch: Amerikanische Ginsengwurzel\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Huang Qi", antwort: "OdA AM: Radix Astragali\nDeutsch: Astragalus-Wurzel (Tragantwurzel)\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Bai Zhu", antwort: "OdA AM: Rhizoma Atractylodis macrocephalae\nDeutsch: Atractylodes-Rhizom (Weisswurz)\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Shan Yao", antwort: "OdA AM: Rhizoma Dioscoreae\nDeutsch: Dioscorea-Rhizom (Yamswurzel)\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Bai Bian Dou", antwort: "OdA AM: Semen Lablab album\nDeutsch: Weisse Lablab-Bohne\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Gan Cao", antwort: "OdA AM: Radix et Rhizoma Glycyrrhizae\nDeutsch: Süssholzwurzel und -rhizom\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Huang Jing", antwort: "OdA AM: Rhizoma Polygonati\nDeutsch: Polygonatum-Rhizom (Weisswurz)\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Zhi Gan Cao", antwort: "OdA AM: Radix et Rhizoma Glycyrrhizae praeparata\nDeutsch: In Honig gebratene Süssholzwurzel\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Da Zao", antwort: "OdA AM: Fructus Jujubae\nDeutsch: Jujube-Frucht (Chinesische Dattel)\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Yi Tang", antwort: "OdA AM: Maltose\nDeutsch: Malzzucker\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+  { frage: "Geng Mi", antwort: "OdA AM: Semen Oryzae sativae\nDeutsch: Reiskorn\nKategorie: Tonisieren Qi", sub: "01_Tonisieren_Qi" },
+
+  // --- Tonisieren Xue (Blut) ---
+  { frage: "Dang Gui", antwort: "OdA AM: Radix Angelicae sinensis\nDeutsch: Engelwurz-Wurzel\nKategorie: Tonisieren Xue", sub: "02_Tonisieren_Xue" },
+  { frage: "Shu Di Huang", antwort: "OdA AM: Radix Rehmanniae praeparata\nDeutsch: Vorbereitete Rehmannia-Wurzel\nKategorie: Tonisieren Xue", sub: "02_Tonisieren_Xue" },
+  { frage: "He Shou Wu", antwort: "OdA AM: Radix Polygoni multiflori\nDeutsch: Vielblütige Knöterich-Wurzel\nKategorie: Tonisieren Xue", sub: "02_Tonisieren_Xue" },
+  { frage: "Zhi He Shou Wu", antwort: "OdA AM: Radix Polygoni multiflori praeparata\nDeutsch: Vorbereitete Vielblütige Knöterich-Wurzel\nKategorie: Tonisieren Xue", sub: "02_Tonisieren_Xue" },
+  { frage: "Bai Shao", antwort: "OdA AM: Radix Paeoniae alba\nDeutsch: Weisse Pfingstrosen-Wurzel\nKategorie: Tonisieren Xue", sub: "02_Tonisieren_Xue" },
+  { frage: "Gou Qi Zi", antwort: "OdA AM: Fructus Lycii\nDeutsch: Bocksdorn-Frucht (Goji-Beere)\nKategorie: Tonisieren Xue", sub: "02_Tonisieren_Xue" },
+  { frage: "E Jiao", antwort: "OdA AM: Colla Corii asini\nDeutsch: Esel-Haut-Gelatine\nKategorie: Tonisieren Xue", sub: "02_Tonisieren_Xue" },
+  { frage: "Long Yan Rou", antwort: "OdA AM: Arillus Longan\nDeutsch: Longan-Fruchtfleisch\nKategorie: Tonisieren Xue", sub: "02_Tonisieren_Xue" },
+  { frage: "Sang Shen", antwort: "OdA AM: Fructus Mori\nDeutsch: Maulbeer-Frucht\nKategorie: Tonisieren Xue", sub: "02_Tonisieren_Xue" },
+  { frage: "Zi He Che", antwort: "OdA AM: Placenta Hominis\nDeutsch: Menschliche Plazenta\nKategorie: Tonisieren Xue", sub: "02_Tonisieren_Xue" }
 ];
   
   // CAM-Muster (IGTCM: grün markiert = zusätzlich für Chinesische Arzneimittel)
@@ -951,6 +961,12 @@ themen.push({
   label: "CAM: Tonisieren Qi",
   kategorie: "CAM-Einzelarzneien",
   builder: () => camArzneiData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
+});
+  themen.push({
+  id: "cam_arznei_xue",
+  label: "CAM: Tonisieren Xue",
+  kategorie: "CAM-Einzelarzneien",
+  builder: () => camArzneiData.filter(d => d.sub === "02_Tonisieren_Xue").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
 });
 themen.push({
   id: "lok_lu_di",
