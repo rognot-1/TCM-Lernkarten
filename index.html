@@ -1004,7 +1004,28 @@ const camArzneiData = [
   { frage: "Ce Bai Ye", antwort: "OdA AM: Cacumen Platycladi\nDeutsch: Lebensbaum-Zweigspitzen\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
   { frage: "Ai Ye", antwort: "OdA AM: Folium Artemisiae argyi\nDeutsch: Beifuss-Blatt\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
   { frage: "Pao Jiang", antwort: "OdA AM: Rhizoma Zingiberis praeparatum\nDeutsch: Vorbereitetes Ingwer-Rhizom\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
-  { frage: "Fu Long Gan", antwort: "OdA AM: Terra Flava usta\nDeutsch: Gebrannte gelbe Erde\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" }
+   { frage: "Fu Long Gan", antwort: "OdA AM: Terra Flava usta\nDeutsch: Gebrannte gelbe Erde\nKategorie: Stabilisieren (Blut stillen)", sub: "06_Stabilisieren_Blut_stillen" },
+
+  // --- Stabilisieren: Hitze klären (Feuer) ---
+  { frage: "Shi Gao", antwort: "OdA AM: Gypsum Fibrosum\nDeutsch: Gips (Mineral)\nKategorie: Hitze klären (Feuer)", sub: "07.1_Stabilisieren_Hitze_Feuer" },
+  { frage: "Zhi Mu", antwort: "OdA AM: Rhizoma Anemarrhenae\nDeutsch: Anemarrhena-Rhizom\nKategorie: Hitze klären (Feuer)", sub: "07.1_Stabilisieren_Hitze_Feuer" },
+  { frage: "Zhi Zi", antwort: "OdA AM: Fructus Gardeniae\nDeutsch: Gardenia-Frucht\nKategorie: Hitze klären (Feuer)", sub: "07.1_Stabilisieren_Hitze_Feuer" },
+  { frage: "Tian Hua Fen", antwort: "OdA AM: Radix Trichosanthis\nDeutsch: Trichosanthes-Wurzel\nKategorie: Hitze klären (Feuer)", sub: "07.1_Stabilisieren_Hitze_Feuer" },
+  { frage: "Lu Gen", antwort: "OdA AM: Rhizoma Phragmitis\nDeutsch: Schilfrohr-Rhizom\nKategorie: Hitze klären (Feuer)", sub: "07.1_Stabilisieren_Hitze_Feuer" },
+  { frage: "Dan Zhu Ye", antwort: "OdA AM: Herba Lophatheri\nDeutsch: Lophatherum-Kraut (Bambusgras)\nKategorie: Hitze klären (Feuer)", sub: "07.1_Stabilisieren_Hitze_Feuer" },
+  { frage: "Lian Zi Xin", antwort: "OdA AM: Plumula Nelumbinis\nDeutsch: Lotus-Samen-Keimling\nKategorie: Hitze klären (Feuer)", sub: "07.1_Stabilisieren_Hitze_Feuer" },
+  { frage: "Xia Ku Cao", antwort: "OdA AM: Spica Prunellae\nDeutsch: Prunella-Ähre (Braunelle)\nKategorie: Hitze klären (Feuer)", sub: "07.1_Stabilisieren_Hitze_Feuer" },
+  { frage: "Jue Ming Zi", antwort: "OdA AM: Semen Cassiae\nDeutsch: Kassia-Samen (Cassia)\nKategorie: Hitze klären (Feuer)", sub: "07.1_Stabilisieren_Hitze_Feuer" },
+  { frage: "Mi Meng Hua", antwort: "OdA AM: Flos Buddlejae\nDeutsch: Buddleja-Blüte\nKategorie: Hitze klären (Feuer)", sub: "07.1_Stabilisieren_Hitze_Feuer" },
+  { frage: "Qing Xiang Zi", antwort: "OdA AM: Semen Celosiae\nDeutsch: Celosia-Samen (Hahnenkamm)\nKategorie: Hitze klären (Feuer)", sub: "07.1_Stabilisieren_Hitze_Feuer" },
+
+  // --- Stabilisieren: Hitze klären (Blut) ---
+  { frage: "Xi Jiao", antwort: "OdA AM: Cornu Rhinocerotis\nDeutsch: Nashorn-Horn (CITES geschützt)\nKategorie: Hitze klären (Blut)", sub: "07.2_Stabilisieren_Hitze_Blut" },
+  { frage: "Di Huang (Sheng Di Huang)", antwort: "OdA AM: Radix Rehmanniae\nDeutsch: Rehmannia-Wurzel\nKategorie: Hitze klären (Blut)", sub: "07.2_Stabilisieren_Hitze_Blut" },
+  { frage: "Xuan Shen", antwort: "OdA AM: Radix Scrophulariae\nDeutsch: Scrophularia-Wurzel (Braunwurz)\nKategorie: Hitze klären (Blut)", sub: "07.2_Stabilisieren_Hitze_Blut" },
+  { frage: "Mu Dan Pi", antwort: "OdA AM: Cortex Moutan\nDeutsch: Moutan-Rinde (Baum-Päonie)\nKategorie: Hitze klären (Blut)", sub: "07.2_Stabilisieren_Hitze_Blut" },
+  { frage: "Chi Shao (Yao)", antwort: "OdA AM: Radix Paeoniae rubra\nDeutsch: Rote Pfingstrosen-Wurzel\nKategorie: Hitze klären (Blut)", sub: "07.2_Stabilisieren_Hitze_Blut" },
+  { frage: "Zi Cao", antwort: "OdA AM: Radix Arnebiae\nDeutsch: Arnebia-Wurzel (Ochsenzunge)\nKategorie: Hitze klären (Blut)", sub: "07.2_Stabilisieren_Hitze_Blut" }
 ];
 
 /* ============ THEMEN ============ */
@@ -1073,6 +1094,18 @@ themen.push({
   label: "CAM: Blut stillen",
   kategorie: "CAM-Einzelarzneien",
   builder: () => camArzneiData.filter(d => d.sub === "06_Stabilisieren_Blut_stillen").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
+});
+  themen.push({
+  id: "cam_arznei_hitze_feuer",
+  label: "CAM: Hitze klären (Feuer)",
+  kategorie: "CAM-Einzelarzneien",
+  builder: () => camArzneiData.filter(d => d.sub === "07.1_Stabilisieren_Hitze_Feuer").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
+});
+themen.push({
+  id: "cam_arznei_hitze_blut",
+  label: "CAM: Hitze klären (Blut)",
+  kategorie: "CAM-Einzelarzneien",
+  builder: () => camArzneiData.filter(d => d.sub === "07.2_Stabilisieren_Hitze_Blut").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
 });
 themen.push({
   id: "lok_lu_di",
