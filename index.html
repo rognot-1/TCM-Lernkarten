@@ -952,7 +952,23 @@ const camArzneiData = [
   { frage: "Bu Gu Zhi", antwort: "OdA AM: Fructus Psoraleae\nDeutsch: Psoralea-Frucht\nKategorie: Tonisieren Yang", sub: "03.1_Tonisieren_Yang" },
   { frage: "Cao Wu", antwort: "OdA AM: Radix Aconiti kusnezoffii\nDeutsch: Kusnezoff-Eisenhut-Wurzel\nKategorie: Tonisieren Yang", sub: "03.1_Tonisieren_Yang" },
   { frage: "Hai Ma", antwort: "OdA AM: Hippocampus\nDeutsch: Seepferdchen\nKategorie: Tonisieren Yang", sub: "03.1_Tonisieren_Yang" },
-  { frage: "Hai Gou Shen", antwort: "OdA AM: Testes et Penis Otariae\nDeutsch: Seehund-Hoden und -Penis\nKategorie: Tonisieren Yang", sub: "03.1_Tonisieren_Yang" }
+    { frage: "Hai Gou Shen", antwort: "OdA AM: Testes et Penis Otariae\nDeutsch: Seehund-Hoden und -Penis\nKategorie: Tonisieren Yang", sub: "03.1_Tonisieren_Yang" },
+
+  // --- Tonisieren Yin ---
+  { frage: "Bei Sha Shen", antwort: "OdA AM: Radix Glehniae\nDeutsch: Glehnia-Wurzel\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Nan Sha Shen", antwort: "OdA AM: Radix Adenophorae (nicht OdA)\nDeutsch: Adenophora-Wurzel\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Mai Dong", antwort: "OdA AM: Radix Ophiopogonis\nDeutsch: Ophiopogon-Wurzel (Schlangenbart)\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Tian Dong", antwort: "OdA AM: Radix Asparagi\nDeutsch: Spargel-Wurzel\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Shi Hu", antwort: "OdA AM: Caulis Dendrobii\nDeutsch: Dendrobium-Stängel\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Yu Zhu", antwort: "OdA AM: Rhizoma Polygonati odorati\nDeutsch: Wohlriechendes Weisswurz-Rhizom\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Bai He", antwort: "OdA AM: Bulbus Lilii\nDeutsch: Lilien-Zwiebel\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Mo Han Lian", antwort: "OdA AM: Herba Ecliptae (Han Lian Cao)\nDeutsch: Eclipta-Kraut\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Nü Zhen Zi", antwort: "OdA AM: Fructus Ligustri lucidi\nDeutsch: Glänzende Liguster-Frucht\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Hei Zhi Ma", antwort: "OdA AM: Semen Sesami nigrum\nDeutsch: Schwarzer Sesam\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Gui Ban", antwort: "OdA AM: Testudinis Plastrum\nDeutsch: Schildkröten-Bauchpanzer\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Gui Ban Jiao (Gui Jia)", antwort: "OdA AM: Carapax et Plastrum Testudinis\nDeutsch: Schildkröten-Panzer (Rücken und Bauch)\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Gui Jia Jiao", antwort: "OdA AM: Colla Carapax et Plastrum Testudinis\nDeutsch: Schildkröten-Panzer-Gelatine\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" },
+  { frage: "Bie Jia", antwort: "OdA AM: Carapax Trionycis\nDeutsch: Weichschildkröten-Panzer\nKategorie: Tonisieren Yin", sub: "04_Tonisieren_Yin" }
 ];
 
 /* ============ THEMEN ============ */
@@ -1003,6 +1019,12 @@ themen.push({
   label: "CAM: Tonisieren Yang",
   kategorie: "CAM-Einzelarzneien",
   builder: () => camArzneiData.filter(d => d.sub === "03.1_Tonisieren_Yang").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
+});
+  themen.push({
+  id: "cam_arznei_yin",
+  label: "CAM: Tonisieren Yin",
+  kategorie: "CAM-Einzelarzneien",
+  builder: () => camArzneiData.filter(d => d.sub === "04_Tonisieren_Yin").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
 });
 themen.push({
   id: "lok_lu_di",
