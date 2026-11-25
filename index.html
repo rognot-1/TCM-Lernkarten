@@ -1308,6 +1308,18 @@ const camArzneiData = [
   { frage: "She Xiang", antwort: "OdA AM: Moschus\nDeutsch: Moschus (CITES geschützt)\nKategorie: Geist (Sinne öffnen)", sub: "12.3_Regulieren_Geist_Sinne" },
   { frage: "Su He Xiang", antwort: "OdA AM: Styrax\nDeutsch: Storax-Harz (Su He Xiang)\nKategorie: Geist (Sinne öffnen)", sub: "12.3_Regulieren_Geist_Sinne" }
 ];
+  // CAM-Rezepturen (Formeln)
+const camRezepturData = [
+  { frage: "ba zhen tang", antwort: "Deutscher Name: Acht Schätze Dekokt\n(Rezeptur nach Bensky)", sub: "Rezepturen" },
+  { frage: "ba zheng san", antwort: "Deutscher Name: Acht Arzneien Pulver zu Korrektur\n(Rezeptur nach Bensky)", sub: "Rezepturen" },
+  { frage: "bai hu tang", antwort: "Deutscher Name: Weisser Tiger Dekokt\n(Rezeptur nach Bensky)", sub: "Rezepturen" },
+  { frage: "bai tou weng tang", antwort: "Deutscher Name: Radix Pulsatillae Chinensis Dekokt\n(Rezeptur nach Bensky)", sub: "Rezepturen" },
+  { frage: "ban xia bai zhu tian ma tang", antwort: "Deutscher Name: Rhizoma Pinelliae, Rhizoma Atractylodis macrocephalae und Rhizoma Gastrodiae Elatae Dekokt\n(Rezeptur nach Bensky)", sub: "Rezepturen" },
+  { frage: "ban xia hou po tang", antwort: "Deutscher Name: Rhizoma Pinelliae Ternatae und Cortex Magnoliae Officinalis Dekokt\n(Rezeptur nach Bensky)", sub: "Rezepturen" },
+  { frage: "bao he wan", antwort: "Deutscher Name: Pille, die die Harmonie erhält\n(Rezeptur nach Bensky)", sub: "Rezepturen" },
+  { frage: "bei mu gua lou san", antwort: "Deutscher Name: Bulbus Fritillariae und Fructus Trichosanthis Pulver\n(Rezeptur nach Bensky)", sub: "Rezepturen" },
+  { frage: "bu zhong yi qi tang", antwort: "Deutscher Name: Dekokt, das die Mitte tonisiert und das Qi vermehrt\n(Rezeptur nach Bensky)", sub: "Rezepturen" }
+];
 /* ============ THEMEN ============ */
 const themen = [];
 
@@ -1512,6 +1524,12 @@ themen.push({
   label: "CAM: Geist (Sinne öffnen)",
   kategorie: "CAM-Einzelarzneien",
   builder: () => camArzneiData.filter(d => d.sub === "12.3_Regulieren_Geist_Sinne").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
+});
+themen.push({
+  id: "cam_rezepturen",
+  label: "CAM: Rezepturen (Paket 1)",
+  kategorie: "CAM-Rezepturen",
+  builder: () => camRezepturData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
 });
 themen.push({
   id: "lok_lu_di",
