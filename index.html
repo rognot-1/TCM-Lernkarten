@@ -1901,10 +1901,14 @@ document.getElementById("searchInput").addEventListener("input", (e) => {
       }
     });
 
+       // Normalisieren: Leerzeichen, Bindestriche und Unterstriche entfernen (ignoriert Schreibweisen)
+    const normalize = (str) => (str || "").toLowerCase().replace(/[\s\-_]+/g, "");
+    const searchNorm = normalize(suchbegriff);
+
     // Nach Suchbegriff filtern (Titel und Antworttext durchsuchen)
     raw = raw.filter(c => 
-      (c.front && c.front.toLowerCase().includes(suchbegriff)) || 
-      (c.back && c.back.toLowerCase().includes(suchbegriff))
+      normalize(c.front).includes(searchNorm) || 
+      normalize(c.back).includes(searchNorm)
     );
 
     // Richtung anwenden
