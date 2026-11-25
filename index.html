@@ -1866,10 +1866,14 @@ document.getElementById("selectNone").addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", e => {
+  // Wenn wir im Suchfeld tippen, keine Tasten abfangen!
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT") {
+    return;
+  }
+
   if (e.key === "ArrowRight") next();
   if (e.key === "ArrowLeft") prev();
   if (e.key === " ") { e.preventDefault(); flip(); }
-  if (e.key.toLowerCase() === "m") toggleBookmark();
 });
 // Suchfunktion (durchsucht Kategorien UND Karteninhalte)
 document.getElementById("searchInput").addEventListener("input", (e) => {
