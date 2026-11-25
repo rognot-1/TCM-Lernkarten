@@ -1871,32 +1871,47 @@ document.addEventListener("keydown", e => {
   if (e.key === " ") { e.preventDefault(); flip(); }
   if (e.key.toLowerCase() === "m") toggleBookmark();
 });
-// Suchfunktion
+// Suchfunktion (durchsucht Kategorien UND Karteninhalte)
 document.getElementById("searchInput").addEventListener("input", (e) => {
-  const suchbegriff = e.target.value.toLowerCase();
+  const suchbegriff = e.target.value.toLowerCase().trim();
   
-  if (!suchbegriff) {
-    // Wenn das Feld leer ist, alles zurücksetzen (normales Verhalten)
-    document.querySelectorAll(".topic-items label").forEach(label => label.style.display = "flex");
-    return;
-  }
-
-  // Alle Themen-Labels durchgehen und ausblenden, wenn sie nicht passen
+  // 1. Häkchenliste filtern (nach Kategorienamen)
   document.querySelectorAll(".topic-items label").forEach(label => {
     const text = label.textContent.toLowerCase();
-    if (text.includes(suchbegriff)) {
+    if (!suchbegriff || text.includes(suchbegriff)) {
       label.style.display = "flex";
-      // Die Kategorie automatisch aufklappen, damit man das Ergebnis sieht
-      const groupDiv = label.closest(".topic-group");
-      if (groupDiv) {
-        groupDiv.classList.remove("collapsed");
-        const toggle = groupDiv.querySelector(".group-toggle");
-        if (toggle) toggle.textContent = "▾";
-      }
     } else {
       label.style.display = "none";
     }
   });
+
+  // 2. Wenn ein Suchbegriff da ist, alle angehakten Karten bauen und filtern
+  if (suchbegriff) {
+    const checked = Array.from(topicContainer.querySelectorAll(".topic-items input:checked")).map(cb => cb.value);
+    let raw = [];
+    themen.forEach(t => {
+      if (checked.includes(t.id)) {
+        t.builder().forEach(item => {
+          raw.push({ ...item, uid: t.id + "::" + item.front });
+        });
+      }
+    });
+
+    // Nach Suchbegriff filtern (Titel und Antworttext durchsuchen)
+    raw = raw.filter(c => 
+      (c.front && c.front.toLowerCase().includes(suchbegriff)) || 
+      (c.back && c.back.toLowerCase().includes(suchbegriff))
+    );
+
+    // Richtung anwenden
+    const reverse = directionSel.value === "reverse";
+    cards = raw.map(c => reverse ? { front: c.back, back: c.front, sub: c.sub, uid: c.uid } : c);
+    currentIndex = 0;
+    render();
+  } else {
+    // Wenn das Feld leer ist, normales Verhalten wiederherstellen
+    rebuildCards();
+  }
 });
 buildTopicUI();
 rebuildCards();
