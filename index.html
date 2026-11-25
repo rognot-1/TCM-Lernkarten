@@ -78,6 +78,8 @@
   .group-toggle { display:inline-block; width:1rem; font-size:.8rem; color:var(--muted); transition:transform .2s; }
   .topic-group.collapsed .topic-items { display:none; }
   .topic-group.collapsed .group-toggle { transform:rotate(-90deg); }
+    .search-box { max-width:760px; width:100%; margin-bottom:1rem; }
+  .search-box input { width:100%; padding:.6rem .8rem; font-size:.9rem; border-radius:8px; border:1px solid var(--border); background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.05); }
 </style>
 </head>
 <body>
@@ -90,6 +92,9 @@
 
 <div class="panel">
   <h2>Themen auswählen (Kategorie-Häkchen = alle Unterpunkte)</h2>
+  <div class="search-box">
+  <input type="text" id="searchInput" placeholder="Suchen (z. B. Ren Shen, Leber, Yuan...)">
+</div>
   <div class="quick-btns">
     <button id="selectAll">Alle auswählen</button>
     <button id="selectNone">Alle abwählen</button>
@@ -1866,7 +1871,33 @@ document.addEventListener("keydown", e => {
   if (e.key === " ") { e.preventDefault(); flip(); }
   if (e.key.toLowerCase() === "m") toggleBookmark();
 });
+// Suchfunktion
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  const suchbegriff = e.target.value.toLowerCase();
+  
+  if (!suchbegriff) {
+    // Wenn das Feld leer ist, alles zurücksetzen (normales Verhalten)
+    document.querySelectorAll(".topic-items label").forEach(label => label.style.display = "flex");
+    return;
+  }
 
+  // Alle Themen-Labels durchgehen und ausblenden, wenn sie nicht passen
+  document.querySelectorAll(".topic-items label").forEach(label => {
+    const text = label.textContent.toLowerCase();
+    if (text.includes(suchbegriff)) {
+      label.style.display = "flex";
+      // Die Kategorie automatisch aufklappen, damit man das Ergebnis sieht
+      const groupDiv = label.closest(".topic-group");
+      if (groupDiv) {
+        groupDiv.classList.remove("collapsed");
+        const toggle = groupDiv.querySelector(".group-toggle");
+        if (toggle) toggle.textContent = "▾";
+      }
+    } else {
+      label.style.display = "none";
+    }
+  });
+});
 buildTopicUI();
 rebuildCards();
 </script>
