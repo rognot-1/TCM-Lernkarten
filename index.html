@@ -74,6 +74,8 @@
   .support-link:hover { background:#234b62; }
     .link-btn { font-size:.78rem; padding:.35rem .7rem; border-radius:8px; border:1px solid var(--primary); background:#eef3f7; color:var(--primary); cursor:pointer; text-align:left; }
   .link-btn:hover { background:#dfeaf1; }
+    .herb-btn { font-size:.78rem; padding:.35rem .7rem; border-radius:8px; border:1px solid #2e7d32; background:#e8f5e9; color:#2e7d32; cursor:pointer; text-align:left; margin-top:.3rem; }
+  .herb-btn:hover { background:#c8e6c9; }
     .topic-group > .group-title { cursor:pointer; user-select:none; }
   .group-toggle { display:inline-block; width:1rem; font-size:.8rem; color:var(--muted); transition:transform .2s; }
   .topic-group.collapsed .topic-items { display:none; }
@@ -133,11 +135,15 @@
       <div class="card-text" id="frontText">Bitte Themen auswählen</div>
       <div class="card-sub" id="frontSub"></div>
     </div>
-       <div class="card-face back">
+         <div class="card-face back">
       <span class="card-label" id="backLabel">Antwort</span>
       <div class="card-text" id="backText">–</div>
       <div class="card-sub" id="backSub"></div>
       <div id="linkContainer" style="margin-top:.8rem; width:100%;"></div>
+      <div id="herbContainer" style="margin-top:.4rem; width:100%;">
+        <button id="checkHerbsBtn" class="herb-btn" style="display:none;">🌿 Kräuter dieser Rezeptur prüfen</button>
+        <button id="backToRecipeBtn" class="link-btn" style="display:none; border-color:#856404; color:#856404; background:#fff3cd;">← Zurück zur Rezeptur</button>
+      </div>
     </div>
 
 <div class="hint">Klick auf die Karte dreht sie um. Pfeiltasten ← → blättern. Leertaste dreht.</div>
@@ -1891,24 +1897,17 @@ function render() {
   const frontSymbol = document.getElementById("frontSymbol");
   if (frontFace) frontFace.style.setProperty("--element-color", info.color);
   if (frontSymbol) frontSymbol.textContent = info.symbol;
-    // Verknüpfung suchen (in beide Richtungen)
-  const linkContainer = document.getElementById("linkContainer");
-  if (linkContainer) {
-    linkContainer.innerHTML = "";
-    const v = verknuepfungen.find(x => x.muster === c.front || x.kombi === c.front);
-    if (v) {
-      const ziel = v.muster === c.front ? v.kombi : v.muster;
-      const btn = document.createElement("button");
-      btn.textContent = "→ " + ziel;
-      btn.className = "link-btn";
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        jumpToCard(ziel);
-      });
-      linkContainer.appendChild(btn);
-    }
+      // Kräuter-Button anzeigen, wenn es eine Rezeptur ist
+  const checkHerbsBtn = document.getElementById("checkHerbsBtn");
+  const backToRecipeBtn = document.getElementById("backToRecipeBtn");
+  
+  if (c.back && c.back.includes("Zusammensetzung:")) {
+    checkHerbsBtn.style.display = "inline-block";
+    // Den Button-Text dynamisch anpassen (optional)
+    checkHerbsBtn.textContent = "🌿 Kräuter dieser Rezeptur prüfen";
+  } else {
+    checkHerbsBtn.style.display = "none";
   }
-
   const isMarked = bookmarks.has(c.uid);
   bookmarkBtn.textContent = isMarked ? "★ Gemerkt" : "☆ Merken";
   bookmarkBtn.classList.toggle("bookmarked", isMarked);
@@ -1917,6 +1916,55 @@ function render() {
 }
 
   // Springt zu einer Karte anhand ihres Titels (front)
+  // Kräuter-Check Logik
+let herbCheckBackup = null;
+function checkHerbs() {
+  if (!cards.length) return;
+  const c = cards[currentIndex];
+  if (!c.back || !c.back.includes("Zusammensetzung:")) return;
+
+  // Kräuter aus dem Text extrahieren (nach "Zusammensetzung:" bis zum Zeilenumbruch)
+  const match = c.back.match(/Zusammensetzung:\s*(.*)/);
+  if (!match) return;
+  
+  const herbsText = match[1].replace(/\(.*?\)/g, ""); // Klammern entfernen (z.B. (Si Jun Zi Tang))
+  const herbList = herbsText.split(/,\s*|\s*\+\s*/).map(h => h.trim()).filter(h => h.length > 0);
+
+  // Finde die passenden Karten in camArzneiData
+  let newCards = [];
+  herbList.forEach(herbName => {
+    // Suche in den Arzneimitteln nach dem Namen (vor dem Komma oder als exakter Treffer)
+    const found = camArzneiData.find(d => d.frage.toLowerCase().includes(herbName.toLowerCase()));
+    if (found) {
+      newCards.push({ front: found.frage, back: found.antwort, sub: found.sub, uid: "herb_" + found.frage });
+    }
+  });
+
+  if (newCards.length > 0) {
+    // Backup der aktuellen Position speichern
+    herbCheckBackup = { cards: cards, index: currentIndex };
+    
+    // Wechsel zur Kräuter-Ansicht
+    cards = newCards;
+    currentIndex = 0;
+    
+    // Spezielle Klasse für den "Zurück"-Button (wir bauen ihn gleich in HTML)
+    document.getElementById("backToRecipeBtn").style.display = "inline-block";
+    document.getElementById("linkContainer").style.display = "none"; // Verknüpfungs-Links ausblenden
+    render();
+  }
+}
+
+function backToRecipe() {
+  if (herbCheckBackup) {
+    cards = herbCheckBackup.cards;
+    currentIndex = herbCheckBackup.index;
+    herbCheckBackup = null;
+    document.getElementById("backToRecipeBtn").style.display = "none";
+    document.getElementById("linkContainer").style.display = "block"; // Verknüpfungs-Links wieder anzeigen
+    render();
+  }
+}
 function jumpToCard(title) {
   // Suche in allen Themen nach der Karte
   for (const t of themen) {
