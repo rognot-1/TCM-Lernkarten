@@ -2023,6 +2023,8 @@ onlyBookmarkedCb.addEventListener("change", rebuildCards);
 showPinyinCb.addEventListener("change", render);
 directionSel.addEventListener("change", rebuildCards);
 document.getElementById("resetBtn").addEventListener("click", () => { currentIndex = 0; render(); });
+  document.getElementById("checkHerbsBtn").addEventListener("click", checkHerbs);
+document.getElementById("backToRecipeBtn").addEventListener("click", backToRecipe);
 document.getElementById("shuffleBtn").addEventListener("click", () => {
   for (let i = cards.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const tmp = cards[i]; cards[i] = cards[j]; cards[j] = tmp; }
   currentIndex = 0; render();
