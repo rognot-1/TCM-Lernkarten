@@ -1423,6 +1423,20 @@ const camRezepturData = [
   { frage: "zuo gui wan", antwort: "Deutscher Name: Pille, die die linke (Niere) wiederherstellt\nZusammensetzung: Shu Di Huang, Shan Yao, Gou Qi Zi, Shan Zhu Yu, Chuan Niu Xi, Tu Si Zi, Lu Jiao Jiao, Gui Ban Jiao\nWirkung: Nährt Nieren-Yin, füllt das Jing, stärkt Knochen.", sub: "Rezepturen" },
   { frage: "zuo jin wan", antwort: "Deutscher Name: Linkes Metall Pille\nZusammensetzung: Shu Di Huang, Shan Yao, Shan Zhu Yu, Mu Dan Pi, Fu Ling, Ze Xie, Wu Wei Zi, Mai Men Dong, Tian Men Dong, Bai Shao, Gou Qi Zi, Zhi Mu, Huang Bo, Gui Ban\nWirkung: Nährt Nieren-Yin, befeuchtet die Lunge, erzeugt Flüssigkeit.", sub: "Rezepturen" }
 ];
+
+  // WestMed Phytotherapie (TEN-Kräuter)
+const phytotherapieData = [
+  { frage: "Arnika", antwort: "Lateinisch: Arnica montana\nPinyin: (kein TCM-Pinyin)\nTeile: Blüten\nInhaltsstoffe: Sesquiterpenlactone (Helenalin), Flavonoide\nWirkung (Phyto): Äusserlich entzündungshemmend\nWirkung (TCM): - \nTemperatur/TEN: - \nRisiken: Nicht auf offene Wunden; Korbblütlerallergie; nicht innerlich.", sub: "Phytotherapie" },
+  { frage: "Artischocke", antwort: "Lateinisch: Cynara scolymus\nPinyin: (kein TCM-Pinyin)\nTeile: Blätter\nInhaltsstoffe: Caffeoylchinasäuren, Bitterstoffe\nWirkung (Phyto): Fördert Gallenfluss, dyspeptische Beschwerden\nWirkung (TCM): - \nTemperatur/TEN: - \nRisiken: Bei Gallenwegsverschluss vermeiden; Korbblütlerallergie.", sub: "Phytotherapie" },
+  { frage: "Augentrost", antwort: "Lateinisch: Euphrasia officinalis\nPinyin: (kein TCM-Pinyin)\nTeile: Kraut\nInhaltsstoffe: Iridoidglykoside, Gerbstoffe\nWirkung (Phyto): Traditionell reizlindernd\nWirkung (TCM): - \nTemperatur/TEN: - \nRisiken: Keine selbst hergestellten Zubereitungen ins Auge; ärztliche Abklärung.", sub: "Phytotherapie" },
+  { frage: "Baldrian", antwort: "Lateinisch: Valeriana officinalis\nPinyin: (kein TCM-Pinyin)\nTeile: Wurzel\nInhaltsstoffe: Valerensäuren, ätherisches Öl\nWirkung (Phyto): Leicht beruhigend\nWirkung (TCM): - \nTemperatur/TEN: - \nRisiken: Kann müde machen; Vorsicht mit Sedativa.", sub: "Phytotherapie" },
+  { frage: "Bärentraube", antwort: "Lateinisch: Arctostaphylos uva-ursi\nPinyin: (kein TCM-Pinyin)\nTeile: Blätter\nInhaltsstoffe: Arbutin, Gerbstoffe\nWirkung (Phyto): Traditionell harnwegsantiseptisch\nWirkung (TCM): - \nTemperatur/TEN: - \nRisiken: Nur kurzzeitig; nicht in Schwangerschaft; Infektzeichen abklären.", sub: "Phytotherapie" },
+  { frage: "Beinwell", antwort: "Lateinisch: Symphytum officinale\nPinyin: (kein TCM-Pinyin)\nTeile: Wurzel, Kraut (standardisierte äussere Präparate)\nInhaltsstoffe: Allantoin, Schleimstoffe; Pyrrolizidinalkaloide\nWirkung (Phyto): Äusserlich bei Schmerzen/Schwellung\nWirkung (TCM): - \nTemperatur/TEN: - \nRisiken: Nur PA-freie bzw. geprüfte Präparate; nicht innerlich.", sub: "Phytotherapie" },
+  { frage: "Birke, Hänge-", antwort: "Lateinisch: Betula pendula\nPinyin: (kein TCM-Pinyin)\nTeile: Blätter\nInhaltsstoffe: Flavonoide, Kaliumsalze\nWirkung (Phyto): Traditionell harntreibend\nWirkung (TCM): - \nTemperatur/TEN: - \nRisiken: Nicht bei Ödemen infolge Herz-/Niereninsuffizienz.", sub: "Phytotherapie" },
+  { frage: "Blutwurz", antwort: "Lateinisch: Potentilla erecta\nPinyin: (kein TCM-Pinyin)\nTeile: Rhizom\nInhaltsstoffe: Gerbstoffe\nWirkung (Phyto): Zusammenziehend (adstringierend)\nWirkung (TCM): - \nTemperatur/TEN: - \nRisiken: Bei längerem Durchfall ärztliche Abklärung.", sub: "Phytotherapie" },
+  { frage: "Brennnessel", antwort: "Lateinisch: Urtica dioica\nPinyin: (kein TCM-Pinyin)\nTeile: Blätter, Kraut, Wurzel\nInhaltsstoffe: Flavonoide, Mineralstoffe; Wurzellignane\nWirkung (Phyto): Harntreibend; Wurzel bei LUTS traditionell\nWirkung (TCM): - \nTemperatur/TEN: - \nRisiken: Nieren-/Herzinsuffizienz und Ödeme beachten; Prostata abklären.", sub: "Phytotherapie" },
+  { frage: "Eibisch", antwort: "Lateinisch: Althaea officinalis\nPinyin: (kein TCM-Pinyin)\nTeile: Wurzel, Blätter\nInhaltsstoffe: Schleimstoffe\nWirkung (Phyto): Reizlindernd, schützend\nWirkung (TCM): - \nTemperatur/TEN: - \nRisiken: Abstand zu Medikamenten wegen verzögerter Aufnahme.", sub: "Phytotherapie" }
+];
 /* ============ THEMEN ============ */
 const themen = [];
 
@@ -1681,6 +1695,12 @@ themen.push({
   label: "Extrapunkte",
   kategorie: "Punktelokalisation",
   builder: () => lokData.filter(d => d.sub === "Extrapunkte").map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
+});
+  themen.push({
+  id: "phytotherapie",
+  label: "WestMed Phytotherapie",
+  kategorie: "Phytotherapie",
+  builder: () => phytotherapieData.map(d => ({ front: d.frage, back: d.antwort, sub: d.sub }))
 });
   
 /* ============ UI ============ */
